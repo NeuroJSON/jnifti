@@ -182,25 +182,24 @@ corresponding JNifTi `NIFTI_Header` self-explanatory subfields
 |              NIFTI-1 Header                           |  JNifTi NIFTI_Header container        |
 |-------------------------------------------------------|---------------------------------------|
 |`struct nifti_1_header { /* NIFTI-1 usage         */  `|`"NIFTI_Header": {                    `|
-|`                 /*--- was header_key substruct ---*/`|`                                     `|
+|`                 /*--- was header_key substruct ---*/`|                                       |
 |` int   sizeof_hdr;    /*!< MUST be 348           */  `|`    "NIIHeaderSize": <i>,            `|
 |` char  data_type[10]; /*!< ++UNUSED++            */  `|`    "DataTypeName":   "s",           `|
 |` char  db_name[18];   /*!< ++UNUSED++            */  `|`    "A75DBName": <i>,                `|
 |` int   extents;       /*!< ++UNUSED++            */  `|`    "A75Extends": <i>,               `|
 |` short session_error; /*!< ++UNUSED++            */  `|`    "A75SessionError": <i>,          `|
 |` char  regular;       /*!< ++UNUSED++            */  `|`    "A75Regular": <i>,               `|
-|` char  dim_info;      /*!< MRI slice ordering.   */  `|`    "DimInfo" : { "Freq": <i>,       `|
-|`                                                     `|`          "Phase": <i>,              `|
-|`            /*--- was image_dimension substruct ---*/`|`          "Slice": <i> },            `|
+|` char  dim_info;      /*!< MRI slice ordering.   */  `|`    "DimInfo" : {                    `|
+|                                                       |`          "Freq": <i>,               `|
+|                                                       |`          "Phase": <i>,              `|
+|                                                       |`          "Slice": <i>               `|
+|`            /*--- was image_dimension substruct ---*/`|`     },                              `|
 |` short dim[8];        /*!< Data array dimensions.*/  `|`    "Dim": [<i>,<i>,<i>,...],        `|
 |` float intent_p1 ;    /*!< 1st intent parameter. */  `|`    "Param1": <f>,                   `|
-|`                                                     `|`                                     `|
 |` float intent_p2 ;    /*!< 2nd intent parameter. */  `|`    "Param2": <f>,                   `|
-|`                                                     `|`                                     `|
 |` float intent_p3 ;    /*!< 3rd intent parameter. */  `|`    "Param3": <f>,                   `|
-|`                                                     `|`                                     `|
 |` short intent_code ;  /*!< NIFTI_INTENT_* code.  */  `|`    "IntentCode": <i>,               `|
-|` short datatype;      /*!< Defines data type!    */  `|`    "DataType": <i>|"s",             `|
+|` short datatype;      /*!< Defines data type!    */  `|`    "DataType": <i>\|"s",            `|
 |` short bitpix;        /*!< Number bits/voxel.    */  `|`    "BitDepth": <i>,                 `|
 |` short slice_start;   /*!< First slice index.    */  `|`    "FirstSliceID": <i>,             `|
 |` float pixdim[8];     /*!< Grid spacings.        */  `|`    "VoxelSize": [<f>,<f>,<f>,...],  `|
@@ -209,36 +208,33 @@ corresponding JNifTi `NIFTI_Header` self-explanatory subfields
 |` float scl_inter ;    /*!< Data scaling: offset. */  `|`    "ScaleOffset": <f>,              `|
 |` short slice_end;     /*!< Last slice index.     */  `|`    "LastSliceID": <i>,              `|
 |` char  slice_code ;   /*!< Slice timing order.   */  `|`    "SliceCode": <i>,                `|
-|` char  xyzt_units ;   /*!< Units of pixdim[1..4] */  `|`    "Unit":{"L":<i>|"s","T":<i>|"s"},`|
+|` char  xyzt_units ;   /*!< Units of pixdim[1..4] */  `|`    "Unit":{"L":<i>\|"s","T":<i>\|"s"},`|
 |` float cal_max;       /*!< Max display intensity */  `|`    "MaxIntensity": <f>,             `|
 |` float cal_min;       /*!< Min display intensity */  `|`    "MinIntensity": <f>,             `|
 |` float slice_duration;/*!< Time for 1 slice.     */  `|`    "SliceTime": <f>,                `|
 |` float toffset;       /*!< Time axis shift.      */  `|`    "TimeOffset": <f>,               `|
 |` int   glmax;         /*!< ++UNUSED++            */  `|`    "A75GLMax": <i>,                 `|
 |` int   glmin;         /*!< ++UNUSED++            */  `|`    "A75GLMin": <i>,                 `|
-|`                                                     `|`                                     `|
-|`               /*--- was data_history substruct ---*/`|`                                     `|
+|`               /*--- was data_history substruct ---*/`|                                       |
 |` char  descrip[80];   /*!< any text you like.    */  `|`    "Description": "s",              `|
 |` char  aux_file[24];  /*!< auxiliary filename.   */  `|`    "AuxFile": "s",                  `|
-|`                                                     `|`                                     `|
+|                                                       |                                       |
 |` short qform_code ;   /*!< NIFTI_XFORM_* code.   */  `|`    "QForm": <i>,                    `|
 |` short sform_code ;   /*!< NIFTI_XFORM_* code.   */  `|`    "SForm": <i>,                    `|
-|`                                                     `|`                                     `|
+|                                                       |                                       |
 |` float quatern_b ;    /*!< Quaternion b param.   */  `|`    "QuaternB": <f>,                 `|
 |` float quatern_c ;    /*!< Quaternion c param.   */  `|`    "QuaternC": <f>,                 `|
 |` float quatern_d ;    /*!< Quaternion d param.   */  `|`    "QuaternD": <f>,                 `|
 |` float qoffset_x ;    /*!< Quaternion x shift.   */  `|`    "QuaternXOffset": <f>,           `|
 |` float qoffset_y ;    /*!< Quaternion y shift.   */  `|`    "QuaternYOffset": <f>,           `|
 |` float qoffset_z ;    /*!< Quaternion z shift.   */  `|`    "QuaternBOffset": <f>,           `|
-|`                                                     `|`                                     `|
+|                                                       |                                       |
 |` float srow_x[4] ;    /*!< 1st row affine transform. `|`    "Affine": [ [<f>,<f>,<f>,<f>],   `|
 |` float srow_y[4] ;    /*!< 2nd row affine transform. `|`        [<f>,<f>,<f>,<f>],           `|
 |` float srow_z[4] ;    /*!< 3rd row affine transform. `|`        [<f>,<f>,<f>,<f>]            `|
-|`                                                     `|`    ],                               `|
+|                                                       |`    ],                               `|
 |` char intent_name[16];/*!< 'name' or meaning of data.`|`    "Name" : "s",                    `|
-|`                                                     `|`                                     `|
 |` char magic[4] ;      /*!< MUST be "ni1\0" or "n+1\0"`|`    "NIIFormat": "s",                `|
-|`                                                     `|`                                     `|
 |`} ;                   /**** 348 bytes total ****/    `|`                                     `|
 |`struct nifti1_extender { char extension[4] ; } ;     `|`    "Extender": [<i>,<i>,<i>,<i>],   `|
 |`                                                     `|`    <...>                            `|
@@ -329,29 +325,30 @@ to specify the units. The mapping between NIFTI-1/2 units to the string forms
 is listed below
 
 
-|          NIFTI-1/2 Unit Types                |   JNifTi Unit  |
-|----------------------------------------------|----------------|
-|`#define NIFTI_UNITS_UNKNOWN 0               `|`  "unknown"   `|
-|`/*! NIFTI code for meters. */ 	      `|`	       `|
-|`#define NIFTI_UNITS_METER   1 	      `|`  "m"         `|
-|`/*! NIFTI code for millimeters. */	      `|`	       `|
-|`#define NIFTI_UNITS_MM      2 	      `|`  "mm"        `|
-|`/*! NIFTI code for micrometers. */	      `|`	       `|
-|`#define NIFTI_UNITS_MICRON  3 	      `|`  "um"        `|
-|`					      `|`	       `|
-|`/*! NIFTI code for seconds. */	      `|`	       `|
-|`#define NIFTI_UNITS_SEC     8 	      `|`  "s"         `|
-|`/*! NIFTI code for milliseconds. */	      `|`	       `|
-|`#define NIFTI_UNITS_MSEC   16 	      `|`  "ms"        `|
-|`/*! NIFTI code for microseconds. */	      `|`	       `|
-|`#define NIFTI_UNITS_USEC   24 	      `|`  "us"        `|
-|`					      `|`	       `|
-|`/*! NIFTI code for Hertz. */		      `|`	       `|
-|`#define NIFTI_UNITS_HZ     32 	      `|`  "hz"        `|
-|`/*! NIFTI code for ppm. */		      `|`	       `|
-|`#define NIFTI_UNITS_PPM    40 	      `|`  "ppm"       `|
-|`/*! NIFTI code for radians per second. */   `|`	       `|
-|`#define NIFTI_UNITS_RADS   48 	      `|`  "rad"       `|
+|          NIFTI-1/2 Unit Types                | JNifTi Unit  |
+|----------------------------------------------|--------------|
+|`#define NIFTI_UNITS_UNKNOWN 0               `|  "unknown"   |
+|** Length Units **                            |              |                         
+|`/*! NIFTI code for meters. */               `|	      |
+|`#define NIFTI_UNITS_METER   1               `|  "m"	      |
+|`/*! NIFTI code for millimeters. */          `|	      |
+|`#define NIFTI_UNITS_MM      2               `|  "mm"        |
+|`/*! NIFTI code for micrometers. */          `|	      |
+|`#define NIFTI_UNITS_MICRON  3               `|  "um"        |
+|** Time Units **                              |              |                         
+|`/*! NIFTI code for seconds. */              `|	      |
+|`#define NIFTI_UNITS_SEC     8               `|  "s"	      |
+|`/*! NIFTI code for milliseconds. */         `|	      |
+|`#define NIFTI_UNITS_MSEC   16               `|  "ms"        |
+|`/*! NIFTI code for microseconds. */         `|	      |
+|`#define NIFTI_UNITS_USEC   24               `|  "us"        |
+|** Other Units **                             |              |                         
+|`/*! NIFTI code for Hertz. */                `|	      |
+|`#define NIFTI_UNITS_HZ     32               `|  "hz"        |
+|`/*! NIFTI code for ppm. */                  `|	      |
+|`#define NIFTI_UNITS_PPM    40               `|  "ppm"       |
+|`/*! NIFTI code for radians per second. */   `|	      |
+|`#define NIFTI_UNITS_RADS   48               `|  "rad"       |
 
 
 #### NIIFormat (NIFTI-1 header: magic)
