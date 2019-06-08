@@ -270,40 +270,43 @@ To enhance the readability of the header, we allow one to use a string instead o
 code to represent data type (i.e. the `DataType` subfield in `NIFTI_Header`). The below
 table maps the NIFTI data type codes to the acceptable data type strings.
 
-|          NIFTI-1/2 Data Types               | JNifTi DataType  |
-|---------------------------------------------|------------------|
-|`/*! unsigned char. */                      `|`                `|
-|`#define NIFTI_TYPE_UINT8             2     `|`  "uint8"       `|
-|`/*! signed short. */                       `|`                `|
-|`#define NIFTI_TYPE_INT16             4     `|`  "int16"       `|
-|`/*! signed int. */                         `|`                `|
-|`#define NIFTI_TYPE_INT32             8     `|`  "int32"       `|
-|`/*! 32 bit float. */                       `|`                `|
-|`#define NIFTI_TYPE_FLOAT32            16   `|`  "single"      `|
-|`/*! 64 bit complex = 2 32 bit floats. */   `|`                `|
-|`#define NIFTI_TYPE_COMPLEX64      32       `|`  "complex64"   `|
-|`/*! 64 bit float = double. */              `|`                `|
-|`#define NIFTI_TYPE_FLOAT64            64   `|`  "double"      `|
-|`/*! 3 8 bit bytes. */                      `|`                `|
-|`#define NIFTI_TYPE_RGB24           128     `|`  "rgb24"       `|
-|`/*! signed char. */                        `|`                `|
-|`#define NIFTI_TYPE_INT8           256      `|`  "int8"        `|
-|`/*! unsigned short. */                     `|`                `|
-|`#define NIFTI_TYPE_UINT16           512    `|`  "uint16"      `|
-|`/*! unsigned int. */                       `|`                `|
-|`#define NIFTI_TYPE_UINT32           768    `|`  "uint32"      `|
-|`/*! signed long long. */                   `|`                `|
-|`#define NIFTI_TYPE_INT64          1024     `|`  "int64"       `|
-|`/*! unsigned long long. */                 `|`                `|
-|`#define NIFTI_TYPE_UINT64          1280    `|`  "uint64"      `|
-|`/*! 128 bit float = long double. */        `|`                `|
-|`#define NIFTI_TYPE_FLOAT128          1536  `|`  "double128"   `|
-|`/*! 128 bit complex = 2 64 bit floats. */  `|`                `|
-|`#define NIFTI_TYPE_COMPLEX128   1792       `|`  "complex128"  `|
-|`/*! 256 bit complex = 2 128 bit floats */  `|`                `|
-|`#define NIFTI_TYPE_COMPLEX256   2048       `|`  "complex256"  `|
-|`/*! 4 8 bit bytes. */                      `|`                `|
-|`#define NIFTI_TYPE_RGBA32          2304    `|`  "rgba32"      `|
+|          NIFTI-1/2 Data Types               | JNifTi DataType  |UBJSON Type|
+|---------------------------------------------|------------------|-----------|
+|`/*! unsigned char. */                      `|`                `|           |
+|`#define NIFTI_TYPE_UINT8              2    `|`  "uint8"       `|    U      |
+|`/*! signed short. */                       `|`                `|           |
+|`#define NIFTI_TYPE_INT16              4    `|`  "int16"       `|    I      |
+|`/*! signed int. */                         `|`                `|           |
+|`#define NIFTI_TYPE_INT32              8    `|`  "int32"       `|    l      |
+|`/*! 32 bit float. */                       `|`                `|           |
+|`#define NIFTI_TYPE_FLOAT32           16    `|`  "single"      `|    d      |
+|`/*! 64 bit complex = 2 32 bit floats. */   `|`                `|           |
+|`#define NIFTI_TYPE_COMPLEX64         32    `|`  "complex64"  *`|    d      |
+|`/*! 64 bit float = double. */              `|`                `|           |
+|`#define NIFTI_TYPE_FLOAT64           64    `|`  "double"      `|    D      |
+|`/*! 3 8 bit bytes. */                      `|`                `|           |
+|`#define NIFTI_TYPE_RGB24            128    `|`  "rgb24"      *`|    U      |
+|`/*! signed char. */                        `|`                `|           |
+|`#define NIFTI_TYPE_INT8             256    `|`  "int8"        `|    i      |
+|`/*! unsigned short. */                     `|`                `|           |
+|`#define NIFTI_TYPE_UINT16           512    `|`  "uint16"      `|    I      |
+|`/*! unsigned int. */                       `|`                `|           |
+|`#define NIFTI_TYPE_UINT32           768    `|`  "uint32"      `|    l      |
+|`/*! signed long long. */                   `|`                `|           |
+|`#define NIFTI_TYPE_INT64           1024    `|`  "int64"       `|    L      |
+|`/*! unsigned long long. */                 `|`                `|           |
+|`#define NIFTI_TYPE_UINT64          1280    `|`  "uint64"      `|    L      |
+|`/*! 128 bit float = long double. */        `|`                `|           |
+|`#define NIFTI_TYPE_FLOAT128        1536    `|`  "double128"  *`|    U      |
+|`/*! 128 bit complex = 2 64 bit floats. */  `|`                `|           |
+|`#define NIFTI_TYPE_COMPLEX128      1792    `|`  "complex128" *`|    D      |
+|`/*! 256 bit complex = 2 128 bit floats */  `|`                `|           |
+|`#define NIFTI_TYPE_COMPLEX256      2048    `|`  "complex256" *`|    U      |
+|`/*! 4 8 bit bytes. */                      `|`                `|           |
+|`#define NIFTI_TYPE_RGBA32          2304    `|`  "rgba32"     *`|    U      |
+
+A "\*" sign in the JNifTi DataType column indicates that the data is a composite type, and must
+be stored using the "anotated" JData format.
 
 
 #### DimInfo (NIFTI-1 header: dim_info)
@@ -328,26 +331,26 @@ is listed below
 |          NIFTI-1/2 Unit Types                | JNifTi Unit  |
 |----------------------------------------------|--------------|
 |`#define NIFTI_UNITS_UNKNOWN 0               `|  "unknown"   |
-|** Length Units **                            |              |                         
-|`/*! NIFTI code for meters. */               `|	      |
-|`#define NIFTI_UNITS_METER   1               `|  "m"	      |
-|`/*! NIFTI code for millimeters. */          `|	      |
+|**Length Units**                              |              |                         
+|`/*! NIFTI code for meters. */               `|	             |
+|`#define NIFTI_UNITS_METER   1               `|  "m"	        |
+|`/*! NIFTI code for millimeters. */          `|	             |
 |`#define NIFTI_UNITS_MM      2               `|  "mm"        |
-|`/*! NIFTI code for micrometers. */          `|	      |
+|`/*! NIFTI code for micrometers. */          `|	             |
 |`#define NIFTI_UNITS_MICRON  3               `|  "um"        |
-|** Time Units **                              |              |                         
-|`/*! NIFTI code for seconds. */              `|	      |
-|`#define NIFTI_UNITS_SEC     8               `|  "s"	      |
-|`/*! NIFTI code for milliseconds. */         `|	      |
+|**Time Units**                                |              |                         
+|`/*! NIFTI code for seconds. */              `|	             |
+|`#define NIFTI_UNITS_SEC     8               `|  "s"	        |
+|`/*! NIFTI code for milliseconds. */         `|	             |
 |`#define NIFTI_UNITS_MSEC   16               `|  "ms"        |
-|`/*! NIFTI code for microseconds. */         `|	      |
+|`/*! NIFTI code for microseconds. */         `|	             |
 |`#define NIFTI_UNITS_USEC   24               `|  "us"        |
-|** Other Units **                             |              |                         
-|`/*! NIFTI code for Hertz. */                `|	      |
+|**Other Units**                               |              |                         
+|`/*! NIFTI code for Hertz. */                `|	             |
 |`#define NIFTI_UNITS_HZ     32               `|  "hz"        |
-|`/*! NIFTI code for ppm. */                  `|	      |
+|`/*! NIFTI code for ppm. */                  `|	             |
 |`#define NIFTI_UNITS_PPM    40               `|  "ppm"       |
-|`/*! NIFTI code for radians per second. */   `|	      |
+|`/*! NIFTI code for radians per second. */   `|	             |
 |`#define NIFTI_UNITS_RADS   48               `|  "rad"       |
 
 
@@ -379,7 +382,77 @@ recommended not to include in JNifTi files.
 
 ### NIFTI_Data
 
+The primary data carried in an NIFTI-1/2 file is a numerical array with dimensions and types
+specified by the `dim` and `datatype` records, respectively, in the NIFTI-1 header. In 
+JNifTi, we use the `"NIFTI_Data"` record to store such information, with the ability to 
+expand to store additional auxillary data or metadata.
 
+The NIFTI_Data record can be either an array object or a structure.
+
+#### Array form
+
+If stored as an array, the NIFTI_Data shall contain the same data as the NIFTI-1/2 primary 
+data, serialized using the JData specification. 
+
+For example, a 3-D array of dimension Nx-by-Ny-by-Nz (`v_ijk` where `i=1,2,...,Nx`, 
+`j=1,2,...,Ny`, `k=1,2,...,Nz`) can be stored in the direct array format as
+
+```   
+ "NIFTI_Data": [
+   [ [v_111,v_112,v_113,...,v_11Nz], [v_121,v_122,v_123,...,v_12Nz],...,[v_1Ny1,v_1Ny2,v_1Ny3,...,v_1NyNz] ], 
+   [ [v_211,v_212,v_113,...,v_21Nz], [v_221,v_222,v_223,...,v_22Nz],...,[v_2Ny1,v_2Ny2,v_2Ny3,...,v_2NyNz] ], 
+   ...
+   [ [v_Nz11,v_Nx12,v_Nz13,...,v_Nx1Nz], [v_Nx21,v_Nx22,v_Nx23,...,v_Nx2Nz],...,[v_NxNy1,v_NxNy2,v_NxNy3,...,v_NxNyNz] ]
+ ]
+```
+or as the "annotated array format" as
+```   
+ "NIFTI_Data": {
+       "_ArrayType_": "datatype",
+       "_ArraySize_": [Nx,Ny,Nz],
+       "_ArrayData_": [v_111,v_112,...,v_11Nz,v_121,v_122,...,v_NxNyNz]
+ }
+```
+One can also apply data compression to reduce the file size. In this case
+
+```
+ "NIFTI_Data": {
+       "_ArrayType_": "datatype",
+       "_ArraySize_": [Nx,Ny,Nz],
+       "_ArrayCompressionMethod_": "zlib",
+       "_ArrayCompressionSize_": [Nx,Ny,Nz],
+       "_ArrayCompressedData_": "<base64 encoded byte stream>"
+ }
+```
+
+Please note that all composite data types (marked by a "\*" in the DataType table above)
+can not be stored in the direct form, and can only be stored in the annotated array format.
+
+All 3 above forms are valid JSON formats, and thus can be converted to the corresponding 
+UBJSON formats when a binary JNifTi file is desired. Using the optimized N-D array 
+header defined in the JData specification, the binary storage of the direct-form 
+array can be efficiently written as
+
+```   
+[U] [10] [NIFTI_Data] [[] [$] [datatype] [#] [[] [$] [l] [#] [3] [Nx] [Ny] [Nz] [v_111,v_112,...,v_121,v_122,...,v_NxNyNz]
+|-------------------| |--------------------------------------------------------||----------------------------------------|
+      name             optimized array container header for N-D array          row-major serialized N-D array data
+```
+
+#### Struycture form
+
+```
+ "NIFTI_Data": {
+      "_DataInfo_":{
+          ...
+      },
+      "Data":[
+          ...
+      ],
+      "Properties": {
+          ...
+      }
+ }
 
 Recommended File Specifiers
 ------------------------------
