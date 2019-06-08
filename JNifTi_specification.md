@@ -29,10 +29,10 @@ data serialization format.
 - [JNifTi Keywords](#jnifti-keywords)
   * [NIFTIHeader](#niftiheader)
     + [DataType (NIFTI-1 header: datatype)](#datatype-nifti-1-header-datatype)
-    + [DimInfo (NIFTI-1 header: dim_info)](#diminfo-nifti-1-header-dim-info)
-    + [Unit  (NIFTI-1 header: xyzt_units)](#unit-nifti-1-header-xyzt-units)
+    + [DimInfo (NIFTI-1 header: dim_info)](#diminfo-nifti-1-header-dim_info)
+    + [Unit  (NIFTI-1 header: xyzt_units)](#unit-nifti-1-header-xyzt_units)
     + [NIIFormat (NIFTI-1 header: magic)](#niiformat-nifti-1-header-magic)
-    + [NIIHeaderSize (NIFTI-1 header: sizeof_hdr)](#niiheadersize-nifti-1-header-sizeof-hdr)
+    + [NIIHeaderSize (NIFTI-1 header: sizeof_hdr)](#niiheadersize-nifti-1-header-sizeof_hdr)
     + [Other depreciated subfields](#other-depreciated-subfields)
   * [NIFTIData](#niftidata)
     + [Array form](#array-form)
@@ -203,7 +203,7 @@ header information.
 In the below table, we define a 1-to-1 mapping from NIFTI-1/2 headers to the
 corresponding JNifTi `NIFTIHeader` self-explanatory subfields
 
-Table 1. A mapping table for NIFTI-1 header and JNifTi NIFTIHeader structure
+***Table 1. A mapping table for NIFTI-1 header and JNifTi NIFTIHeader structure***
 
 |              NIFTI-1 Header                           |   JNifTi NIFTIHeader container        |
 |-------------------------------------------------------|---------------------------------------|
@@ -229,7 +229,7 @@ Table 1. A mapping table for NIFTI-1 header and JNifTi NIFTIHeader structure
 |` short bitpix;        /*!< Number bits/voxel.    */  `|`    "BitDepth": <i>,                 `|
 |` short slice_start;   /*!< First slice index.    */  `|`    "FirstSliceID": <i>,             `|
 |` float pixdim[8];     /*!< Grid spacings.        */  `|`    "VoxelSize": [<f>,<f>,<f>,...],  `|
-|` float vox_offset;    /*!< Offset into .nii file */  `|`    "ByteOffset": <f>,               `|
+|` float vox_offset;    /*!< Offset into .nii file */  `|`    "NIIByteOffset": <f>,            `|
 |` float scl_slope ;    /*!< Data scaling: slope.  */  `|`    "ScaleSlope": <f>,               `|
 |` float scl_inter ;    /*!< Data scaling: offset. */  `|`    "ScaleOffset": <f>,              `|
 |` short slice_end;     /*!< Last slice index.     */  `|`    "LastSliceID": <i>,              `|
@@ -296,47 +296,53 @@ To enhance the readability of the header, we allow one to use a string instead o
 code to represent data type (i.e. the `DataType` subfield in `NIFTIHeader`). The below
 table maps the NIFTI data type codes to the acceptable data type strings.
 
-Table 2. A mapping table from NIFTI-1 datatypes to string-valued JNifTi data types and 
-storage types in UBJSON
+***Table 2. A mapping table from NIFTI-1 datatypes to string-valued JNifTi data types and 
+storage types in UBJSON***
 
 |          NIFTI-1/2 Data Types               | JNifTi DataType  |UBJSON Type|
 |---------------------------------------------|------------------|-----------|
 |`/*! unsigned char. */                      `|`                `|           |
-|`#define NIFTI_TYPE_UINT8              2    `|`  "uint8"       `|    U      |
+|`#define NIFTI_TYPE_UINT8              2    `|`  "uint8"       `|    `U`    |
 |`/*! signed short. */                       `|`                `|           |
-|`#define NIFTI_TYPE_INT16              4    `|`  "int16"       `|    I      |
+|`#define NIFTI_TYPE_INT16              4    `|`  "int16"       `|    `I`    |
 |`/*! signed int. */                         `|`                `|           |
-|`#define NIFTI_TYPE_INT32              8    `|`  "int32"       `|    l      |
+|`#define NIFTI_TYPE_INT32              8    `|`  "int32"       `|    `l`    |
 |`/*! 32 bit float. */                       `|`                `|           |
-|`#define NIFTI_TYPE_FLOAT32           16    `|`  "single"      `|    d      |
+|`#define NIFTI_TYPE_FLOAT32           16    `|`  "single"      `|    `d`    |
 |`/*! 64 bit complex = 2 32 bit floats. */   `|`                `|           |
-|`#define NIFTI_TYPE_COMPLEX64         32    `|`  "complex64" `\*|    d      |
+|`#define NIFTI_TYPE_COMPLEX64         32    `|`  "complex64" `\*|    `d`    |
 |`/*! 64 bit float = double. */              `|`                `|           |
-|`#define NIFTI_TYPE_FLOAT64           64    `|`  "double"      `|    D      |
+|`#define NIFTI_TYPE_FLOAT64           64    `|`  "double"      `|    `D`    |
 |`/*! 3 8 bit bytes. */                      `|`                `|           |
-|`#define NIFTI_TYPE_RGB24            128    `|`  "rgb24"     `\*|    U      |
+|`#define NIFTI_TYPE_RGB24            128    `|`  "rgb24"     `\*|    `U`    |
 |`/*! signed char. */                        `|`                `|           |
-|`#define NIFTI_TYPE_INT8             256    `|`  "int8"        `|    i      |
+|`#define NIFTI_TYPE_INT8             256    `|`  "int8"        `|    `i`    |
 |`/*! unsigned short. */                     `|`                `|           |
-|`#define NIFTI_TYPE_UINT16           512    `|`  "uint16"      `|    I      |
+|`#define NIFTI_TYPE_UINT16           512    `|`  "uint16"      `|    `I`    |
 |`/*! unsigned int. */                       `|`                `|           |
-|`#define NIFTI_TYPE_UINT32           768    `|`  "uint32"      `|    l      |
+|`#define NIFTI_TYPE_UINT32           768    `|`  "uint32"      `|    `l`    |
 |`/*! signed long long. */                   `|`                `|           |
-|`#define NIFTI_TYPE_INT64           1024    `|`  "int64"       `|    L      |
+|`#define NIFTI_TYPE_INT64           1024    `|`  "int64"       `|    `L`    |
 |`/*! unsigned long long. */                 `|`                `|           |
-|`#define NIFTI_TYPE_UINT64          1280    `|`  "uint64"      `|    L      |
+|`#define NIFTI_TYPE_UINT64          1280    `|`  "uint64"      `|    `L`    |
 |`/*! 128 bit float = long double. */        `|`                `|           |
-|`#define NIFTI_TYPE_FLOAT128        1536    `|`  "double128" `\*|    U      |
+|`#define NIFTI_TYPE_FLOAT128        1536    `|`  "double128" `\*|    `U`    |
 |`/*! 128 bit complex = 2 64 bit floats. */  `|`                `|           |
-|`#define NIFTI_TYPE_COMPLEX128      1792    `|`  "complex128"`\*|    D      |
+|`#define NIFTI_TYPE_COMPLEX128      1792    `|`  "complex128"`\*|    `D`    |
 |`/*! 256 bit complex = 2 128 bit floats */  `|`                `|           |
-|`#define NIFTI_TYPE_COMPLEX256      2048    `|`  "complex256"`\*|    U      |
+|`#define NIFTI_TYPE_COMPLEX256      2048    `|`  "complex256"`\*|    `U`    |
 |`/*! 4 8 bit bytes. */                      `|`                `|           |
-|`#define NIFTI_TYPE_RGBA32          2304    `|`  "rgba32"    `\*|    U      |
+|`#define NIFTI_TYPE_RGBA32          2304    `|`  "rgba32"    `\*|    `U`    |
 
 A "\*" sign in the JNifTi DataType column indicates that the data is a composite type, and must
 be stored using the "anotated" JData format.
 
+#### Dim (NIFTI-1 header: dim)
+
+In the NIFTI-1/2 formats, `dim[0]` stores the number of dimensions of the data, and `dim[1]`
+to `dim[7]` store the dimention data. In `NIFTIHeader`, we use an array object `Dim` to
+store the effective dimentional data starting from `dim[1]` and the length of `Dim` array
+should equal to `dim[0]`.
 
 #### DimInfo (NIFTI-1 header: dim_info)
 
@@ -356,7 +362,7 @@ that of the NIFTI-1/2 unit definitions, or a more descriptive string value
 to specify the units. The mapping between NIFTI-1/2 units to the string forms
 is listed below
 
-Table 3. A mapping table for NIFTI-1 unit types and string-valued JNifTi NIFTIHeader Unit field
+***Table 3. A mapping table for NIFTI-1 unit types and string-valued JNifTi NIFTIHeader Unit field***
 
 |          NIFTI-1/2 Unit Types                | JNifTi Unit  |
 |----------------------------------------------|--------------|
@@ -389,11 +395,15 @@ Table 3. A mapping table for NIFTI-1 unit types and string-valued JNifTi NIFTIHe
 The `"NIIFormat"` field stores the original NIFTI-1 format identifier, and is designed for 
 compatibility purposes only. The use of this field is depreciated.
 
-
 #### NIIHeaderSize (NIFTI-1 header: sizeof_hdr)
 
 The `"NIIHeaderSize"` field stores the original NIFTI-1 header size, and is designed for 
 compatibility purposes only. The use of this field is depreciated.
+
+#### NIIByteOffset (NIFTI-1 header: vox_offset)
+
+The `"NIIByteOffset"` field stores the original NIFTI-1 voxel data starting position offset, 
+and is designed for compatibility purposes only. The use of this field is depreciated.
 
 #### Other depreciated subfields
 
