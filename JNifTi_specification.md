@@ -179,6 +179,8 @@ header information.
 In the below table, we define a 1-to-1 mapping from NIFTI-1/2 headers to the
 corresponding JNifTi `NIFTI_Header` self-explanatory subfields
 
+Table 1. A mapping table for NIFTI-1 header and JNifTi NIFTI_Header structure
+
 |              NIFTI-1 Header                           |  JNifTi NIFTI_Header container        |
 |-------------------------------------------------------|---------------------------------------|
 |`struct nifti_1_header { /* NIFTI-1 usage         */  `|`"NIFTI_Header": {                    `|
@@ -270,6 +272,9 @@ To enhance the readability of the header, we allow one to use a string instead o
 code to represent data type (i.e. the `DataType` subfield in `NIFTI_Header`). The below
 table maps the NIFTI data type codes to the acceptable data type strings.
 
+Table 2. A mapping table from NIFTI-1 datatypes to string-valued JNifTi data types and 
+storage types in UBJSON
+
 |          NIFTI-1/2 Data Types               | JNifTi DataType  |UBJSON Type|
 |---------------------------------------------|------------------|-----------|
 |`/*! unsigned char. */                      `|`                `|           |
@@ -281,11 +286,11 @@ table maps the NIFTI data type codes to the acceptable data type strings.
 |`/*! 32 bit float. */                       `|`                `|           |
 |`#define NIFTI_TYPE_FLOAT32           16    `|`  "single"      `|    d      |
 |`/*! 64 bit complex = 2 32 bit floats. */   `|`                `|           |
-|`#define NIFTI_TYPE_COMPLEX64         32    `|`  "complex64"  *`|    d      |
+|`#define NIFTI_TYPE_COMPLEX64         32    `|`  "complex64"  `\*|    d      |
 |`/*! 64 bit float = double. */              `|`                `|           |
 |`#define NIFTI_TYPE_FLOAT64           64    `|`  "double"      `|    D      |
 |`/*! 3 8 bit bytes. */                      `|`                `|           |
-|`#define NIFTI_TYPE_RGB24            128    `|`  "rgb24"      *`|    U      |
+|`#define NIFTI_TYPE_RGB24            128    `|`  "rgb24"      `\*|    U      |
 |`/*! signed char. */                        `|`                `|           |
 |`#define NIFTI_TYPE_INT8             256    `|`  "int8"        `|    i      |
 |`/*! unsigned short. */                     `|`                `|           |
@@ -297,13 +302,13 @@ table maps the NIFTI data type codes to the acceptable data type strings.
 |`/*! unsigned long long. */                 `|`                `|           |
 |`#define NIFTI_TYPE_UINT64          1280    `|`  "uint64"      `|    L      |
 |`/*! 128 bit float = long double. */        `|`                `|           |
-|`#define NIFTI_TYPE_FLOAT128        1536    `|`  "double128"  *`|    U      |
+|`#define NIFTI_TYPE_FLOAT128        1536    `|`  "double128"  `\*|    U      |
 |`/*! 128 bit complex = 2 64 bit floats. */  `|`                `|           |
-|`#define NIFTI_TYPE_COMPLEX128      1792    `|`  "complex128" *`|    D      |
+|`#define NIFTI_TYPE_COMPLEX128      1792    `|`  "complex128" `\*|    D      |
 |`/*! 256 bit complex = 2 128 bit floats */  `|`                `|           |
-|`#define NIFTI_TYPE_COMPLEX256      2048    `|`  "complex256" *`|    U      |
+|`#define NIFTI_TYPE_COMPLEX256      2048    `|`  "complex256" `\*|    U      |
 |`/*! 4 8 bit bytes. */                      `|`                `|           |
-|`#define NIFTI_TYPE_RGBA32          2304    `|`  "rgba32"     *`|    U      |
+|`#define NIFTI_TYPE_RGBA32          2304    `|`  "rgba32"     `\*|    U      |
 
 A "\*" sign in the JNifTi DataType column indicates that the data is a composite type, and must
 be stored using the "anotated" JData format.
@@ -327,6 +332,7 @@ that of the NIFTI-1/2 unit definitions, or a more descriptive string value
 to specify the units. The mapping between NIFTI-1/2 units to the string forms
 is listed below
 
+Table 3. A mapping table for NIFTI-1 unit types and string-valued JNifTi NIFTI_Header Unit field
 
 |          NIFTI-1/2 Unit Types                | JNifTi Unit  |
 |----------------------------------------------|--------------|
@@ -421,7 +427,7 @@ One can also apply data compression to reduce the file size. In this case
        "_ArraySize_": [Nx,Ny,Nz],
        "_ArrayCompressionMethod_": "zlib",
        "_ArrayCompressionSize_": [Nx,Ny,Nz],
-       "_ArrayCompressedData_": "<base64 encoded byte stream>"
+       "_ArrayCompressedData_": "<base64-encoded zlib-compressed byte stream>"
  }
 ```
 
@@ -453,6 +459,7 @@ array can be efficiently written as
           ...
       }
  }
+```
 
 Recommended File Specifiers
 ------------------------------
