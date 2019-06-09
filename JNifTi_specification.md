@@ -444,7 +444,7 @@ For example, a 3-D array of dimension Nx-by-Ny-by-Nz (`v_ijk` where `i=1,2,...,N
    [ [v_111,v_112,v_113,...,v_11Nz], [v_121,v_122,v_123,...,v_12Nz],...,[v_1Ny1,v_1Ny2,v_1Ny3,...,v_1NyNz] ], 
    [ [v_211,v_212,v_113,...,v_21Nz], [v_221,v_222,v_223,...,v_22Nz],...,[v_2Ny1,v_2Ny2,v_2Ny3,...,v_2NyNz] ], 
    ...
-   [ [v_Nz11,v_Nx12,v_Nz13,...,v_Nx1Nz], [v_Nx21,v_Nx22,v_Nx23,...,v_Nx2Nz],...,[v_NxNy1,v_NxNy2,...,v_NxNyNz] ]
+   [ [v_Nz11,v_Nx12,v_Nz13,...,v_Nx1Nz],[v_Nx21,v_Nx22,v_Nx23,...,v_Nx2Nz],...,[v_NxNy1,v_NxNy2,...,v_NxNyNz] ]
  ]
 ```
 or as the "annotated array format" as
@@ -502,7 +502,7 @@ For example, for a `uint8` formatted 256x256x256 3D volume, one can write as
 []]
 ```
 
-#### Struture form
+#### Structure form
 
 If storage of additional image-data-related metadata or auxiliary data is desired,
 one can choose to use a structure to store `NIFTIData`. The structure shall have
