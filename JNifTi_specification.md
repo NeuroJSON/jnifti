@@ -357,7 +357,7 @@ to store the corresponding values. A fixed order of the 3 subfields is not requi
 
 The NIFTI-1/2 `xyzt_units` is a combined mask of both space and time.
 In JNifTi, we map it to a structure with at least two subfields:
-`"L"` to store spatial unit, and "T" to store time unit. 
+`"L"` to store spatial unit, and `"T"` to store time unit. 
 
 Similar to `DataType`, both `L` and `T` allow to use an integer value, matching
 that of the NIFTI-1/2 unit definitions, or a more descriptive string value
@@ -537,9 +537,9 @@ and those shall be treated as auxiliary data.
 From Table 2, six of the data types are composite data types and must be stored using
 the annotated array format (for both text and binary forms). 
 
-Note that `double128` and `complex256` are not supported in the IEEE 754 specification,
-and therefore are type-casted to `uint8` buffers of the same length. The parsing of these 
-data structures is application dependent.
+Note that `double128` and `complex256` are stored by first type-casted to `uint8` 
+buffers of the same length. The parsing of these data structures is application 
+dependent.
 
 ##### complex64
 ```
