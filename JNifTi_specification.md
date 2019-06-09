@@ -368,28 +368,28 @@ is listed below
 
 |          NIFTI-1/2 Unit Types                | JNifTi Unit  |
 |----------------------------------------------|--------------|
-|`#define NIFTI_UNITS_UNKNOWN 0               `|  "unknown"   |
+|`#define NIFTI_UNITS_UNKNOWN 0               `|  `"unknown"` |
 |**Length Units**                              |              |                         
-|`/*! NIFTI code for meters. */               `|	             |
-|`#define NIFTI_UNITS_METER   1               `|  "m"	        |
-|`/*! NIFTI code for millimeters. */          `|	             |
-|`#define NIFTI_UNITS_MM      2               `|  "mm"        |
-|`/*! NIFTI code for micrometers. */          `|	             |
-|`#define NIFTI_UNITS_MICRON  3               `|  "um"        |
+|*NIFTI code for meters*                       |	             |
+|`#define NIFTI_UNITS_METER   1               `|  `"m"`       |
+|*NIFTI code for millimeters*                  |	             |
+|`#define NIFTI_UNITS_MM      2               `|  `"mm"`      |
+|*NIFTI code for micrometers*                  |	             |
+|`#define NIFTI_UNITS_MICRON  3               `|  `"um"`      |
 |**Time Units**                                |              |                         
-|`/*! NIFTI code for seconds. */              `|	             |
-|`#define NIFTI_UNITS_SEC     8               `|  "s"	        |
-|`/*! NIFTI code for milliseconds. */         `|	             |
-|`#define NIFTI_UNITS_MSEC   16               `|  "ms"        |
-|`/*! NIFTI code for microseconds. */         `|	             |
-|`#define NIFTI_UNITS_USEC   24               `|  "us"        |
+|*NIFTI code for seconds*                      |	             |
+|`#define NIFTI_UNITS_SEC     8               `|  `"s"`       |
+|*NIFTI code for milliseconds*                 |	             |
+|`#define NIFTI_UNITS_MSEC   16               `|  `"ms"`      |
+|*NIFTI code for microseconds*                 |	             |
+|`#define NIFTI_UNITS_USEC   24               `|  `"us"`      |
 |**Other Units**                               |              |                         
-|`/*! NIFTI code for Hertz. */                `|	             |
-|`#define NIFTI_UNITS_HZ     32               `|  "hz"        |
-|`/*! NIFTI code for ppm. */                  `|	             |
-|`#define NIFTI_UNITS_PPM    40               `|  "ppm"       |
-|`/*! NIFTI code for radians per second. */   `|	             |
-|`#define NIFTI_UNITS_RADS   48               `|  "rad"       |
+|*NIFTI code for Hertz*                        |	             |
+|`#define NIFTI_UNITS_HZ     32               `|  `"hz"`      |
+|*NIFTI code for ppm*                          |	             |
+|`#define NIFTI_UNITS_PPM    40               `|  `"ppm"`     |
+|*NIFTI code for radians per second*           |	             |
+|`#define NIFTI_UNITS_RADS   48               `|  `"rad"`     |
 
 
 #### NIIFormat (NIFTI-1 header: `magic`)
@@ -455,8 +455,7 @@ or as the "annotated array format" as
        "_ArrayData_": [v_111,v_112,...,v_11Nz,v_121,v_122,...,v_NxNyNz]
  }
 ```
-One can also apply data compression to reduce the file size. In this case
-
+One can also apply data compression to reduce file size. In this case
 ```
  "NIFTIData": {
        "_ArrayType_": "datatype",
@@ -467,11 +466,11 @@ One can also apply data compression to reduce the file size. In this case
  }
 ```
 
-Please note that all composite data types (marked by a "\*" in Table 2 above)
+Please note that all composite data types (marked by "\*" in Table 2)
 can not be stored in the direct form, and one must use the annotated array format
 instead.
 
-All 3 above forms are valid JSON formats, and thus can be converted to the corresponding 
+All above three forms are valid JSON formats, and thus can be converted to the corresponding 
 UBJSON formats when a binary JNifTi file is desired. Using the optimized N-D array 
 header defined in the JData specification, the binary storage of the direct-form 
 array can be efficiently written as
