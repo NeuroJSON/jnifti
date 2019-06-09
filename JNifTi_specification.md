@@ -58,9 +58,10 @@ Introduction
 
 NIFTI is a widely supported binary data format for storage of spatiotemporal
 neruroimaging data. It provides an easy-to-use container for serializing
-array-formatted imaging data and time series obtained from 
-neuroanatomical or functional scans. The original NIFTI format (NIFTI-1) 
-was derived from another widely supported medical image format, Analyze 7.5, 
+array-formatted imaging data and time series obtained from neuroanatomical 
+or functional scans. The original NIFTI format [NIFTI-1](https://nifti.nimh.nih.gov/) 
+was derived from another widely supported medical image format, 
+[Analyze 7.5](https://rportal.mayo.edu/bir/ANALYZE75.pdf), 
 and extended a 256-byte binary metadata header to a 352-byte binary header
 (containing a 348-byte header for the metadata storage and another 4 bytes
 as extension flags). In 2011, an upgraded NIFTI format - NIFTI-2 - permits
@@ -85,12 +86,14 @@ and then NIFTI-2 formats rendered the new format incompatible with
 the old data and supporting software. In addition, NIFTI formats 
 has only a binary interface, and are not directly human-readable.
 
-Over the past few years, JavaScript Object Notation (JSON) has become 
-widely accepted among the Internet community due to its capability of storing 
-complex data, excellent portability and human-readability. The proposals
-and wide adoptions of binary JSON-like format, such as UBJSON and
-MessagePack, also add complementary features such as support for typed 
-data, smaller file sizes and faster processing speed. The JData specification
+Over the past few years, [JavaScript Object Notation](http://json.org) 
+(JSON) has become widely accepted among the Internet community due to its 
+capability of storing complex data, excellent portability and human-readability. 
+The proposals and wide adoptions of binary JSON-like format, such as 
+[UBJSON](http://ubjson.org) and [MessagePack](https://msgpack.org/), also 
+add complementary features such as support for typed data, smaller file 
+sizes and faster processing speed. The 
+[JData specification](https://github.com/fangq/jdata/blob/master/JData_specification.md)
 provides the foundation for serializing complex hierarchical data using
 JSON/UBJSON constructs. This permits us to define language- and library-neutral
 neuroimaging data representations using the simple and extensible constructs 
@@ -112,9 +115,9 @@ The purpose of this document is to
 - define a 1-to-1 mapping between the existing NIFTI-1 and NIFTI-2 headers 
   to a JSON/UBJSON-based flexible metadata header structure, so that all NIFTI
   formatted metadata can be losslessly stored using JNifTi
-- define data containers to losslessly convert and storage all NIFTI formatted
-  neuroimaging data array, and show examples to use JData-enabled features for
-  reducing file sizes, enhancing readability and organization
+- define dedicated data containers to losslessly convert and storage all NIFTI 
+  formatted neuroimaging data array, and show examples to use JData-enabled 
+  features for reducing file sizes, enhancing readability and organization
 - demonstrate a set of flexible mechanisms to extend the capability of the 
   format to accommodate additional physiological, anatomical and multi-modal data
 
@@ -167,7 +170,7 @@ The direct storage format and the annotated storage format are equivalent. In th
 below sections, we use mostly the direct form to explain the data format, but
 one shall also be able to store the data using the annotated format. We also note that
 any valid JSON formatted data structure can be converted to a binary form using the
-rules defined in the UBJSON specification (Draft 12).
+rules defined in the [UBJSON specification (Draft 12)](http://ubjson.org).
 
 
 JNifTi Keywords
@@ -255,7 +258,7 @@ corresponding JNifTi `NIFTIHeader` self-explanatory subfields
 |` float quatern_d ;    `  **Quaternion d param**       |`    "QuaternD": <f>,                 `|
 |` float qoffset_x ;    `  **Quaternion x shift**       |`    "QuaternXOffset": <f>,           `|
 |` float qoffset_y ;    `  **Quaternion y shift**       |`    "QuaternYOffset": <f>,           `|
-|` float qoffset_z ;    `  **Quaternion z shift**       |`    "QuaternBOffset": <f>,           `|
+|` float qoffset_z ;    `  **Quaternion z shift**       |`    "QuaternZOffset": <f>,           `|
 |                                                       |                                       |
 |` float srow_x[4] ;    `  **1st row affine transform** |`    "Affine": [ [<f>,<f>,<f>,<f>],   `|
 |` float srow_y[4] ;    `  **2nd row affine transform** |`        [<f>,<f>,<f>,<f>],           `|
@@ -264,7 +267,7 @@ corresponding JNifTi `NIFTIHeader` self-explanatory subfields
 |` char intent_name[16];`  **'name' or meaning of data**|`    "Name" : "s",                    `|
 |` char magic[4] ;     `  **MUST be "ni1\0" or "n+1\0"**|`    "NIIFormat": "s",                `|
 |`} ;                   `  **348 bytes total**          |`                                     `|
-|`struct nifti1_extender { char extension[4] ; } ;     `|`    "Extender": [<i>,<i>,<i>,<i>],   `|
+|`struct nifti1_extender { char extension[4] ; } ;     `|`    "NIIExtender": [<i>,<i>,<i>,<i>],`|
 |                                                       |`    <...>                            `|
 |                                                       |`}                                    `|
 
@@ -350,8 +353,8 @@ should equal to `dim[0]`.
 
 In the NIFTI-1/2 formats, the `dim_info` field combines 3 parameters, `freq_dim`, `phase_dim` 
 and `slice_dim` using bit-masks. To enhance readability, in JNifTi, we use explicit subfields
-to represent each of the parameter, `"Freq"`, `"Phase"` and `"Slice"` inside the "DimInfo" structure
-to store the corresponding values. A fixed order of the 3 subfields is not required.
+to represent each of the parameter, `"Freq"`, `"Phase"` and `"Slice"` inside the `"DimInfo"` 
+structure to store the corresponding values. A fixed order of the 3 subfields is not required.
 
 #### Unit (NIFTI-1 header: `xyzt_units`)
 
@@ -505,7 +508,7 @@ For example, for a `uint8` formatted 256x256x256 3D volume, one can write as
 
 If storage of additional image-data-related metadata or auxiliary data is desired,
 one can choose to use a structure to store `NIFTIData`. The structure shall have
-the below 
+the below format
 
 ```
  "NIFTIData": {
@@ -527,9 +530,9 @@ The three subfields are
 * **`Properties`**: this optional subfield can storage additional auxiliary data
   using either an array or structure;
 * **`_DataInfo_`**: this optional subfield is the JData-compatible metadata
-  record, which, if present, must be located as the 1st element of `NIFTIData`.
+  record, which, if presents, must be located as the 1st element of `NIFTIData`.
 
-The NIFTIData structure can accommodate additional user-defined subfields 
+The `NIFTIData` structure can accommodate additional user-defined subfields 
 and those shall be treated as auxiliary data.
 
 #### Composite data types
@@ -639,23 +642,23 @@ The `"Type"` field must be one of the 3 values according to the NIFTI-1 specific
 
 `"_ByteStream_"` is a JData keyword to store raw byte-stream buffers. For text-based JNifti/JData 
 files, its value must be a base64-encoded string; no base64 encoding is needed when stored in the
-binary format. For details, please see the JData specification "Generic byte-stream data" section.
+binary format. For details, please see the JData specification ["Generic byte-stream data" section](https://github.com/fangq/jdata/blob/master/JData_specification.md#generic-byte-stream-data).
 
 Again, because the extension data buffer has very little semantic information, the use of 
-such buffer is not recommended. Please consider converting the data to meaning JData structures
-and store it to the JNifTi document as auxiliary data.
+such buffer is not recommended. Please consider converting the data to meaningful JData 
+structures and store it to the JNifTi document as auxiliary data.
 
 
 Data Orgnization and Grouping
 ------------------------
 
-To facilitate the organization of multiple neuroimaging datasets, JNifTi supports optional 
+To facilitate the organization of multiple neuroimaging datasets, JNifTi supports **optional**
 data grouping mechanisms similar to those defined in the JData specification. 
 
-In a JNifTi document, one can use **"NIFTIGroup"** and **"NIFTIObject"** to 
-They are equivalent to the **`"_DataGroup_"`** and **`"_DataSet_"`**
+In a JNifTi document, one can use **"NIFTIGroup"** and **"NIFTIObject"** to organize
+datasets in a hierarchical form. They are equivalent to the **`"_DataGroup_"`** and **`"_DataSet_"`**
 constructs, respectively, as defined in the JData specification, but are specifically 
-applicable to neuroimaging data. The format of "NIFTIGroup" and "NIFTIObject" are identical 
+applicable to neuroimaging data. The format of `"NIFTIGroup"` and `"NIFTIObject"` are identical 
 to JData data grouping tags, i.e, they can be either an array or structure, with an 
 optional unique name (within the current document) via `"NIFTIGroup(unique name)"`
 and `"NIFTIObject(unique name)"`
@@ -716,15 +719,15 @@ In summary, this specification defines a pair of new file formats - text and bin
 formats - to efficiently store and exchange neuroimaging scans, the associated metadata 
 and auxiliary measurements. Any previously generated NIFTI-1/2 file can be 100% mapped 
 to a JNifTi document without losing any information. However, JNifTi greatly expands the 
-flexibility of NIFTI-1/2 format and removed their inherent limitations, allowing the 
+flexibility of NIFTI-1/2 format and removes their inherent limitations, allowing the 
 storage of multiple datasets, data compression, flexible data grouping and user-defined 
 metadata fields.
 
 By using JSON/UBJSON compatible JData constructs, JNifTi provides a highly portable, versatile
-and extensible framework to store a large variety of neuroanatomical and functional
-image data. Both formats are human-readable with self-explanatory keywords. The wide-spread 
-availability of JSON and UBJSON parser, as well as the simple underlying syntax allows one
-to easily share, parse and process these data files, without introducing extensive programming
+and extensible framework to store a large variety of neuroanatomical and functional image 
+data. Both text and binary formats are readable with self-explanatory keywords. The broad 
+availability of JSON and UBJSON parsers, along with the simple underlying syntax, allows one
+to easily share, parse and process such data files without imposing extensive programming
 overhead. The flexible data organization and referencing mechanisms offered by the underlying 
 JData specification make it possible to record and share large scale complex neuroimaging 
 datasets among researchers, clinicians and data scientists.
