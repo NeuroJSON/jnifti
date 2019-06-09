@@ -56,15 +56,17 @@ Introduction
 ### Background
 
 
-NIFTI is a widely supported binary data format for storage of spatiotemporal
-neruroimaging data. It provides an easy-to-use container for serializing
-array-formatted imaging data and time series obtained from neuroanatomical 
-or functional scans. The original NIFTI format [NIFTI-1](https://nifti.nimh.nih.gov/) 
+[NIFTI](https://nifti.nimh.nih.gov/) is a widely supported binary data 
+format for storage of spatiotemporal neruroimaging data. It provides an 
+easy-to-use container for serializing array-formatted imaging data and 
+time series obtained from neuroanatomical or functional scans. The original 
+NIFTI format [(NIFTI-1)](https://nifti.nimh.nih.gov/nifti-1/) 
 was derived from another widely supported medical image format, 
 [Analyze 7.5](https://rportal.mayo.edu/bir/ANALYZE75.pdf), 
-and extended a 256-byte binary metadata header to a 352-byte binary header
-(containing a 348-byte header for the metadata storage and another 4 bytes
-as extension flags). In 2011, an upgraded NIFTI format - NIFTI-2 - permits
+and extended the metadata to a 352-byte binary header (containing 
+a 348-byte header for the metadata storage and another 4 bytes
+as extension flags). In 2011, an upgraded NIFTI format - 
+[NIFTI-2](https://nifti.nimh.nih.gov/nifti-2/) - permits
 the storage of large sized imaging data by using 64-bit integers to storage
 the image dimension data, which was previously stored in 16-bit integers.
 
