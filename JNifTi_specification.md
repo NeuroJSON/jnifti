@@ -246,8 +246,8 @@ corresponding JNifTi `NIFTIHeader` self-explanatory subfields
 |` float cal_min;       `  **Min display intensity**    |`    "MinIntensity": <f>,             `|
 |` float slice_duration;`  **Time for 1 slice**         |`    "SliceTime": <f>,                `|
 |` float toffset;       `  **Time axis shift**          |`    "TimeOffset": <f>,               `|
-|` int   glmax;         `  **++UNUSED++**               |`    "A75GLMax": <i>,                 `|
-|` int   glmin;         `  **++UNUSED++**               |`    "A75GLMin": <i>,                 `|
+|` int   glmax;         `  **++UNUSED++**               |`    "A75GlobalLMax": <i>,            `|
+|` int   glmin;         `  **++UNUSED++**               |`    "A75GlobalMin": <i>,             `|
 |                  **- was data_history substruct ---** |                                       |
 |` char  descrip[80];   `  **any text you like**        |`    "Description": "s",              `|
 |` char  aux_file[24];  `  **auxiliary filename**       |`    "AuxFile": "s",                  `|
@@ -421,8 +421,8 @@ depreciated in JNifTi files. These subfields include
 * `extents` -> `A75Extends`
 * `session_error` -> `A75SessionError`
 * `regular` -> `A75Regular`
-* `glmax` -> `A75GLMax`
-* `glmin` -> `A75GLMin`
+* `glmax` -> `A75GlobalMax`
+* `glmin` -> `A75GlobalMin`
 
 The use of these subfields are strictly for compatibility purposes and are highly 
 recommended not to include in JNifTi files.
