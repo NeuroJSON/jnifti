@@ -231,7 +231,7 @@ corresponding JNifTi `NIFTIHeader` self-explanatory subfields
 |` short bitpix;        `  **Number bits/voxel**        |`    "BitDepth": <i>,                 `|
 |` short slice_start;   `  **First slice index**        |`    "FirstSliceID": <i>,             `|
 |` float pixdim[8];     `  **Grid spacings**            |`    "VoxelSize": [<f>,<f>,<f>,...],  `|
-|` float vox_offset;    `  **Offset into .nii file **   |`    "NIIByteOffset": <f>,            `|
+|` float vox_offset;    `  **Offset into .nii file**    |`    "NIIByteOffset": <f>,            `|
 |` float scl_slope ;    `  **Data scaling: slope**      |`    "ScaleSlope": <f>,               `|
 |` float scl_inter ;    `  **Data scaling: offset**     |`    "ScaleOffset": <f>,              `|
 |` short slice_end;     `  **Last slice index**         |`    "LastSliceID": <i>,              `|
@@ -247,8 +247,8 @@ corresponding JNifTi `NIFTIHeader` self-explanatory subfields
 |` char  descrip[80];   `  **any text you like**        |`    "Description": "s",              `|
 |` char  aux_file[24];  `  **auxiliary filename**       |`    "AuxFile": "s",                  `|
 |                                                       |                                       |
-|` short qform_code ;   `  **NIFTI_XFORM_* code**       |`    "QForm": <i>,                    `|
-|` short sform_code ;   `  **NIFTI_XFORM_* code**       |`    "SForm": <i>,                    `|
+|` short qform_code ;   `  **NIFTI_XFORM_\* code**       |`    "QForm": <i>,                    `|
+|` short sform_code ;   `  **NIFTI_XFORM_\* code**       |`    "SForm": <i>,                    `|
 |                                                       |                                       |
 |` float quatern_b ;    `  **Quaternion b param**       |`    "QuaternB": <f>,                 `|
 |` float quatern_c ;    `  **Quaternion c param**       |`    "QuaternC": <f>,                 `|
@@ -263,7 +263,7 @@ corresponding JNifTi `NIFTIHeader` self-explanatory subfields
 |                                                       |`    ],                               `|
 |` char intent_name[16];`  **'name' or meaning of data**|`    "Name" : "s",                    `|
 |` char magic[4] ;     `  **MUST be "ni1\0" or "n+1\0"**|`    "NIIFormat": "s",                `|
-|`} ;                   `     ** 348 bytes total **     |`                                     `|
+|`} ;                   `  **348 bytes total**          |`                                     `|
 |`struct nifti1_extender { char extension[4] ; } ;     `|`    "Extender": [<i>,<i>,<i>,<i>],   `|
 |                                                       |`    <...>                            `|
 |                                                       |`}                                    `|
