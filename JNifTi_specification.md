@@ -45,8 +45,8 @@ serialization framework.
       - [double128](#double128)
       - [complex256](#complex256)
   * [NIFTIExtension](#niftiextension)
-- [Data Organization and Grouping](#data-organization-and-grouping)
-- [Recommended File Specifies](#recommended-file-specifies)
+- [Data Orgnization and Grouping](#data-orgnization-and-grouping)
+- [Recommended File Specifiers](#recommended-file-specifiers)
 - [Summary](#summary)
 
 
