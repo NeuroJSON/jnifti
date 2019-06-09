@@ -30,7 +30,7 @@ serialization framework.
   * [NIFTIHeader](#niftiheader)
     + [DataType (NIFTI-1 header: datatype)](#datatype-nifti-1-header-datatype)
     + [DimInfo (NIFTI-1 header: dim_info)](#diminfo-nifti-1-header-dim_info)
-    + [Unit  (NIFTI-1 header: xyzt_units)](#unit-nifti-1-header-xyzt_units)
+    + [Unit (NIFTI-1 header: xyzt_units)](#unit-nifti-1-header-xyzt_units)
     + [NIIFormat (NIFTI-1 header: magic)](#niiformat-nifti-1-header-magic)
     + [NIIHeaderSize (NIFTI-1 header: sizeof_hdr)](#niiheadersize-nifti-1-header-sizeof_hdr)
     + [Other depreciated subfields](#other-depreciated-subfields)
@@ -353,7 +353,7 @@ and `slice_dim` using bit-masks. To enhance readability, in JNifTi, we use expli
 to represent each of the parameter, `"Freq"`, `"Phase"` and `"Slice"` inside the "DimInfo" structure
 to store the corresponding values. A fixed order of the 3 subfields is not required.
 
-#### Unit  (NIFTI-1 header: `xyzt_units`)
+#### Unit (NIFTI-1 header: `xyzt_units`)
 
 The NIFTI-1/2 `xyzt_units` is a combined mask of both space and time.
 In JNifTi, we map it to a structure with at least two subfields:
