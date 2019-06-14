@@ -48,6 +48,8 @@ function nii=nii2jnii(filename, format, varargin)
 %              For the detailed nii header, please see 
 %              https://nifti.nimh.nih.gov/pub/dist/src/niftilib/nifti1.h
 %
+%    this file was initially developed for the MCX project: https://github.com/fangq/mcx/blob/master/utils/mcxloadnii.m
+%
 %    this file is part of JNIfTI specification: https://github.com/fangq/jnifti
 %
 %    License: Apache 2.0, see https://github.com/fangq/jnifti for details
