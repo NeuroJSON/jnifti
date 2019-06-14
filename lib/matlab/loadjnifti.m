@@ -10,7 +10,7 @@ function jnii=loadjnifti(filename, varargin)
 %    author: Qianqian Fang (q.fang <at> neu.edu)
 %
 %    input:
-%        filename: the output file name to the JNIfTI or NIFTI-1/2 file
+%        inputfile: the output file name to the JNIfTI or NIFTI-1/2 file
 %                *.bnii for binary JNIfTI file
 %                *.jnii for text JNIfTI file
 %                *.nii  for NIFTI-1/2 files

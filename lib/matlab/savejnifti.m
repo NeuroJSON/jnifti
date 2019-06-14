@@ -1,8 +1,8 @@
 function savejnifti(jnii, filename, varargin)
 %
-%    savebnii(jniidata, outputfile)
+%    savejnifti(jnii, outputfile)
 %       or
-%    savebnii(jniidata, outputfile, 'Param1',value1, 'Param2',value2,...)
+%    savejnifti(jnii, outputfile, 'Param1',value1, 'Param2',value2,...)
 %
 %    Save an in-memory JNIfTI structure into a JNIfTI file with format
 %    defined in JNIfTI specification: https://github.com/fangq/jnifti
@@ -18,7 +18,7 @@ function savejnifti(jnii, filename, varargin)
 %                jnii.NIFTIHeader -  a structure containing the 1-to-1 mapped NIFTI-1/2 header
 %                jnii.NIFTIData - the main image data array
 %                jnii.NIFTIExtension - a cell array contaiing the extension data buffers
-%        filename: the output file name to the JNIfTI file 
+%        outputfile: the output file name to the JNIfTI file 
 %                *.bnii for binary JNIfTI file
 %                *.jnii for text JNIfTI file
 %        options: (optional) if saving to a .bnii file, please see the options for

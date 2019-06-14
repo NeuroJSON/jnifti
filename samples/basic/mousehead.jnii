@@ -25,7 +25,7 @@
 			"L": "mm",
 			"T": "s"
 		},
-		"MaxIntensity": 255,
+		"MaxIntensity": 1,
 		"MinIntensity": 0,
 		"SliceTime": 1,
 		"TimeOffset": 0,
@@ -45,7 +45,7 @@
 			[0,0,1,0]
 		],
 		"Name": "Mouse Head",
-		"NIIFormat": "JNIfTI"
+		"NIIFormat": "jnifti"
 	},
 	"NIFTIData": {
 		"_ArrayType_": "uint8",
