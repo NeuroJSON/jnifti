@@ -1,0 +1,95 @@
+{
+	"NIFTIHeader": {
+		"NIIHeaderSize": 0,
+		"DataTypeName": "uint8",
+		"DimInfo": {
+			"Freq": 0,
+			"Phase": 0,
+			"Slice": 0
+		},
+		"Dim": [50,53,44],
+		"Param1": 0,
+		"Param2": 0,
+		"Param3": 0,
+		"IntentCode": 0,
+		"DataType": "uint8",
+		"BitDepth": 8,
+		"FirstSliceID": 1,
+		"VoxelSize": [1,1,1,1],
+		"NIIByteOffset": 0,
+		"ScaleSlope": 0,
+		"ScaleOffset": 0,
+		"LastSliceID": 1,
+		"SliceCode": 0,
+		"Unit": {
+			"L": "mm",
+			"T": "s"
+		},
+		"MaxIntensity": 255,
+		"MinIntensity": 0,
+		"SliceTime": 1,
+		"TimeOffset": 0,
+		"Description": "Binary mask of a mouse-head scan",
+		"AuxFile": "",
+		"QForm": 0,
+		"SForm": 0,
+		"QuaternB": 0,
+		"QuaternC": 0,
+		"QuaternD": 0,
+		"QuaternXOffset": 0,
+		"QuaternYOffset": 0,
+		"QuaternZOffset": 0,
+		"Affine": [
+			[1,0,0,0],
+			[0,1,0,0],
+			[0,0,1,0]
+		],
+		"Name": "Mouse Head",
+		"NIIFormat": "JNIfTI"
+	},
+	"NIFTIData": {
+		"_ArrayType_": "uint8",
+		"_ArraySize_": [50,53,44],
+		"_ArrayZipSize_": [1,116600],
+		"_ArrayZipType_": "lzma",
+		"_ArrayZipData_": "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
+K8I3faBz15FvG0itpUdIZGp9/2a81wA=
+"
+	}
+}
