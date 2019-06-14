@@ -27,9 +27,9 @@ function nii=nii2jnii(filename, format, varargin)
 %        if the output is a JNIfTI data structure, it has the following subfield:
 %          nii.NIFTIHeader -  a structure containing the 1-to-1 mapped NIFTI-1/2 header
 %          nii.NIFTIData - the main image data array
-%          nii.NIFTIExtension - a cell array contaiing the extension data buffer
+%          nii.NIFTIExtension - a cell array contaiing the extension data buffers
 %
-%        if the output is a NIFTI object, when calling as nii=nii2jnii(file,'nii)
+%        when calling as nii=nii2jnii(file,'nii'), the output is a NIFTI object containing
 %          nii.img: the data volume read from the nii file
 %          nii.datatype: the data type of the voxel, in matlab data type string
 %          nii.datalen: data count per voxel - for example RGB data has 3x
@@ -39,7 +39,7 @@ function nii=nii2jnii(filename, format, varargin)
 %          nii.hdr: file header info, a structure has the full nii header
 %                    key subfileds include
 %
-%              sizeof_hdr: must be 348
+%              sizeof_hdr: must be 348 (for NIFTI-1) or 540 (for NIFTI-2)
 %              dim: short array, dim(2: dim(1)+1) defines the array size
 %              datatype: the type of data stored in each voxel
 %              bitpix: total bits per voxel
@@ -297,6 +297,6 @@ if(nargout==0 && strcmp(format,'nii')==0 && strcmp(format,'jnii')==0)
     elseif(regexp(format,'\.bnii$'))
         saveubjson('',nii,'FileName',format,varargin{:});
     else
-        error('file suffix must be .jnii for text JNIfTI or .bii for binary JNIfTI');
+        error('file suffix must be .jnii for text JNIfTI or .bnii for binary JNIfTI');
     end
 end
