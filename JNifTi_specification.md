@@ -465,9 +465,9 @@ One can also apply data compression to reduce file size. In this case
  "NIFTIData": {
        "_ArrayType_": "datatype",
        "_ArraySize_": [Nx,Ny,Nz],
-       "_ArrayCompressionMethod_": "zlib",
-       "_ArrayCompressionSize_": [Nx,Ny,Nz],
-       "_ArrayCompressedData_": "<base64-encoded zlib-compressed byte stream>"
+       "_ArrayZipType_": "zlib",
+       "_ArrayZipSize_": [Nx,Ny,Nz],
+       "_ArrayZipData_": "<base64-encoded zlib-compressed byte stream>"
  }
 ```
 
@@ -497,12 +497,12 @@ For example, for a `uint8` formatted 256x256x256 3D volume, one can write as
     [[]
        [U][256][U][256][U][256]
     []]
-    [U][24][_ArrayCompressionMethod_][S][U][4][zlib]
-    [U][22][_ArrayCompressionSize_]
+    [U][14][_ArrayZipType_][S][U][4][zlib]
+    [U][14][_ArrayZipSize_]
     [[]
        [U][256][U][256][U][256]
     []]
-    [U][21][_ArrayCompressedData_][H][L][lengh][... zlib-compressed byte stream ...]
+    [U][14][_ArrayZipData_][H][L][lengh][... zlib-compressed byte stream ...]
 []]
 ```
 
