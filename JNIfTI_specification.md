@@ -577,7 +577,6 @@ dependent.
  "NIFTIData": {
        "_ArrayType_": "uint8",
        "_ArraySize_": [Nx,Ny,Nz,3],
-       "_ArrayIsComplex_": true,
        "_ArrayData_": [ Nx*Ny*Nz*3 integers ]
  }
 ```
@@ -587,7 +586,6 @@ dependent.
  "NIFTIData": {
        "_ArrayType_": "uint8",
        "_ArraySize_": [Nx,Ny,Nz,4],
-       "_ArrayIsComplex_": true,
        "_ArrayData_": [ Nx*Ny*Nz*4 integers ]
  }
 ```
@@ -597,7 +595,6 @@ dependent.
  "NIFTIData": {
        "_ArrayType_": "uint8",
        "_ArraySize_": [Nx,Ny,Nz,16],
-       "_ArrayIsComplex_": true,
        "_ArrayData_": [ Nx*Ny*Nz*16 uint8 numbers ]
  }
 ```
@@ -607,7 +604,6 @@ dependent.
  "NIFTIData": {
        "_ArrayType_": "uint8",
        "_ArraySize_": [Nx,Ny,Nz,32],
-       "_ArrayIsComplex_": true,
        "_ArrayData_": [ Nx*Ny*Nz*32 uint8 numbers ]
  }
 ```
