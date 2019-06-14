@@ -72,7 +72,7 @@ jnii.NIFTIHeader.Affine(1,:)=    [1 0 0 0];
 jnii.NIFTIHeader.Affine(2,:)=    [0 1 0 0];
 jnii.NIFTIHeader.Affine(3,:)=    [0 0 1 0];
 jnii.NIFTIHeader.Name=           'default';
-jnii.NIFTIHeader.NIIFormat=      'JNIfTI';
+jnii.NIFTIHeader.NIIFormat=      'jnifti';
 % jnii.NIFTIHeader.NIIExtender=    [0,0,0,0];
 
 if(nargin==0)
