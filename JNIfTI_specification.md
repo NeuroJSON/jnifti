@@ -81,7 +81,7 @@ Python).
 Although the NIFTI format is quite simple and easy to parse and store,
 the fixed header size, rigid and static list of metadata fields, as well
 as the limitation of storing only array-valued neuroimaging data make
-it difficult to be extended to store of additional metadata records
+it difficult to be extended to store additional metadata records
 or complex auxiliary data, such as physiological monitoring data or 
 multi-modality data. The extensions from Analyze 7.5 format to NIFTI-1
 and then NIFTI-2 formats rendered the new format incompatible with
@@ -214,8 +214,8 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 
 | NIFTI-1| NIFTI-2| 	   NIFTI-1/2 Headers			    |	JNIfTI NIFTIHeader container	    |
 |--------|--------|-------------------------------------------------|---------------------------------------|
-|`      `|`	 `|`  struct nifti_1_header { ` **NIFTI-1 usage**   |`"NIFTIHeader": {  		   `|
-|        | 	  | 		 **- was header_key substruct ---** |					    |
+|`      `|`      `|`  struct nifti_1_header { ` **NIFTI-1 usage**   |`"NIFTIHeader": {  		   `|
+|        | 	      | 		 **- was header_key substruct ---** |					    |
 |` int  `|` int  `|` sizeof_hdr;    `  **MUST be 348**  	    |`    "NIIHeaderSize": <i>, 	   `|
 |` char `|   -    |` data_type[10]; `  **++UNUSED++**		    |`    "DataTypeName":   "s",	   `|
 |` char `|   -    |` db_name[18];   `  **++UNUSED++**		    |`    "A75DBName": "s",		   `|
@@ -223,10 +223,10 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` short`|   -    |` session_error; `  **++UNUSED++**		    |`    "A75SessionError": <i>,	   `|
 |` char `|   -    |` regular;	    `  **++UNUSED++**		    |`    "A75Regular": <i>,		   `|
 |` char `|` char `|` dim_info;      `  **MRI slice ordering**	    |`    "DimInfo" : { 		   `|
-|       `|`	 `|`						    |`  	"Freq": <i>,		   `|
-|       `|`	 `|`						    |`  	"Phase": <i>,		   `|
-|       `|`	 `|`						    |`  	"Slice": <i>		   `|
-|       `|`	 `|`	    **- was image_dimension substruct ---** |`     },				   `|
+|        | 	      | 						    |`  	"Freq": <i>,		   `|
+|        |     	  | 						    |`  	"Phase": <i>,		   `|
+|        | 	      | 						    |`  	"Slice": <i>		   `|
+|        | 	      | 	    **- was image_dimension substruct ---** |`     },				   `|
 |` short`|` int64`|` dim[8];	    `  **Data array dimensions**    |`    "Dim": [dim[1],dim[2],dim[3],...],`|
 |` float`|`double`|` intent_p1 ;    `  **1st intent parameter**     |`    "Param1": <f>,		   `|
 |` float`|`double`|` intent_p2 ;    `  **2nd intent parameter**     |`    "Param2": <f>,		   `|
@@ -248,30 +248,30 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` float`|` float`|` toffset;	    `  **Time axis shift**	    |`    "TimeOffset": <f>,		   `|
 |` int  `|   -    |` glmax;	    `  **++UNUSED++**		    |`    "A75GlobalLMax": <i>, 	   `|
 |` int  `|   -    |` glmin;	    `  **++UNUSED++**		    |`    "A75GlobalMin": <i>,  	   `|
-|        | 	  | 	       **- was data_history substruct ---** |					    |
+|        | 	      | 	       **- was data_history substruct ---** |					    |
 |` char `|` char `|` descrip[80];   `  **any text you like**	    |`    "Description": "s",		   `|
 |` char `|` char `|` aux_file[24];  `  **auxiliary filename**	    |`    "AuxFile": "s",		   `|
-|        | 	  | 						    |					    |
+|        |     	  | 						    |					    |
 |` short`|` int  `|` qform_code ;   `  **NIFTI_XFORM_\* code**      |`    "QForm": <i>, 		   `|
 |` short`|` int  `|` sform_code ;   `  **NIFTI_XFORM_\* code**      |`    "SForm": <i>, 		   `|
-|        | 	  | 						    |					    |
+|        | 	      | 						    |					    |
 |` float`|`double`|` quatern_b ;    `  **Quaternion b param**	    |`    "QuaternB": <f>,		   `|
 |` float`|`double`|` quatern_c ;    `  **Quaternion c param**	    |`    "QuaternC": <f>,		   `|
 |` float`|`double`|` quatern_d ;    `  **Quaternion d param**	    |`    "QuaternD": <f>,		   `|
 |` float`|`double`|` qoffset_x ;    `  **Quaternion x shift**	    |`    "QuaternXOffset": <f>,	   `|
 |` float`|`double`|` qoffset_y ;    `  **Quaternion y shift**	    |`    "QuaternYOffset": <f>,	   `|
 |` float`|`double`|` qoffset_z ;    `  **Quaternion z shift**	    |`    "QuaternZOffset": <f>,	   `|
-|        | 	  | 						    |					    |
+|        | 	      | 						    |					    |
 |` float`|`double`|` srow_x[4] ;    `  **1st row affine transform** |`    "Affine": [ [<f>,<f>,<f>,<f>],   `|
 |` float`|`double`|` srow_y[4] ;    `  **2nd row affine transform** |`        [<f>,<f>,<f>,<f>],	   `|
 |` float`|`double`|` srow_z[4] ;    `  **3rd row affine transform** |`        [<f>,<f>,<f>,<f>] 	   `|
-|       `| 	  |`						    |`    ],				   `|
+|       `| 	      |`						    |`    ],				   `|
 |` char `|` char `|`intent_name[16];`  **'name' or meaning of data**|`    "Name" : "s", 		   `|
 |` char `|`char*8`|`magic[4] ;     `  **MUST be "ni1\0" or "n+1\0"**|`    "NIIFormat": "s",		   `|
-|`} ;   `| 	  |`	      `  **348 bytes total**	            |                                       |
+|`} ;   `| 	      |`	      `  **348 bytes total**	            |                                       |
 |        |        |`struct nifti_extender { char extension[4] ; } ;`|`    "NIIExtender": [<i>,<i>,<i>,<i>],`|
-|        | 	  |     				            |`    <...>			           `|
-|        | 	  | 	   				            |`}				           `|
+|        | 	      |     				            |`    <...>			           `|
+|        | 	      | 	   				            |`}				           `|
 
 In the above table, the notations are explained below
 
@@ -308,37 +308,37 @@ storage types in UBJSON***
 
 |          NIFTI-1/2 Data Types               | JNIfTI DataType  |UBJSON Type|
 |---------------------------------------------|------------------|-----------|
-|**unsigned char**                            |                  |	     |
+|**unsigned char**                            |                  |	          |
 |`#define NIFTI_TYPE_UINT8              2    `|`  "uint8"       `| `U`       |
-|**signed short**                             |                  |	     |
+|**signed short**                             |                  |	          |
 |`#define NIFTI_TYPE_INT16              4    `|`  "int16"       `| `I`       |
-|**signed int**                               |                  |	     |
+|**signed int**                               |                  |	          |
 |`#define NIFTI_TYPE_INT32              8    `|`  "int32"       `| `l`       |
-|**32 bit float**                             |                  |	     |
+|**32 bit float**                             |                  |	          |
 |`#define NIFTI_TYPE_FLOAT32           16    `|`  "single"      `| `d`       |
-|**64 bit complex = 2 32 bit floats**         |                  |	     |
+|**64 bit complex = 2 32 bit floats**         |                  |	          |
 |`#define NIFTI_TYPE_COMPLEX64         32    `|`  "complex64" `\*| `d` (x2)  |
-|**64 bit float = double**                    |                  |	     |
+|**64 bit float = double**                    |                  |	          |
 |`#define NIFTI_TYPE_FLOAT64           64    `|`  "double"      `| `D`       |
-|**3x 8 bit bytes**                           |                  |	     |
+|**3x 8 bit bytes**                           |                  |	          |
 |`#define NIFTI_TYPE_RGB24            128    `|`  "rgb24"     `\*| `U` (x3)  |
-|**signed char**                              |                  |	     |
+|**signed char**                              |                  |	          |
 |`#define NIFTI_TYPE_INT8             256    `|`  "int8"        `| `i`       |
-|**unsigned short**                           |                  |	     |
+|**unsigned short**                           |                  |	          |
 |`#define NIFTI_TYPE_UINT16           512    `|`  "uint16"      `| `I`       |
-|**unsigned int**                             |                  |	     |
+|**unsigned int**                             |                  |	          |
 |`#define NIFTI_TYPE_UINT32           768    `|`  "uint32"      `| `l`       |
-|**signed long long**                         |                  |	     |
+|**signed long long**                         |                  |	          |
 |`#define NIFTI_TYPE_INT64           1024    `|`  "int64"       `| `L`       |
-|**unsigned long long**                       |                  |	     |
+|**unsigned long long**                       |                  |	          |
 |`#define NIFTI_TYPE_UINT64          1280    `|`  "uint64"      `| `L`       |
-|**128 bit float = long double**              |                  |	     |
+|**128 bit float = long double**              |                  |	          |
 |`#define NIFTI_TYPE_FLOAT128        1536    `|`  "double128" `\*| `U` (x16) |
-|**2x 64 bit floats = 128 bit complex**       |                  |	     |
+|**2x 64 bit floats = 128 bit complex**       |                  |	          |
 |`#define NIFTI_TYPE_COMPLEX128      1792    `|`  "complex128"`\*| `D` (x2)  |
-|**2x 128 bit floats = 256 bit complex**      |                  |	     |
+|**2x 128 bit floats = 256 bit complex**      |                  |	          |
 |`#define NIFTI_TYPE_COMPLEX256      2048    `|`  "complex256"`\*| `U` (x32) |
-|**4x 8 bit bytes**                           |                  |	     |
+|**4x 8 bit bytes**                           |                  |	          |
 |`#define NIFTI_TYPE_RGBA32          2304    `|`  "rgba32"    `\*| `U` (x4)  |
 
 A "\*" sign in the JNIfTI DataType column indicates that the data is a composite type, and must
@@ -638,7 +638,7 @@ The `"Type"` field must be one of the 3 values according to the NIFTI-1 specific
 * 1 or `"dicom"` - for DICOM formatted data buffer
 * 2 or `"afni"` - for AFNI group formatted data buffer
 
-`"_ByteStream_"` is a JData keyword to store raw byte-stream buffers. For text-based JNifti/JData 
+`"_ByteStream_"` is a JData keyword to store raw byte-stream buffers. For text-based JNIfTI/JData 
 files, its value must be a base64-encoded string; no base64 encoding is needed when stored in the
 binary format. For details, please see the JData specification ["Generic byte-stream data" section](https://github.com/fangq/jdata/blob/master/JData_specification.md#generic-byte-stream-data).
 
