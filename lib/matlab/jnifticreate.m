@@ -1,4 +1,4 @@
-function jnii=jnifticreate(img, varargin)
+function jnii=jnifticreate(varargin)
 %
 %    jnii=jnifticreate
 %       or
@@ -56,7 +56,7 @@ jnii.NIFTIHeader.MaxIntensity=   255;
 jnii.NIFTIHeader.MinIntensity=   0;
 jnii.NIFTIHeader.SliceTime=      1;
 jnii.NIFTIHeader.TimeOffset=     0;
-% jnii.NIFTIHeader.A75GlobalLMax=  255;
+% jnii.NIFTIHeader.A75GlobalMax=  255;
 % jnii.NIFTIHeader.A75GlobalMin=   0;
 jnii.NIFTIHeader.Description=    '';
 jnii.NIFTIHeader.AuxFile=        '';
@@ -78,6 +78,20 @@ jnii.NIFTIHeader.NIIFormat=      'JNIfTI';
 if(nargin==0)
     return;
 end
+
+img=[];
+pid=1;
+if(~ischar(varargin{1}))
+    img=varargin{1};
+    pid=2;
+end
+
+if(~isempty(varargin))
+     for i=pid:2:length(varargin)
+         jnii.NIFTIHeader.(varargin{i})=varargin{i+1};
+     end
+end
+
 if(~isnumeric(img) && ~islogical(img))
     error('img input must be a numerical or logical array');
 end
@@ -87,11 +101,7 @@ jnii.NIFTIHeader.DataTypeName=class(img);
 jnii.NIFTIHeader.DataType=class(img);
 info=whos('img');
 jnii.NIFTIHeader.BitDepth=info.bytes/numel(img)*8;
+jnii.NIFTIHeader.MinIntensity=min(img(:));
+jnii.NIFTIHeader.MaxIntensity=max(img(:));
 
 jnii.NIFTIData=img;
-
-if(~isempty(varargin))
-     for i=1:2:length(varargin)
-         jnii.NIFTIHeader.(varargin{i})=varargin{i+1};
-     end
-end
