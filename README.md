@@ -1,12 +1,12 @@
-# JNifTi Format Specification Development Guide
+# JNIfTI Format Specification Development Guide
 
 We use this repository to gather feedback from the community regarding the 
-["JNifTi Format Specification"](JNifTi_specification.md), or JNifTi format. Such 
+["JNIfTI Format Specification"](JNIfTI_specification.md), or JNIfTI format. Such 
 feedback is crucial to finalize this file specification and help to improve
 it in the future once disseminated. 
 
-The latest version of the JNifTi specification can be found in the file named 
-[JNifTi_specification.md](JNifTi_specification.md). The specification is written
+The latest version of the JNIfTI specification can be found in the file named 
+[JNIfTI_specification.md](JNIfTI_specification.md). The specification is written
 in the [Markdown format](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) 
 for convenient editing and version control.
 
@@ -46,9 +46,9 @@ please follow the below steps
 
 - Fork this repository and make updates, then create a pull-request
   - Please first register an account on github, then, browse the 
-    [JNifTi repository](https://github.com/fangq/jnifti);
+    [JNIfTI repository](https://github.com/fangq/jnifti);
     on the top-right of this page, find and click the "Fork" button.
-  - once you fork the JNifTi project to your own repository, you may edit the
+  - once you fork the JNIfTI project to your own repository, you may edit the
     files in your browser directly, or download to your local folder, and 
     edit the files using a text editor;
   - once your revision is complete, please "commit" and "push" it to your forked

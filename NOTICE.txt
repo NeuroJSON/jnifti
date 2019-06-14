@@ -1,4 +1,4 @@
-JNifTi Specification
+JNIfTI Specification
 
 Copyright (C) 2019 Qianqian Fang <q.fang at neu.edu>
 
