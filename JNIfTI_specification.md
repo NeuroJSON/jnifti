@@ -267,7 +267,7 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` float`|`double`|` srow_z[4] ;    `  **3rd row affine transform** |`        [<f>,<f>,<f>,<f>] 	   `|
 |       `| 	      |`						    |`    ],				   `|
 |` char `|` char `|`intent_name[16];`  **'name' or meaning of data**|`    "Name" : "s", 		   `|
-|` char `|`char*8`|`magic[4] ;     `  **MUST be "ni1\0" or "n+1\0"**|`    "NIIFormat": "s",		   `|
+|`char*4`|`char*8`|`magic[] ;      `  **MUST be "ni1\0" or "n+1\0"**|`    "NIIFormat": "s",		   `|
 |`} ;   `| 	      |`	      `  **348 bytes total**	            |                                       |
 |        |        |`struct nifti_extender { char extension[4] ; } ;`|`    "NIIExtender": [<i>,<i>,<i>,<i>],`|
 |        | 	      |     				            |`    <...>			           `|
