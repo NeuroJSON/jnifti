@@ -210,68 +210,68 @@ header information.
 In the below table, we define a 1-to-1 mapping from NIFTI-1/2 headers to the
 corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 
-***Table 1. A mapping table for NIFTI-1 header and JNIfTI NIFTIHeader structure***
+***Table 1. A mapping table for NIFTI-1/2 headers and JNIfTI NIFTIHeader structure***
 
-|              NIFTI-1 Header                           |   JNIfTI NIFTIHeader container        |
-|-------------------------------------------------------|---------------------------------------|
-|`struct nifti_1_header { ` **NIFTI-1 usage**           |`"NIFTIHeader": {                     `|
-|                    **- was header_key substruct ---** |                                       |
-|` int   sizeof_hdr;    `  **MUST be 348**              |`    "NIIHeaderSize": <i>,            `|
-|` char  data_type[10]; `  **++UNUSED++**               |`    "DataTypeName":   "s",           `|
-|` char  db_name[18];   `  **++UNUSED++**               |`    "A75DBName": "s",                `|
-|` int   extents;       `  **++UNUSED++**               |`    "A75Extends": <i>,               `|
-|` short session_error; `  **++UNUSED++**               |`    "A75SessionError": <i>,          `|
-|` char  regular;       `  **++UNUSED++**               |`    "A75Regular": <i>,               `|
-|` char  dim_info;      `  **MRI slice ordering**       |`    "DimInfo" : {                    `|
-|                                                       |`          "Freq": <i>,               `|
-|                                                       |`          "Phase": <i>,              `|
-|                                                       |`          "Slice": <i>               `|
-|               **- was image_dimension substruct ---** |`     },                              `|
-|` short dim[8];        `  **Data array dimensions**    |`    "Dim": [dim[1],dim[2],dim[3],...],`|
-|` float intent_p1 ;    `  **1st intent parameter**     |`    "Param1": <f>,                   `|
-|` float intent_p2 ;    `  **2nd intent parameter**     |`    "Param2": <f>,                   `|
-|` float intent_p3 ;    `  **3rd intent parameter**     |`    "Param3": <f>,                   `|
-|` short intent_code ;  `  **NIFTI_INTENT_* code**      |`    "IntentCode": <i>,               `|
-|` short datatype;      `  **Defines data type**        |`    "DataType": <i>\|"s",            `|
-|` short bitpix;        `  **Number bits/voxel**        |`    "BitDepth": <i>,                 `|
-|` short slice_start;   `  **First slice index**        |`    "FirstSliceID": <i>,             `|
-|` float pixdim[8];     `  **Grid spacings**            |`    "VoxelSize": [<f>,<f>,<f>,...],  `|
-|` float vox_offset;    `  **Offset into .nii file**    |`    "NIIByteOffset": <f>,            `|
-|` float scl_slope ;    `  **Data scaling: slope**      |`    "ScaleSlope": <f>,               `|
-|` float scl_inter ;    `  **Data scaling: offset**     |`    "ScaleOffset": <f>,              `|
-|` short slice_end;     `  **Last slice index**         |`    "LastSliceID": <i>,              `|
-|` char  slice_code ;   `  **Slice timing order**       |`    "SliceCode": <i>,                `|
-|` char  xyzt_units ;   `  **Units of pixdim[1..4]**    |`    "Unit":{"L":<i>\|"s","T":<i>\|"s"},`|
-|` float cal_max;       `  **Max display intensity**    |`    "MaxIntensity": <f>,             `|
-|` float cal_min;       `  **Min display intensity**    |`    "MinIntensity": <f>,             `|
-|` float slice_duration;`  **Time for 1 slice**         |`    "SliceTime": <f>,                `|
-|` float toffset;       `  **Time axis shift**          |`    "TimeOffset": <f>,               `|
-|` int   glmax;         `  **++UNUSED++**               |`    "A75GlobalLMax": <i>,            `|
-|` int   glmin;         `  **++UNUSED++**               |`    "A75GlobalMin": <i>,             `|
-|                  **- was data_history substruct ---** |                                       |
-|` char  descrip[80];   `  **any text you like**        |`    "Description": "s",              `|
-|` char  aux_file[24];  `  **auxiliary filename**       |`    "AuxFile": "s",                  `|
-|                                                       |                                       |
-|` short qform_code ;   `  **NIFTI_XFORM_\* code**       |`    "QForm": <i>,                    `|
-|` short sform_code ;   `  **NIFTI_XFORM_\* code**       |`    "SForm": <i>,                    `|
-|                                                       |                                       |
-|` float quatern_b ;    `  **Quaternion b param**       |`    "QuaternB": <f>,                 `|
-|` float quatern_c ;    `  **Quaternion c param**       |`    "QuaternC": <f>,                 `|
-|` float quatern_d ;    `  **Quaternion d param**       |`    "QuaternD": <f>,                 `|
-|` float qoffset_x ;    `  **Quaternion x shift**       |`    "QuaternXOffset": <f>,           `|
-|` float qoffset_y ;    `  **Quaternion y shift**       |`    "QuaternYOffset": <f>,           `|
-|` float qoffset_z ;    `  **Quaternion z shift**       |`    "QuaternZOffset": <f>,           `|
-|                                                       |                                       |
-|` float srow_x[4] ;    `  **1st row affine transform** |`    "Affine": [ [<f>,<f>,<f>,<f>],   `|
-|` float srow_y[4] ;    `  **2nd row affine transform** |`        [<f>,<f>,<f>,<f>],           `|
-|` float srow_z[4] ;    `  **3rd row affine transform** |`        [<f>,<f>,<f>,<f>]            `|
-|                                                       |`    ],                               `|
-|` char intent_name[16];`  **'name' or meaning of data**|`    "Name" : "s",                    `|
-|` char magic[4] ;     `  **MUST be "ni1\0" or "n+1\0"**|`    "NIIFormat": "s",                `|
-|`} ;                   `  **348 bytes total**          |`                                     `|
-|`struct nifti1_extender { char extension[4] ; } ;     `|`    "NIIExtender": [<i>,<i>,<i>,<i>],`|
-|                                                       |`    <...>                            `|
-|                                                       |`}                                    `|
+| NIFTI-1| NIFTI-2| 	   NIFTI-1/2 Headers			    |	JNIfTI NIFTIHeader container	    |
+|--------|--------|-------------------------------------------------|---------------------------------------|
+|`      `|`	 `|`  struct nifti_1_header { ` **NIFTI-1 usage**   |`"NIFTIHeader": {  		   `|
+|        | 	  | 		 **- was header_key substruct ---** |					    |
+|` int  `|` int  `|` sizeof_hdr;    `  **MUST be 348**  	    |`    "NIIHeaderSize": <i>, 	   `|
+|` char `|   -    |` data_type[10]; `  **++UNUSED++**		    |`    "DataTypeName":   "s",	   `|
+|` char `|   -    |` db_name[18];   `  **++UNUSED++**		    |`    "A75DBName": "s",		   `|
+|` int  `|   -    |` extents;	    `  **++UNUSED++**		    |`    "A75Extends": <i>,		   `|
+|` short`|   -    |` session_error; `  **++UNUSED++**		    |`    "A75SessionError": <i>,	   `|
+|` char `|   -    |` regular;	    `  **++UNUSED++**		    |`    "A75Regular": <i>,		   `|
+|` char `|` char `|` dim_info;      `  **MRI slice ordering**	    |`    "DimInfo" : { 		   `|
+|       `|`	 `|`						    |`  	"Freq": <i>,		   `|
+|       `|`	 `|`						    |`  	"Phase": <i>,		   `|
+|       `|`	 `|`						    |`  	"Slice": <i>		   `|
+|       `|`	 `|`	    **- was image_dimension substruct ---** |`     },				   `|
+|` short`|` int64`|` dim[8];	    `  **Data array dimensions**    |`    "Dim": [dim[1],dim[2],dim[3],...],`|
+|` float`|`double`|` intent_p1 ;    `  **1st intent parameter**     |`    "Param1": <f>,		   `|
+|` float`|`double`|` intent_p2 ;    `  **2nd intent parameter**     |`    "Param2": <f>,		   `|
+|` float`|`double`|` intent_p3 ;    `  **3rd intent parameter**     |`    "Param3": <f>,		   `|
+|` short`|` int  `|` intent_code ;  `  **NIFTI_INTENT_* code**      |`    "IntentCode": <i>,		   `|
+|` short`|` short`|` datatype;      `  **Defines data type**	    |`    "DataType": <i>\|"s", 	   `|
+|` short`|` short`|` bitpix;	    `  **Number bits/voxel**	    |`    "BitDepth": <i>,		   `|
+|` short`|` int  `|` slice_start;   `  **First slice index**	    |`    "FirstSliceID": <i>,  	   `|
+|` float`|`double`|` pixdim[8];     `  **Grid spacings**	    |`    "VoxelSize": [<f>,<f>,<f>,...],  `|
+|` float`|`double`|` vox_offset;    `  **Offset into .nii file**    |`    "NIIByteOffset": <f>, 	   `|
+|` float`|`double`|` scl_slope ;    `  **Data scaling: slope**      |`    "ScaleSlope": <f>,		   `|
+|` float`|`double`|` scl_inter ;    `  **Data scaling: offset**     |`    "ScaleOffset": <f>,		   `|
+|` short`|` int  `|` slice_end;     `  **Last slice index**	    |`    "LastSliceID": <i>,		   `|
+|` char `|` int  `|` slice_code ;   `  **Slice timing order**	    |`    "SliceCode": <i>,		   `|
+|` char `|` int  `|` xyzt_units ;   `  **Units of pixdim[1..4]**    |`    "Unit":{"L":<i>\|"s","T":<i>\|"s"},`|
+|` float`|` float`|` cal_max;	    `  **Max display intensity**    |`    "MaxIntensity": <f>,  	   `|
+|` float`|` float`|` cal_min;	    `  **Min display intensity**    |`    "MinIntensity": <f>,  	   `|
+|` float`|` float`|` slice_duration;`  **Time for 1 slice**	    |`    "SliceTime": <f>,		   `|
+|` float`|` float`|` toffset;	    `  **Time axis shift**	    |`    "TimeOffset": <f>,		   `|
+|` int  `|   -    |` glmax;	    `  **++UNUSED++**		    |`    "A75GlobalLMax": <i>, 	   `|
+|` int  `|   -    |` glmin;	    `  **++UNUSED++**		    |`    "A75GlobalMin": <i>,  	   `|
+|        | 	  | 	       **- was data_history substruct ---** |					    |
+|` char `|` char `|` descrip[80];   `  **any text you like**	    |`    "Description": "s",		   `|
+|` char `|` char `|` aux_file[24];  `  **auxiliary filename**	    |`    "AuxFile": "s",		   `|
+|        | 	  | 						    |					    |
+|` short`|` int  `|` qform_code ;   `  **NIFTI_XFORM_\* code**      |`    "QForm": <i>, 		   `|
+|` short`|` int  `|` sform_code ;   `  **NIFTI_XFORM_\* code**      |`    "SForm": <i>, 		   `|
+|        | 	  | 						    |					    |
+|` float`|`double`|` quatern_b ;    `  **Quaternion b param**	    |`    "QuaternB": <f>,		   `|
+|` float`|`double`|` quatern_c ;    `  **Quaternion c param**	    |`    "QuaternC": <f>,		   `|
+|` float`|`double`|` quatern_d ;    `  **Quaternion d param**	    |`    "QuaternD": <f>,		   `|
+|` float`|`double`|` qoffset_x ;    `  **Quaternion x shift**	    |`    "QuaternXOffset": <f>,	   `|
+|` float`|`double`|` qoffset_y ;    `  **Quaternion y shift**	    |`    "QuaternYOffset": <f>,	   `|
+|` float`|`double`|` qoffset_z ;    `  **Quaternion z shift**	    |`    "QuaternZOffset": <f>,	   `|
+|        | 	  | 						    |					    |
+|` float`|`double`|` srow_x[4] ;    `  **1st row affine transform** |`    "Affine": [ [<f>,<f>,<f>,<f>],   `|
+|` float`|`double`|` srow_y[4] ;    `  **2nd row affine transform** |`        [<f>,<f>,<f>,<f>],	   `|
+|` float`|`double`|` srow_z[4] ;    `  **3rd row affine transform** |`        [<f>,<f>,<f>,<f>] 	   `|
+|       `| 	  |`						    |`    ],				   `|
+|` char `|` char `|`intent_name[16];`  **'name' or meaning of data**|`    "Name" : "s", 		   `|
+|` char `|`char*8`|`magic[4] ;     `  **MUST be "ni1\0" or "n+1\0"**|`    "NIIFormat": "s",		   `|
+|`} ;   `| 	  |`	      `  **348 bytes total**	            |                                       |
+|        |        |`struct nifti_extender { char extension[4] ; } ;`|`    "NIIExtender": [<i>,<i>,<i>,<i>],`|
+|        | 	  |     				            |`    <...>			           `|
+|        | 	  | 	   				            |`}				           `|
 
 In the above table, the notations are explained below
 
