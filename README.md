@@ -2,13 +2,17 @@
 
 We use this repository to gather feedback from the community regarding the 
 ["JNIfTI Format Specification"](JNIfTI_specification.md), or JNIfTI format. Such 
-feedback is crucial to finalize this file specification and help to improve
+feedback is crucial to finalize this file specification and help improve
 it in the future once disseminated. 
 
 The latest version of the JNIfTI specification can be found in the file named 
 [JNIfTI_specification.md](JNIfTI_specification.md). The specification is written
 in the [Markdown format](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) 
 for convenient editing and version control.
+
+The JNIfTI format is built upon the [JData specification](https://github.com/fangq/jdata/) - 
+a generalized framework to serialize and convert complex scientific data. 
+The JNIfTI specification is competible with [JData specification Draft 1](https://github.com/fangq/jdata/commit/f8fc8f1b814e7a4654b7b0092de15eaafa94d3da).
 
 ## How to participate
 
