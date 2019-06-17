@@ -245,7 +245,7 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` float`|` float`|` cal_min;	    `|  **Min display intensity**    |`    "MinIntensity": <f>, 	    `|
 |` float`|` float`|` slice_duration;`|  **Time for 1 slice**	     |`    "SliceTime": <f>,		    `|
 |` float`|` float`|` toffset;	    `|  **Time axis shift**	     |`    "TimeOffset": <f>,		    `|
-|` int  `|   -    |` glmax;	    `|  **++UNUSED++**  	     |`    "A75GlobalLMax": <i>,	    `|
+|` int  `|   -    |` glmax;	    `|  **++UNUSED++**  	     |`    "A75GlobalMax": <i>,	     `|
 |` int  `|   -    |` glmin;	    `|  **++UNUSED++**  	     |`    "A75GlobalMin": <i>, 	    `|
 |` char `|` char `|` descrip[80];   `|  **any text you like**	     |`    "Description": "s",  	    `|
 |` char `|` char `|` aux_file[24];  `|  **auxiliary filename**       |`    "AuxFile": "s",		    `|
