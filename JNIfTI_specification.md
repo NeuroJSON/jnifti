@@ -222,11 +222,11 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` short`|   -    |` session_error; `|  **++UNUSED++**  	     |`    "A75SessionError": <i>,	    `|
 |` char `|   -    |` regular;	    `|  **++UNUSED++**  	     |`    "A75Regular": <i>,		    `|
 |` char `|` char `|` dim_info;      `|  **MRI slice ordering**       |`    "DimInfo" : {		    `|
-|        | 	  | 		     |	 			     |`       "Freq": <i>,                  `|
-|        |     	  | 		     |	 			     |`       "Phase": <i>,                 `|
-|        | 	  | 		     |	 			     |`       "Slice": <i>                  `|
+|        | 	  | 		     |	 			     |`        "Freq": <i>,                 `|
+|        |     	  | 		     |	 			     |`        "Phase": <i>,                `|
+|        | 	  | 		     |	 			     |`        "Slice": <i>                 `|
 |        | 	  | 		     |	 			     |`     },  			    `|
-|` short`|` int64`|` dim[8];	    `|  **Data array dimensions**    |`    "Dim": [dim[1],dim[2],dim[3],...],`|
+|` short`|` int64`|` dim[8];	    `|  **Data array dimensions**    |`    "Dim": [dim[1],dim[2],...],      `|
 |` float`|`double`|` intent_p1 ;    `|  **1st intent parameter**     |`    "Param1": <f>,		    `|
 |` float`|`double`|` intent_p2 ;    `|  **2nd intent parameter**     |`    "Param2": <f>,		    `|
 |` float`|`double`|` intent_p3 ;    `|  **3rd intent parameter**     |`    "Param3": <f>,		    `|
