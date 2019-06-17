@@ -212,7 +212,7 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 
 ***Table 1. A mapping table for NIFTI-1/2 headers and JNIfTI NIFTIHeader structure***
 
-| NIFTI-1| NIFTI-2| NIFTI-1/2 Headers|          Meanings             |   JNIfTI NIFTIHeader container	     |
+| NIFTI-1| NIFTI-2|     Headers      |          Meanings             |   JNIfTI NIFTIHeader container	     |
 |--------|--------|------------------|-------------------------------|---------------------------------------|
 |`struct`|`struct`|` nifti_1_header{`|                               |`"NIFTIHeader": { 		    `|
 |` int  `|` int  `|` sizeof_hdr;    `|  **NIFTI-1/2: 348/540** 	     |`    "NIIHeaderSize": <i>,	    `|
@@ -222,9 +222,9 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` short`|   -    |` session_error; `|  **++UNUSED++**  	     |`    "A75SessionError": <i>,	    `|
 |` char `|   -    |` regular;	    `|  **++UNUSED++**  	     |`    "A75Regular": <i>,		    `|
 |` char `|` char `|` dim_info;      `|  **MRI slice ordering**       |`    "DimInfo" : {		    `|
-|        | 	  | 		     |	 			     |` 	 "Freq": <i>,		    `|
-|        |     	  | 		     |	 			     |` 	 "Phase": <i>,  	    `|
-|        | 	  | 		     |	 			     |` 	 "Slice": <i>		    `|
+|        | 	  | 		     |	 			     |`       "Freq": <i>,                  `|
+|        |     	  | 		     |	 			     |`       "Phase": <i>,                 `|
+|        | 	  | 		     |	 			     |`       "Slice": <i>                  `|
 |        | 	  | 		     |	 			     |`     },  			    `|
 |` short`|` int64`|` dim[8];	    `|  **Data array dimensions**    |`    "Dim": [dim[1],dim[2],dim[3],...],`|
 |` float`|`double`|` intent_p1 ;    `|  **1st intent parameter**     |`    "Param1": <f>,		    `|
@@ -245,10 +245,10 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` float`|` float`|` cal_min;	    `|  **Min display intensity**    |`    "MinIntensity": <f>, 	    `|
 |` float`|` float`|` slice_duration;`|  **Time for 1 slice**	     |`    "SliceTime": <f>,		    `|
 |` float`|` float`|` toffset;	    `|  **Time axis shift**	     |`    "TimeOffset": <f>,		    `|
-|` int  `|   -    |` glmax;	    `|  **++UNUSED++**  	     |`    "A75GlobalMax": <i>,	     `|
+|` int  `|   -    |` glmax;	    `|  **++UNUSED++**  	     |`    "A75GlobalMax": <i>,             `|
 |` int  `|   -    |` glmin;	    `|  **++UNUSED++**  	     |`    "A75GlobalMin": <i>, 	    `|
-|` char `|` char `|` descrip[80];   `|  **any text you like**	     |`    "Description": "s",  	    `|
-|` char `|` char `|` aux_file[24];  `|  **auxiliary filename**       |`    "AuxFile": "s",		    `|
+|` char `|` char `|` descrip[80];   `|  **Data description**	     |`    "Description": "s",  	    `|
+|` char `|` char `|` aux_file[24];  `|  **Auxiliary filename**       |`    "AuxFile": "s",		    `|
 |` short`|` int  `|` qform_code ;   `|  **NIFTI_XFORM_\* code**      |`    "QForm": <i>,		    `|
 |` short`|` int  `|` sform_code ;   `|  **NIFTI_XFORM_\* code**      |`    "SForm": <i>,		    `|
 |` float`|`double`|` quatern_b ;    `|  **Quaternion b param**       |`    "QuaternB": <f>,		    `|
@@ -260,7 +260,7 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` float`|`double`|` srow_x[4] ;    `|  **1st row affine transform** |`    "Affine": [ [<f>,<f>,<f>,<f>],   `|
 |` float`|`double`|` srow_y[4] ;    `|  **2nd row affine transform** |`        [<f>,<f>,<f>,<f>],	    `|
 |` float`|`double`|` srow_z[4] ;    `|  **3rd row affine transform** |`        [<f>,<f>,<f>,<f>]	    `|
-|       `| 	  |`		     |	 			     |`    ],				    `|
+|        | 	  | 		     |	 			     |`    ],				    `|
 |` char `|` char `|`intent_name[16];`|  **'name' or meaning of data**|`    "Name" : "s",		    `|
 |`char*4`|`char*8`|` magic[] ;      `| **NIFTI-1:"ni1\0" or "n+1\0"**|`    "NIIFormat": "s",		    `|
 |        | 	  |`};`		     |	 			     |     			             |
