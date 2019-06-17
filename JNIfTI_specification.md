@@ -214,8 +214,8 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 
 | NIFTI-1| NIFTI-2| NIFTI-1/2 Headers|          Meanings             |   JNIfTI NIFTIHeader container	     |
 |--------|--------|------------------|-------------------------------|---------------------------------------|
-|`struct`|`struct`|` nifti_1_header{`|  **NIFTI-1 usage**            |`"NIFTIHeader": { 		    `|
-|` int  `|` int  `|` sizeof_hdr;    `|  **MUST be 348** 	     |`    "NIIHeaderSize": <i>,	    `|
+|`struct`|`struct`|` nifti_1_header{`|                               |`"NIFTIHeader": { 		    `|
+|` int  `|` int  `|` sizeof_hdr;    `|  **NIFTI-1/2: 348/540** 	     |`    "NIIHeaderSize": <i>,	    `|
 |` char `|   -    |` data_type[10]; `|  **++UNUSED++**  	     |`    "DataTypeName":   "s",	    `|
 |` char `|   -    |` db_name[18];   `|  **++UNUSED++**  	     |`    "A75DBName": "s",		    `|
 |` int  `|   -    |` extents;	    `|  **++UNUSED++**  	     |`    "A75Extends": <i>,		    `|
@@ -230,7 +230,7 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` float`|`double`|` intent_p1 ;    `|  **1st intent parameter**     |`    "Param1": <f>,		    `|
 |` float`|`double`|` intent_p2 ;    `|  **2nd intent parameter**     |`    "Param2": <f>,		    `|
 |` float`|`double`|` intent_p3 ;    `|  **3rd intent parameter**     |`    "Param3": <f>,		    `|
-|` short`|` int  `|` intent_code ;  `|  **NIFTI_INTENT_* code**      |`    "IntentCode": <i>,		    `|
+|` short`|` int  `|` intent_code ;  `|  **NIFTI_INTENT_\* code**     |`    "IntentCode": <i>,		    `|
 |` short`|` short`|` datatype;      `|  **Defines data type**	     |`    "DataType": <i>\|"s",	    `|
 |` short`|` short`|` bitpix;	    `|  **Number bits/voxel**	     |`    "BitDepth": <i>,		    `|
 |` short`|` int  `|` slice_start;   `|  **First slice index**	     |`    "FirstSliceID": <i>, 	    `|
@@ -262,8 +262,8 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` float`|`double`|` srow_z[4] ;    `|  **3rd row affine transform** |`        [<f>,<f>,<f>,<f>]	    `|
 |       `| 	  |`		     |	 			     |`    ],				    `|
 |` char `|` char `|`intent_name[16];`|  **'name' or meaning of data**|`    "Name" : "s",		    `|
-|`char*4`|`char*8`|` magic[] ;      `| **MUST be "ni1\0" or "n+1\0"**|`    "NIIFormat": "s",		    `|
-|       `| 	  |`};		     |	 			     |`    			            `|
+|`char*4`|`char*8`|` magic[] ;      `| **NIFTI-1:"ni1\0" or "n+1\0"**|`    "NIIFormat": "s",		    `|
+|        | 	  |`};`		     |	 			     |     			             |
 |`struct`|`struct`|`nifti_extender  `|`{char extension[4];};`        |`    "NIIExtender": [<i>,<i>,<i>,<i>],`|
 |        | 	  |     	     |			             |`    <...>			    `|
 |        | 	  | 	   	     |			             |`}				    `|
