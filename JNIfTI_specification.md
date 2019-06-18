@@ -216,7 +216,7 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |--------|--------|------------------|-------------------------------|---------------------------------------|
 |`struct`|`struct`|` nifti_1_header{`|                               |`"NIFTIHeader": { 		    `|
 |` int  `|` int  `|` sizeof_hdr;    `|  **NIFTI-1/2: 348/540** 	     |`    "NIIHeaderSize": <i>,	    `|
-|` char `|   -    |` data_type[10]; `|  **++UNUSED++**  	     |`    "DataTypeName":   "s",	    `|
+|` char `|   -    |` data_type[10]; `|  **++UNUSED++**  	     |`    "A75DataTypeName":   "s",  `|
 |` char `|   -    |` db_name[18];   `|  **++UNUSED++**  	     |`    "A75DBName": "s",		    `|
 |` int  `|   -    |` extents;	    `|  **++UNUSED++**  	     |`    "A75Extends": <i>,		    `|
 |` short`|   -    |` session_error; `|  **++UNUSED++**  	     |`    "A75SessionError": <i>,	    `|
@@ -412,6 +412,7 @@ and is designed for compatibility purposes only. The use of this field is deprec
 All Analyze 7.5 header fields that have been depreciated in NIFTI-1/2 formats remains
 depreciated in JNIfTI files. These subfields include 
 
+* `data_type` -> `A75DataTypeName`
 * `db_name` -> `A75DBName`
 * `extents` -> `A75Extends`
 * `session_error` -> `A75SessionError`
