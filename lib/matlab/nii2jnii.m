@@ -148,13 +148,13 @@ if(nii.hdr.sizeof_hdr==540) % NIFTI-2 format
      'int32'   [1 1]  'intent_code'   ; %!< NIFTI_INTENT_* code.  %  % short unused14;       %  ...
      'int8'    [1 16] 'intent_name'   ; %!< 'name' or meaning of data.  %			...
      'int8'    [1 1]  'dim_info'      ; %!< MRI slice ordering.   %  % char hkey_un0;	     %  ...
-     'int8'    [1 15] 'reserved'	    %!< unused extension	  %				...
+     'int8'    [1 15] 'reserved'	    %!< unused buffer	  %				...
      'int8'    [1 4]  'extension'	    %!< header extension	  %				...
    });
 
    nii.hdr=header.Data(1);
 end
-     
+
 type2byte=[
         0  0  % unknown                      %
         1  0  % binary (1 bit/voxel)         %
@@ -229,7 +229,7 @@ nii0=nii;
 nii=struct();
 nii.NIFTIHeader.NIIHeaderSize=  nii0.hdr.sizeof_hdr;
 if(isfield(nii0.hdr,'data_type'))
-    nii.NIFTIHeader.DataTypeName=   deblank(char(nii0.hdr.data_type));
+    nii.NIFTIHeader.A75DataTypeName=deblank(char(nii0.hdr.data_type));
     nii.NIFTIHeader.A75DBName=      deblank(char(nii0.hdr.db_name));
     nii.NIFTIHeader.A75Extends=     nii0.hdr.extents;
     nii.NIFTIHeader.A75SessionError=nii0.hdr.session_error;

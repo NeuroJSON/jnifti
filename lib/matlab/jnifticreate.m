@@ -29,7 +29,7 @@ function jnii=jnifticreate(varargin)
 jnii=struct('NIFTIHeader',struct(), 'NIFTIData', []);
 
 jnii.NIFTIHeader.NIIHeaderSize=  0;
-jnii.NIFTIHeader.DataTypeName=   'uint8';
+% jnii.NIFTIHeader.A75DataTypeName=   'uint8';
 % jnii.NIFTIHeader.A75DBName=      '';
 % jnii.NIFTIHeader.A75Extends=     0;
 % jnii.NIFTIHeader.A75SessionError='';
@@ -97,7 +97,6 @@ if(~isnumeric(img) && ~islogical(img))
 end
 
 jnii.NIFTIHeader.Dim=size(img);
-jnii.NIFTIHeader.DataTypeName=class(img);
 jnii.NIFTIHeader.DataType=class(img);
 info=whos('img');
 jnii.NIFTIHeader.BitDepth=info.bytes/numel(img)*8;
