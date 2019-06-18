@@ -228,11 +228,13 @@ end
 nii0=nii;
 nii=struct();
 nii.NIFTIHeader.NIIHeaderSize=  nii0.hdr.sizeof_hdr;
-nii.NIFTIHeader.DataTypeName=   deblank(char(nii0.hdr.data_type));
-nii.NIFTIHeader.A75DBName=      deblank(char(nii0.hdr.db_name));
-nii.NIFTIHeader.A75Extends=     nii0.hdr.extents;
-nii.NIFTIHeader.A75SessionError=nii0.hdr.session_error;
-nii.NIFTIHeader.A75Regular=     nii0.hdr.regular;
+if(isfield(nii0.hdr,'data_type'))
+    nii.NIFTIHeader.DataTypeName=   deblank(char(nii0.hdr.data_type));
+    nii.NIFTIHeader.A75DBName=      deblank(char(nii0.hdr.db_name));
+    nii.NIFTIHeader.A75Extends=     nii0.hdr.extents;
+    nii.NIFTIHeader.A75SessionError=nii0.hdr.session_error;
+    nii.NIFTIHeader.A75Regular=     nii0.hdr.regular;
+end
 nii.NIFTIHeader.DimInfo.Freq=   bitand(nii0.hdr.dim_info,7);
 nii.NIFTIHeader.DimInfo.Phase=  bitand(bitshift(nii0.hdr.dim_info,-3),7);
 nii.NIFTIHeader.DimInfo.Slice=  bitand(bitshift(nii0.hdr.dim_info,-6),7);
@@ -256,8 +258,10 @@ nii.NIFTIHeader.MaxIntensity=   nii0.hdr.cal_max;
 nii.NIFTIHeader.MinIntensity=   nii0.hdr.cal_min;
 nii.NIFTIHeader.SliceTime=      nii0.hdr.slice_duration;
 nii.NIFTIHeader.TimeOffset=     nii0.hdr.toffset;
-nii.NIFTIHeader.A75GlobalMax=   nii0.hdr.glmax;
-nii.NIFTIHeader.A75GlobalMin=   nii0.hdr.glmin;
+if(isfield(nii0.hdr,'glmax'))
+    nii.NIFTIHeader.A75GlobalMax=   nii0.hdr.glmax;
+    nii.NIFTIHeader.A75GlobalMin=   nii0.hdr.glmin;
+end
 nii.NIFTIHeader.Description=    deblank(char(nii0.hdr.descrip));
 nii.NIFTIHeader.AuxFile=        deblank(char(nii0.hdr.aux_file));
 nii.NIFTIHeader.QForm=          nii0.hdr.qform_code;
