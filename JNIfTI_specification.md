@@ -120,6 +120,8 @@ The purpose of this document is to
 - define dedicated data containers to losslessly convert and storage all NIFTI 
   formatted neuroimaging data array, and show examples to use JData-enabled 
   features for reducing file sizes, enhancing readability and organization
+- define a set of human-readable and standardized string values to directly 
+  represent the meanings of data as alterative to NIFTI-1/2 numerical coded values
 - demonstrate a set of flexible mechanisms to extend the capability of the 
   format to accommodate additional physiological, anatomical and multi-modal data
 
@@ -230,16 +232,20 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` float`|`double`|` intent_p1 ;    `|  **1st intent parameter**     |`    "Param1": <f>,		    `|
 |` float`|`double`|` intent_p2 ;    `|  **2nd intent parameter**     |`    "Param2": <f>,		    `|
 |` float`|`double`|` intent_p3 ;    `|  **3rd intent parameter**     |`    "Param3": <f>,		    `|
-|` short`|` int  `|` intent_code ;  `|  **NIFTI_INTENT_\* code**     |`    "IntentCode": <i>,		    `|
+|` short`|` int  `|` intent_code ;  `|  **NIFTI_INTENT_\* code**     |`    "Intent": <i>\|"s",		    `|
 |` short`|` short`|` datatype;      `|  **Defines data type**	     |`    "DataType": <i>\|"s",	    `|
 |` short`|` short`|` bitpix;	    `|  **Number bits/voxel**	     |`    "BitDepth": <i>,		    `|
 |` short`|` int  `|` slice_start;   `|  **First slice index**	     |`    "FirstSliceID": <i>, 	    `|
-|` float`|`double`|` pixdim[8];     `|  **Grid spacings**	     |`    "VoxelSize": [<f>,<f>,<f>,...],  `|
+|` float`|`double`|` pixdim[8];     `|  **Grid spacings**	     |`    "VoxelSize":[pixdim[1],pixdim[2],...],`|
+|        | 	  | 		     |  **+x direction meaning**     |`    "Orientation": { "x": "s", 	    `|
+|        | 	  | 		     |  **+y direction meaning**     |`        "y": "s",		    `|
+|        | 	  | 		     |  **+z direction meaning**     |`        "z": "s" 		    `|
+|        | 	  | 		     |*RAS or LAS base on pixdim[0]* |`     },  			    `|
 |` float`|`double`|` vox_offset;    `|  **Offset into .nii file**    |`    "NIIByteOffset": <f>,	    `|
 |` float`|`double`|` scl_slope ;    `|  **Data scaling: slope**      |`    "ScaleSlope": <f>,		    `|
 |` float`|`double`|` scl_inter ;    `|  **Data scaling: offset**     |`    "ScaleOffset": <f>,  	    `|
 |` short`|` int  `|` slice_end;     `|  **Last slice index**	     |`    "LastSliceID": <i>,  	    `|
-|` char `|` int  `|` slice_code ;   `|  **Slice timing order**       |`    "SliceCode": <i>,		    `|
+|` char `|` int  `|` slice_code ;   `|  **Slice timing order**       |`    "SliceType": <i>|"s",	    `|
 |` char `|` int  `|` xyzt_units ;   `|  **Units of pixdim[1..4]**    |`    "Unit":{"L":<i>\|"s","T":<i>\|"s"},`|
 |` float`|` float`|` cal_max;	    `|  **Max display intensity**    |`    "MaxIntensity": <f>, 	    `|
 |` float`|` float`|` cal_min;	    `|  **Min display intensity**    |`    "MinIntensity": <f>, 	    `|
@@ -251,12 +257,14 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` char `|` char `|` aux_file[24];  `|  **Auxiliary filename**       |`    "AuxFile": "s",		    `|
 |` short`|` int  `|` qform_code ;   `|  **NIFTI_XFORM_\* code**      |`    "QForm": <i>,		    `|
 |` short`|` int  `|` sform_code ;   `|  **NIFTI_XFORM_\* code**      |`    "SForm": <i>,		    `|
-|` float`|`double`|` quatern_b ;    `|  **Quaternion b param**       |`    "QuaternB": <f>,		    `|
-|` float`|`double`|` quatern_c ;    `|  **Quaternion c param**       |`    "QuaternC": <f>,		    `|
-|` float`|`double`|` quatern_d ;    `|  **Quaternion d param**       |`    "QuaternD": <f>,		    `|
-|` float`|`double`|` qoffset_x ;    `|  **Quaternion x shift**       |`    "QuaternXOffset": <f>,	    `|
-|` float`|`double`|` qoffset_y ;    `|  **Quaternion y shift**       |`    "QuaternYOffset": <f>,	    `|
-|` float`|`double`|` qoffset_z ;    `|  **Quaternion z shift**       |`    "QuaternZOffset": <f>,	    `|
+|` float`|`double`|` quatern_b ;    `|  **Quaternion b param**       |`    "Quatern": { "b"=<f>,	    `|
+|` float`|`double`|` quatern_c ;    `|  **Quaternion c param**       |`        "c": <f>,		    `|
+|` float`|`double`|` quatern_d ;    `|  **Quaternion d param**       |`        "d": <f> 		    `|
+|        | 	  | 		     |	 			     |`     },  			    `|
+|` float`|`double`|` qoffset_x ;    `|  **Quaternion x shift**       |`    "QuaternOffset":{ "x": <f>,	    `|
+|` float`|`double`|` qoffset_y ;    `|  **Quaternion y shift**       |`        "y": <f>,		    `|
+|` float`|`double`|` qoffset_z ;    `|  **Quaternion z shift**       |`        "z": <f> 		    `|
+|        | 	  | 		     |	 			     |`     },  			    `|
 |` float`|`double`|` srow_x[4] ;    `|  **1st row affine transform** |`    "Affine": [ [<f>,<f>,<f>,<f>],   `|
 |` float`|`double`|` srow_y[4] ;    `|  **2nd row affine transform** |`        [<f>,<f>,<f>,<f>],	    `|
 |` float`|`double`|` srow_z[4] ;    `|  **3rd row affine transform** |`        [<f>,<f>,<f>,<f>]	    `|
@@ -292,7 +300,7 @@ must present. The order of the `NIFTIHeader` subfields is not required.
 
 A reversed direction mapping, i.e. from JNIfTI to NIFTI-1/2, is not guaranteed to be lossless.
 
-#### DataType (NIFTI-1 header: datatype)
+#### DataType (NIFTI-1 header: `datatype`)
 
 To enhance the readability of the header, we allow one to use a string instead of an integer
 code to represent data type (i.e. the `DataType` subfield in `NIFTIHeader`). The below
@@ -301,40 +309,40 @@ table maps the NIFTI data type codes to the acceptable data type strings.
 ***Table 2. A mapping table from NIFTI-1 data types to string-valued JNIfTI data types and 
 storage types in UBJSON***
 
-|          NIFTI-1/2 Data Types               | JNIfTI DataType  |UBJSON Type|
-|---------------------------------------------|------------------|-----------|
-|**unsigned char**                            |                  |	          |
-|`#define NIFTI_TYPE_UINT8              2    `|`  "uint8"       `| `U`       |
-|**signed short**                             |                  |	          |
-|`#define NIFTI_TYPE_INT16              4    `|`  "int16"       `| `I`       |
-|**signed int**                               |                  |	          |
-|`#define NIFTI_TYPE_INT32              8    `|`  "int32"       `| `l`       |
-|**32 bit float**                             |                  |	          |
-|`#define NIFTI_TYPE_FLOAT32           16    `|`  "single"      `| `d`       |
-|**64 bit complex = 2 32 bit floats**         |                  |	          |
-|`#define NIFTI_TYPE_COMPLEX64         32    `|`  "complex64" `\*| `d` (x2)  |
-|**64 bit float = double**                    |                  |	          |
-|`#define NIFTI_TYPE_FLOAT64           64    `|`  "double"      `| `D`       |
-|**3x 8 bit bytes**                           |                  |	          |
-|`#define NIFTI_TYPE_RGB24            128    `|`  "rgb24"     `\*| `U` (x3)  |
-|**signed char**                              |                  |	          |
-|`#define NIFTI_TYPE_INT8             256    `|`  "int8"        `| `i`       |
-|**unsigned short**                           |                  |	          |
-|`#define NIFTI_TYPE_UINT16           512    `|`  "uint16"      `| `I`       |
-|**unsigned int**                             |                  |	          |
-|`#define NIFTI_TYPE_UINT32           768    `|`  "uint32"      `| `l`       |
-|**signed long long**                         |                  |	          |
-|`#define NIFTI_TYPE_INT64           1024    `|`  "int64"       `| `L`       |
-|**unsigned long long**                       |                  |	          |
-|`#define NIFTI_TYPE_UINT64          1280    `|`  "uint64"      `| `L`       |
-|**128 bit float = long double**              |                  |	          |
-|`#define NIFTI_TYPE_FLOAT128        1536    `|`  "double128" `\*| `U` (x16) |
-|**2x 64 bit floats = 128 bit complex**       |                  |	          |
-|`#define NIFTI_TYPE_COMPLEX128      1792    `|`  "complex128"`\*| `D` (x2)  |
-|**2x 128 bit floats = 256 bit complex**      |                  |	          |
-|`#define NIFTI_TYPE_COMPLEX256      2048    `|`  "complex256"`\*| `U` (x32) |
-|**4x 8 bit bytes**                           |                  |	          |
-|`#define NIFTI_TYPE_RGBA32          2304    `|`  "rgba32"    `\*| `U` (x4)  |
+|  NIFTI-1/2 Data Types   | NIFTI Code  | JNIfTI DataType  |UBJSON Type|
+|-------------------------|-------------|------------------|-----------|
+|**unsigned char**        |             |                  |	       |
+|`NIFTI_TYPE_UINT8`       |      `2    `|`  "uint8"       `| `U`       |
+|**signed short**         |             |                  |	       |
+|`NIFTI_TYPE_INT16`       |      `4    `|`  "int16"       `| `I`       |
+|**signed int**           |             |                  |	       |
+|`NIFTI_TYPE_INT32`       |      `8    `|`  "int32"       `| `l`       |
+|**32 bit float**         |             |                  |	       |
+|`NIFTI_TYPE_FLOAT32`     |     `16    `|`  "single"      `| `d`       |
+|**64 bit complex = 2` `32 bit floats** |     |            |	       |
+|`NIFTI_TYPE_COMPLEX64`   |     `32    `|`  "complex64" `\*| `d` (x2)  |
+|**64 bit float = double**|             |                  |	       |
+|`NIFTI_TYPE_FLOAT64`     |     `64    `|`  "double"      `| `D`       |
+|**3x 8 bit bytes**       |             |                  |	       |
+|`NIFTI_TYPE_RGB24`       |    `128    `|`  "rgb24"     `\*| `U` (x3)  |
+|**signed char**          |             |                  |	       |
+|`NIFTI_TYPE_INT8`        |    `256    `|`  "int8"        `| `i`       |
+|**unsigned short**       |             |                  |	       |
+|`NIFTI_TYPE_UINT16`      |    `512    `|`  "uint16"      `| `I`       |
+|**unsigned int**         |             |                  |	       |
+|`NIFTI_TYPE_UINT32`      |    `768    `|`  "uint32"      `| `l`       |
+|**signed long long**     |             |                  |	       |
+|`NIFTI_TYPE_INT64`       |   `1024    `|`  "int64"       `| `L`       |
+|**unsigned long long**   |             |                  |	       |
+|`NIFTI_TYPE_UINT64`      |   `1280    `|`  "uint64"      `| `L`       |
+|**128 bit float = long double** |      |                  |	       |
+|`NIFTI_TYPE_FLOAT128`    |   `1536    `|`  "double128" `\*| `U` (x16) |
+|**2x 64 bit floats = 128 bit complex** |     |            |	       |
+|`NIFTI_TYPE_COMPLEX128`  |   `1792    `|`  "complex128"`\*| `D` (x2)  |
+|**2x 128 bit floats = 256 bit complex**|     |            |	       |
+|`NIFTI_TYPE_COMPLEX256`  |   `2048    `|`  "complex256"`\*| `U` (x32) |
+|**4x 8 bit bytes**       |             |                  |	       |
+|`NIFTI_TYPE_RGBA32`      |   `2304    `|`  "rgba32"    `\*| `U` (x4)  |
 
 A "\*" sign in the JNIfTI DataType column indicates that the data is a composite type, and must
 be stored using the "annotated" JData format.
@@ -353,6 +361,34 @@ and `slice_dim` using bit-masks. To enhance readability, in JNIfTI, we use expli
 to represent each of the parameter, `"Freq"`, `"Phase"` and `"Slice"` inside the `"DimInfo"` 
 structure to store the corresponding values. A fixed order of the 3 subfields is not required.
 
+#### Orientation (NIFTI-1 header: `pixdim[0]`)
+
+The first element in the `pixdim[]` array, i.e. `pixdim[0]` in NIFTI-1/2 header indicates
+the handness of the coordinate system - `pixdim[0]` has a value of 0 or 1 indicates a 
+"right-anterior-superior" (RAS) coordinate (+x-axis = right.  +y-axis = anterior,
++z-axis = superior); a value of "-1" indicates a "left-anterior-superior" (LAS) coordinate
+system.
+
+To enhance readability, in JNIfTI `NIFTIHeader`, we use a much more intuitive and extended
+labels to indicate the orientations of the axes. In the `"Orientation"` field, one
+can define 3 string-valued subfields, `"x"`, `"y"` and `"z"` to indicate the direction that
+the positive axis points to. The allowed values (case-insensitive) are
+
+* `"l"` or `"left"`
+* `"r"` or `"right"`
+* `"a"` or `"anterior"`
+* `"p"` or `"posterior"`
+* `"s"` or `"superior"`
+* `"i"` or `"inferior"`
+
+For example, an RAS orientation can be indicated by
+```
+"Orientation" : {"x":"r", "y":"a",  "z":"s"}
+```
+
+If this subfield is missing, we assume an "RAS" orientation by default, same as NIFTI-1/2.
+
+
 #### Unit (NIFTI-1 header: `xyzt_units`)
 
 The NIFTI-1/2 `xyzt_units` is a combined mask of both space and time.
@@ -368,28 +404,144 @@ is listed below
 
 |          NIFTI-1/2 Unit Types                | JNIfTI Unit  |
 |----------------------------------------------|--------------|
-|`#define NIFTI_UNITS_UNKNOWN 0               `|  `"unknown"` |
-|**Length Units**                              |              |                         
-|*NIFTI code for meters*                       |	             |
-|`#define NIFTI_UNITS_METER   1               `|  `"m"`       |
-|*NIFTI code for millimeters*                  |	             |
-|`#define NIFTI_UNITS_MM      2               `|  `"mm"`      |
-|*NIFTI code for micrometers*                  |	             |
-|`#define NIFTI_UNITS_MICRON  3               `|  `"um"`      |
-|**Time Units**                                |              |                         
-|*NIFTI code for seconds*                      |	             |
-|`#define NIFTI_UNITS_SEC     8               `|  `"s"`       |
-|*NIFTI code for milliseconds*                 |	             |
-|`#define NIFTI_UNITS_MSEC   16               `|  `"ms"`      |
-|*NIFTI code for microseconds*                 |	             |
-|`#define NIFTI_UNITS_USEC   24               `|  `"us"`      |
-|**Other Units**                               |              |                         
-|*NIFTI code for Hertz*                        |	             |
-|`#define NIFTI_UNITS_HZ     32               `|  `"hz"`      |
-|*NIFTI code for ppm*                          |	             |
-|`#define NIFTI_UNITS_PPM    40               `|  `"ppm"`     |
-|*NIFTI code for radians per second*           |	             |
-|`#define NIFTI_UNITS_RADS   48               `|  `"rad"`     |
+|**Unknown Units**                             |              |
+|        `NIFTI_UNITS_UNKNOWN 0               `|  `""`        |
+|**Length Units**                              |              |
+|*NIFTI code for meters*                       |	      |
+|        `NIFTI_UNITS_METER   1               `|  `"m"`       |
+|*NIFTI code for millimeters*                  |	      |
+|        `NIFTI_UNITS_MM      2               `|  `"mm"`      |
+|*NIFTI code for micrometers*                  |	      |
+|        `NIFTI_UNITS_MICRON  3               `|  `"um"`      |
+|**Time Units**                                |              |
+|*NIFTI code for seconds*                      |	      |
+|        `NIFTI_UNITS_SEC     8               `|  `"s"`       |
+|*NIFTI code for milliseconds*                 |	      |
+|        `NIFTI_UNITS_MSEC   16               `|  `"ms"`      |
+|*NIFTI code for microseconds*                 |	      |
+|        `NIFTI_UNITS_USEC   24               `|  `"us"`      |
+|**Other Units**                               |              |
+|*NIFTI code for Hertz*                        |	      |
+|        `NIFTI_UNITS_HZ     32               `|  `"hz"`      |
+|*NIFTI code for ppm*                          |	      |
+|        `NIFTI_UNITS_PPM    40               `|  `"ppm"`     |
+|*NIFTI code for radians per second*           |	      |
+|        `NIFTI_UNITS_RADS   48               `|  `"rad"`     |
+
+
+#### Intent (NIFTI-1 header: `intent_code`)
+
+Similar to `DataType`, we allow one to use a string instead of an integer
+code to represent the data intent (i.e. the `Intent` subfield in `NIFTIHeader`). 
+The below table maps the NIFTI data intent codes to the acceptable intent strings.
+
+
+| NIFTI-1/2 Data Intent Type    |Code |JNIfTI Intent String|
+|-------------------------------|-----|--------------------|
+|  **Unknown data intent**                             | | |
+|`NIFTI_INTENT_NONE            `| `0` |  `""`              |
+|  **Correlation coefficient R (1 param)**             | | |
+|`NIFTI_INTENT_CORREL          `| `2` |  `"corr"`          |
+|  **Student t statistic (1 param): p1 = DOF**         | | |
+|`NIFTI_INTENT_TTEST           `| `3` |  `"ttest"`         |
+|  **Fisher F statistic (2 params)**                   | | |
+|`NIFTI_INTENT_FTEST           `| `4` |  `"ftest"`         |
+|  **Standard normal (0 params): Density = N(0,1)**    | | |
+|`NIFTI_INTENT_ZSCORE          `| `5` |  `"zscore"`        |
+|  **Chi-squared (1 param): p1 = DOF**                 | | |
+|`NIFTI_INTENT_CHISQ           `| `6` |  `"chi2"`          |
+|  **Beta distribution (2 params): p1=a, p2=b**        | | |
+|`NIFTI_INTENT_BETA            `| `7` |  `"beta"`          |
+|  **Binomial distribution (2 params)**                | | |
+|`NIFTI_INTENT_BINOM           `| `8` |  `"binomial"`      |
+|  **Gamma distribution (2 params)**                   | | |
+|`NIFTI_INTENT_GAMMA           `| `9` |  `"gamma"`         |
+|  **Poisson distribution (1 param): p1 = mean**       | | |
+|`NIFTI_INTENT_POISSON        `| `10` |  `"poisson"`       |
+|  **Normal distribution (2 params)**                  | | |
+|`NIFTI_INTENT_NORMAL         `| `11` |  `"normal"`        |
+|  **Noncentral F statistic (3 params)**               | | |
+|`NIFTI_INTENT_FTEST_NONC     `| `12` |  `"ncftest"`       |
+|  **Noncentral chi-squared statistic (2 params)**     | | |
+|`NIFTI_INTENT_CHISQ_NONC     `| `13` |  `"ncchi2"`        |
+|  **Logistic distribution (2 params)**                | | |
+|`NIFTI_INTENT_LOGISTIC       `| `14` |  `"logistic"`      |
+|  **Laplace distribution (2 params)**                 | | |
+|`NIFTI_INTENT_LAPLACE        `| `15` |  `"laplace"`       |
+|  **Uniform distribution: p1=lower end,p2=upper end** | | |
+|`NIFTI_INTENT_UNIFORM        `| `16` |  `"uniform"`       |
+|  **Noncentral t statistic (2 params)**               | | |
+|`NIFTI_INTENT_TTEST_NONC     `| `17` |  `"ncttest"`       |
+|  **Weibull distribution (3 params)**                 | | |
+|`NIFTI_INTENT_WEIBULL        `| `18` |  `"weibull"`       |
+|  **Chi distribution (1 param): p1 = DOF**            | | |
+|`NIFTI_INTENT_CHI            `| `19` |  `"chi"`           |
+|  **Inverse Gaussian (2 params)**                     | | |
+|`NIFTI_INTENT_INVGAUSS       `| `20` |  `"invgauss"`      |
+|  **Extreme value type I (2 params)**                 | | |
+|`NIFTI_INTENT_EXTVAL         `| `21` |  `"extval"`        |
+|  **Data is a 'p-value' (no params)**                 | | |
+|`NIFTI_INTENT_PVAL           `| `22` |  `"pvalue"`        |
+|  **Data is ln(p-value) (no params)**                 | | |
+|`NIFTI_INTENT_LOGPVAL        `| `23` |  `"logpvalue"`     |
+|  **Data is log10(p-value) (no params)**              | | |
+|`NIFTI_INTENT_LOG10PVAL      `| `24` |  `"log10pvalue"`   |
+| **Data is an estimate of some parameter**            | | |
+|`NIFTI_INTENT_ESTIMATE     `| `1001` |  `"estimate"`      |
+| **Data is an index into a set of labels**            | | |
+|`NIFTI_INTENT_LABEL        `| `1002` |  `"label"`         |
+| **Data is an index into the NeuroNames labels**      | | |
+|`NIFTI_INTENT_NEURONAME    `| `1003` |  `"neuronames"`    |
+| **To store an M x N matrix at each voxel**           | | |
+|`NIFTI_INTENT_GENMATRIX    `| `1004` |  `"matrix"`        |
+| **To store an NxN symmetric matrix at each voxel**   | | |
+|`NIFTI_INTENT_SYMMATRIX    `| `1005` |  `"symmatrix"`     |
+| **Each voxel is a displacement vector**              | | |
+|`NIFTI_INTENT_DISPVECT     `| `1006` |  `"dispvec"`       |
+| **Specifically for displacements**                   | | |
+|`NIFTI_INTENT_VECTOR       `| `1007` |  `"vector"`        |
+| **Any other type of vector**                         | | |
+|`NIFTI_INTENT_POINTSET     `| `1008` |  `"point"`         |
+| **Each voxel is really a triple**                    | | |
+|`NIFTI_INTENT_TRIANGLE     `| `1009` |  `"triangle"`      |
+| **Each voxel is a quaternion**                       | | |
+|`NIFTI_INTENT_QUATERNION   `| `1010` |  `"quaternion"`    |
+| **Dimensionless value - no params**                  | | |
+|`NIFTI_INTENT_DIMLESS      `| `1011` |  `"unitless"`      |
+| **Each data point is a time series**                 | | |
+|`NIFTI_INTENT_TIME_SERIES  `| `2001` |  `"tseries"`       |
+| **Each data point is a node index**                  | | |
+|`NIFTI_INTENT_NODE_INDEX   `| `2002` |  `"elem"`          |
+| **Each data point is an RGB triplet**                | | |
+|`NIFTI_INTENT_RGB_VECTOR   `| `2003` |  `"rgb"`           |
+| **Each data point is a 4 valued RGBA**               | | |
+|`NIFTI_INTENT_RGBA_VECTOR  `| `2004` |  `"rgba"`          |
+| **Each data point is a shape value**                 | | |
+|`NIFTI_INTENT_SHAPE        `| `2005` |  `"shape"`         |
+
+
+#### SliceType (NIFTI-1 header: `slice_code`)
+
+Similar to `DataType`, we allow one to use a string instead of an integer
+code to represent the slice type (i.e. the `SliceType` subfield in `NIFTIHeader`). 
+The below table maps the NIFTI data intent codes to the acceptable intent strings.
+
+|  NIFTI-1/2 Slice Code Name    |Code |JNIfTI SliceType Key|
+|-------------------------------|-----|--------------------|
+|  **Unknown slice type**                              | | |
+|`NIFTI_SLICE_UNKNOWN          `| `0` |  `""`              |
+|  **Slice sequential increasing**                     | | |
+|`NIFTI_SLICE_SEQ_INC          `| `1` |  `"seq+"`          |
+|  **Slice sequential decreasing**                     | | |
+|`NIFTI_SLICE_SEQ_DEC          `| `2` |  `"seq-"`          |
+|  **Slice alternating increasing**                    | | |
+|`NIFTI_SLICE_ALT_INC          `| `3` |  `"alt+"`          |
+|  **Slice alternating decreasing**                    | | |
+|`NIFTI_SLICE_ALT_DEC          `| `4` |  `"alt-"`          |
+|  **Slice alternating increasing type 2**             | | |
+|`NIFTI_SLICE_ALT_INC2         `| `5` |  `"alt2+"`         |
+|  **Slice alternating decreasing type 2**             | | |
+|`NIFTI_SLICE_ALT_DEC2         `| `6` |  `"alt2-"`         |
 
 
 #### NIIFormat (NIFTI-1 header: `magic`)
