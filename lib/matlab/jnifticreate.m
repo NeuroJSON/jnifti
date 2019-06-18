@@ -28,7 +28,7 @@ function jnii=jnifticreate(varargin)
 
 jnii=struct('NIFTIHeader',struct(), 'NIFTIData', []);
 
-jnii.NIFTIHeader.NIIHeaderSize=  0;
+% jnii.NIFTIHeader.NIIHeaderSize=  0;
 % jnii.NIFTIHeader.A75DataTypeName=   'uint8';
 % jnii.NIFTIHeader.A75DBName=      '';
 % jnii.NIFTIHeader.A75Extends=     0;
@@ -46,7 +46,7 @@ jnii.NIFTIHeader.DataType=       'uint8';
 jnii.NIFTIHeader.BitDepth=       8;
 jnii.NIFTIHeader.FirstSliceID=   1;
 jnii.NIFTIHeader.VoxelSize=      [1,1,1,1];
-jnii.NIFTIHeader.NIIByteOffset=  0;
+% jnii.NIFTIHeader.NIIByteOffset=  0;
 jnii.NIFTIHeader.ScaleSlope=     0;
 jnii.NIFTIHeader.ScaleOffset=    0;
 jnii.NIFTIHeader.LastSliceID=    1;
