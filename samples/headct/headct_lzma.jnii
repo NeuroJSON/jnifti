@@ -1,7 +1,7 @@
 {
 	"NIFTIHeader": {
 		"NIIHeaderSize": 348,
-		"DataTypeName": "",
+		"A75DataTypeName": "",
 		"A75DBName": "",
 		"A75Extends": 0,
 		"A75SessionError": 0,
@@ -15,16 +15,21 @@
 		"Param1": 0,
 		"Param2": 0,
 		"Param3": 0,
-		"IntentCode": 0,
+		"Intent": 0,
 		"DataType": 2,
 		"BitDepth": 8,
 		"FirstSliceID": 0,
-		"VoxelSize": [1,1,1,1,0,0,0,0],
+		"VoxelSize": [1,1,1],
+		"Orientation": {
+			"x": "r",
+			"y": "a",
+			"z": "s"
+		},
 		"NIIByteOffset": 352,
 		"ScaleSlope": 0.003920000046,
 		"ScaleOffset": 0,
 		"LastSliceID": 0,
-		"SliceCode": 0,
+		"SliceType": 0,
 		"Unit": {
 			"L": 0,
 			"T": 0
@@ -39,12 +44,16 @@
 		"AuxFile": "",
 		"QForm": 0,
 		"SForm": 1,
-		"QuaternB": 0,
-		"QuaternC": 0,
-		"QuaternD": 0,
-		"QuaternXOffset": 0,
-		"QuaternYOffset": 0,
-		"QuaternZOffset": 0,
+		"Quatern": {
+			"b": 0,
+			"c": 0,
+			"d": 0
+		},
+		"QuaternOffset": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
 		"Affine": [
 			[1,0,0,-104],
 			[0,1,0,-128],

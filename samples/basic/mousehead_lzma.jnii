@@ -1,7 +1,5 @@
 {
 	"NIFTIHeader": {
-		"NIIHeaderSize": 0,
-		"DataTypeName": "uint8",
 		"DimInfo": {
 			"Freq": 0,
 			"Phase": 0,
@@ -11,16 +9,20 @@
 		"Param1": 0,
 		"Param2": 0,
 		"Param3": 0,
-		"IntentCode": 0,
+		"Intent": "",
 		"DataType": "uint8",
 		"BitDepth": 8,
 		"FirstSliceID": 1,
 		"VoxelSize": [1,1,1,1],
-		"NIIByteOffset": 0,
+		"Orientation": {
+			"x": "r",
+			"y": "a",
+			"z": "s"
+		},
 		"ScaleSlope": 0,
 		"ScaleOffset": 0,
 		"LastSliceID": 1,
-		"SliceCode": 0,
+		"SliceType": 0,
 		"Unit": {
 			"L": "mm",
 			"T": "s"
@@ -30,15 +32,18 @@
 		"SliceTime": 1,
 		"TimeOffset": 0,
 		"Description": "Binary mask of a mouse-head scan",
-		"AuxFile": "",
 		"QForm": 0,
-		"SForm": 0,
-		"QuaternB": 0,
-		"QuaternC": 0,
-		"QuaternD": 0,
-		"QuaternXOffset": 0,
-		"QuaternYOffset": 0,
-		"QuaternZOffset": 0,
+		"SForm": 1,
+		"Quatern": {
+			"b": 0,
+			"c": 0,
+			"d": 0
+		},
+		"QuaternOffset": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
 		"Affine": [
 			[1,0,0,0],
 			[0,1,0,0],
