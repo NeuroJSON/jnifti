@@ -364,7 +364,7 @@ structure to store the corresponding values. A fixed order of the 3 subfields is
 #### Orientation (NIFTI-1 header: `pixdim[0]`)
 
 The first element in the `pixdim[]` array, i.e. `pixdim[0]` in NIFTI-1/2 header indicates
-the handness of the coordinate system - `pixdim[0]` has a value of 0 or 1 indicates a 
+the handedness of the coordinate system - `pixdim[0]` has a value of 0 or 1 indicates a 
 "right-anterior-superior" (RAS) coordinate (+x-axis = right.  +y-axis = anterior,
 +z-axis = superior); a value of "-1" indicates a "left-anterior-superior" (LAS) coordinate
 system.
