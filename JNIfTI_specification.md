@@ -245,7 +245,7 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` float`|`double`|` scl_slope ;    `|  **Data scaling: slope**      |`    "ScaleSlope": <f>,		    `|
 |` float`|`double`|` scl_inter ;    `|  **Data scaling: offset**     |`    "ScaleOffset": <f>,  	    `|
 |` short`|` int  `|` slice_end;     `|  **Last slice index**	     |`    "LastSliceID": <i>,  	    `|
-|` char `|` int  `|` slice_code ;   `|  **Slice timing order**       |`    "SliceType": <i>|"s",	    `|
+|` char `|` int  `|` slice_code ;   `|  **Slice timing order**       |`    "SliceType": <i>\|"s",	    `|
 |` char `|` int  `|` xyzt_units ;   `|  **Units of pixdim[1..4]**    |`    "Unit":{"L":<i>\|"s","T":<i>\|"s"},`|
 |` float`|` float`|` cal_max;	    `|  **Max display intensity**    |`    "MaxIntensity": <f>, 	    `|
 |` float`|` float`|` cal_min;	    `|  **Min display intensity**    |`    "MinIntensity": <f>, 	    `|
