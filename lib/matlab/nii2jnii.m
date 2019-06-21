@@ -107,13 +107,19 @@ header = memmapfile(filename,                ...
 
 nii.hdr=header.Data(1);
 
+[os,maxelem,dataendian]=computer;
+
+if(nii.hdr.sizeof_hdr~=348 && nii.hdr.sizeof_hdr~=540)
+    nii.hdr.sizeof_hdr=swapbytes(nii.hdr.sizeof_hdr);
+end
+
 if(nii.hdr.sizeof_hdr==540) % NIFTI-2 format
   header = memmapfile(filename,                ...
    'Offset', 0,                           ...
    'Writable', false,                     ...
    'Format', {                            ...
-     'int32'   [1 1]  'sizeof_hdr'    ; %!< MUST be 348 	      %  % int sizeof_hdr;       %  ...
-     'int8'    [1 8]  'magic'	      ; %!< MUST be "ni1\0" or "n+1\0". %			...
+     'int32'   [1 1]  'sizeof_hdr'    ; %!< MUST be 540 	      %  % int sizeof_hdr;       %  ...
+     'int8'    [1 8]  'magic'	      ; %!< MUST be "ni2\0" or "n+2\0". %			...
      'int16'   [1 1]  'datatype'      ; %!< Defines data type!    %  % short datatype;       %  ...
      'int16'   [1 1]  'bitpix'        ; %!< Number bits/voxel.    %  % short bitpix;	     %  ...
      'int64'   [1 8]  'dim'	          ; %!< Data array dimensions.%  % short dim[8];	     %  ...
@@ -153,6 +159,18 @@ if(nii.hdr.sizeof_hdr==540) % NIFTI-2 format
    });
 
    nii.hdr=header.Data(1);
+end
+
+if(nii.hdr.dim(1)>7)
+    names=fieldnames(nii.hdr);
+    for i=1:length(names)
+        nii.hdr.(names{i})=swapbytes(nii.hdr.(names{i}));
+    end
+    if(dataendian=='B')
+        dataendian='little';
+    else
+        dataendian='big';
+    end
 end
 
 type2byte=[
@@ -242,8 +260,8 @@ nii.NIFTIHeader.Dim=            nii0.hdr.dim(2:2+nii0.hdr.dim(1)-1);
 nii.NIFTIHeader.Param1=         nii0.hdr.intent_p1;
 nii.NIFTIHeader.Param2=         nii0.hdr.intent_p2;
 nii.NIFTIHeader.Param3=         nii0.hdr.intent_p3;
-nii.NIFTIHeader.Intent=         nii0.hdr.intent_code;
-nii.NIFTIHeader.DataType=       nii0.hdr.datatype;
+nii.NIFTIHeader.Intent=         niicodemap('intent',nii0.hdr.intent_code);
+nii.NIFTIHeader.DataType=       niicodemap('datatype',nii0.hdr.datatype);
 nii.NIFTIHeader.BitDepth=       nii0.hdr.bitpix;
 nii.NIFTIHeader.FirstSliceID=   nii0.hdr.slice_start;
 nii.NIFTIHeader.VoxelSize=      nii0.hdr.pixdim(2:2+nii0.hdr.dim(1)-1);
@@ -255,9 +273,9 @@ nii.NIFTIHeader.NIIByteOffset=  nii0.hdr.vox_offset;
 nii.NIFTIHeader.ScaleSlope=     nii0.hdr.scl_slope;
 nii.NIFTIHeader.ScaleOffset=    nii0.hdr.scl_inter;
 nii.NIFTIHeader.LastSliceID=    nii0.hdr.slice_end;
-nii.NIFTIHeader.SliceType=      nii0.hdr.slice_code;
-nii.NIFTIHeader.Unit.L=bitand(nii0.hdr.xyzt_units, 7);
-nii.NIFTIHeader.Unit.T=bitand(bitshift(nii0.hdr.xyzt_units,-3),7);
+nii.NIFTIHeader.SliceType=      niicodemap('slicetype',nii0.hdr.slice_code);
+nii.NIFTIHeader.Unit.L=         niicodemap('unit',bitand(nii0.hdr.xyzt_units, 7));
+nii.NIFTIHeader.Unit.T=         niicodemap('unit',bitand(nii0.hdr.xyzt_units, 56));
 nii.NIFTIHeader.MaxIntensity=   nii0.hdr.cal_max;
 nii.NIFTIHeader.MinIntensity=   nii0.hdr.cal_min;
 nii.NIFTIHeader.SliceTime=      nii0.hdr.slice_duration;
@@ -282,6 +300,11 @@ nii.NIFTIHeader.Affine(3,:)=    nii0.hdr.srow_z;
 nii.NIFTIHeader.Name=           deblank(char(nii0.hdr.intent_name));
 nii.NIFTIHeader.NIIFormat=      deblank(char(nii0.hdr.magic));
 nii.NIFTIHeader.NIIExtender=    nii0.hdr.extension;
+nii.NIFTIHeader.NIIQfac_=       nii0.hdr.pixdim(1);
+nii.NIFTIHeader.NIIEndian_=     dataendian;
+if(isfield(nii0.hdr,'reserved'))
+    nii.NIFTIHeader.NIIUnused_= nii0.hdr.reserved;
+end
 
 nii.NIFTIData=nii0.img;
 

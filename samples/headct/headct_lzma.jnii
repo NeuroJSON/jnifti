@@ -15,8 +15,8 @@
 		"Param1": 0,
 		"Param2": 0,
 		"Param3": 0,
-		"Intent": 0,
-		"DataType": 2,
+		"Intent": "",
+		"DataType": "uint8",
 		"BitDepth": 8,
 		"FirstSliceID": 0,
 		"VoxelSize": [1,1,1],
@@ -29,10 +29,10 @@
 		"ScaleSlope": 0.003920000046,
 		"ScaleOffset": 0,
 		"LastSliceID": 0,
-		"SliceType": 0,
+		"SliceType": "",
 		"Unit": {
-			"L": 0,
-			"T": 0
+			"L": "",
+			"T": ""
 		},
 		"MaxIntensity": 0,
 		"MinIntensity": 0,
@@ -61,7 +61,9 @@
 		],
 		"Name": "",
 		"NIIFormat": "n+1",
-		"NIIExtender": [0,0,0,0]
+		"NIIExtender": [0,0,0,0],
+		"NIIQfac_": 1,
+		"NIIEndian_": "L"
 	},
 	"NIFTIData": {
 		"_ArrayType_": "uint8",

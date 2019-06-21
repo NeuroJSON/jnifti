@@ -22,7 +22,7 @@
 		"ScaleSlope": 0,
 		"ScaleOffset": 0,
 		"LastSliceID": 1,
-		"SliceType": 0,
+		"SliceType": "",
 		"Unit": {
 			"L": "mm",
 			"T": "s"
