@@ -782,7 +782,7 @@ NIFTI-1 extension buffer in the order of presence.
  }
 ```
 The `"Type"` field must be one of the 3 values according to the NIFTI-1 specification: 
-* 0 or `"unknown"` - for unknown or private format
+* 0 or `""` - for unknown or private format
 * 1 or `"dicom"` - for DICOM formatted data buffer
 * 2 or `"afni"` - for AFNI group formatted data buffer
 
