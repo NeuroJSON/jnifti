@@ -286,7 +286,7 @@ In the above table, the notations are explained below
 * `<i>|"s"` represents alternative forms, in this example, the field can be either an integer or a string
 
 
-To convert an NIFTI-1/2 header to the JNIfTI `NIFTIHeader` structure, the storage type in the
+To convert a NIFTI-1/2 header to the JNIfTI `NIFTIHeader` structure, the storage type in the
 `NIFTIHeader` subfields must have equal or larger byte length to store the original NIFTI header 
 data without losing accuracy; in the case of a string value, the new string must have the same 
 length or longer to store the entire original string value.
@@ -577,7 +577,7 @@ recommended not to include in JNIfTI files.
 
 ### NIFTIData
 
-The primary data carried in an NIFTI-1/2 file is a numerical array with dimensions and types
+The primary data carried in a NIFTI-1/2 file is a numerical array with dimensions and types
 specified by the `dim` and `datatype` records, respectively, in the NIFTI-1 header. In 
 JNIfTI, we use the `"NIFTIData"` record to store such information, with the ability to 
 expand to store additional auxiliary data or metadata.
