@@ -6,6 +6,8 @@ savejnifti(jnii,'mousehead.jnii');
 savejnifti(jnii,'mousehead_zlib.jnii','compression','zlib');
 savejnifti(jnii,'mousehead_gzip.bnii','compression','gzip');
 savejnifti(jnii,'mousehead.bnii');
-if(exist('zmat')==3)
+if(exist('zmat','file'))
    savejnifti(jnii,'mousehead_lzma.jnii','compression','lzma');
+else
+   warning('To save lzma-compressed JNIfTI files (smaller file size), please download the ZMat Toolbox from http://github.com/fangq/zmat')
 end
