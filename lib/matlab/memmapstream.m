@@ -1,4 +1,46 @@
-function mapstr=memmapstream(bytes, dict)
+function outstruct=memmapstream(bytes, dict)
+%
+%    outstruct=memmapstream(bytes, dict)
+%
+%    Map a byte-array (in char array or uint8/int8 array) into a structure
+%    using a dictionary (format is compatible with memmapfile in MATLAB)
+%
+%    This function is compatible with both MATLAB and GNU Octave. 
+%
+%    author: Qianqian Fang (q.fang <at> neu.edu)
+%
+%    input:
+%        bytes: a char, int8 or uint8 vector or array
+%        dict: a 3-column cell array in the format compatible with the
+%              'Format' parameter of memmapfile in MATLAB. It has the
+%              following structure
+%
+%             column 1: data type string, it can be one of the following
+%                'int8','int16','int32','int64',
+%                'uint8','uint16','uint32','uint64',
+%                'single','double','logical'
+%             column 2: an integer vector denoting the size of the data
+%             column 3: a string denoting the fieldname in the output struct
+%
+%             For example dict={'int8',[1,8],'key'; 'float',[1,1],'value'}
+%             reads the first 8 bytes from 'bytes' as the first subfield
+%             'key' and the following 4 bytes as the floating point 'value'
+%             subfield.
+%
+%    output:
+%        outstruct: a structure containing the required field
+%
+%    example:
+%        bytestream=['Andy' 5 'JT'];
+%        dict={'uint8', [1,4], 'name',
+%              'uint8', [1,1], 'age',
+%              'uint8', [1,2], 'school'};
+%        data=memmapstream(bytestream,dict);
+%
+%    this file is part of JNIfTI specification: https://github.com/fangq/jnifti
+%
+%    License: Apache 2.0, see https://github.com/fangq/jnifti for details
+%
 
 if(nargin<2)
    error('must provide bytes and dict as inputs');
@@ -12,14 +54,14 @@ if(~iscell(dict) || size(dict,2)<3 || size(dict,1)==0 || ~ischar(dict{1,1}))
    error('second input, dict, must be a 3-column cell array, in a format described by the memmapfile Format field.');
 end
 
-bytes=bytes(:);
+bytes=bytes(:)';
 
-datatype=struct('int8',1,'int16',2,'int32',4,'int64',8,'uint8',1,'uint16',2,'uint32',4,'uint64',8,'single',4,'double',8,'logical',1);
+datatype=struct('int8',1,'int16',2,'int32',4,'int64',8,'uint8',1,'uint16',2,'uint32',4,'uint64',8,'single',4,'double',8);
 
-mapstr=struct();
+outstruct=struct();
 len=1;
 for i=1:size(dict,1)
     bytelen=datatype.(dict{i,1})*prod(dict{i,2});
-    mapstr.(dict{i,3})=reshape(typecast(bytes(len:bytelen+len-1),dict{i,1}),dict{i,2});
+    outstruct.(dict{i,3})=reshape(typecast(uint8(bytes(len:bytelen+len-1)),dict{i,1}),dict{i,2});
     len=len+bytelen;
 end

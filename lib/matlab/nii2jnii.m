@@ -8,10 +8,13 @@ function nii=nii2jnii(filename, format, varargin)
 %    A NIFTI-1/2 file parser and converter to the text and binary JNIfTI formats
 %    defined in JNIfTI specification: https://github.com/fangq/jnifti
 %
+%    This function is compatible with both MATLAB and GNU Octave. 
+%    It also supports both .nii and .nii.gz input files
+%
 %    author: Qianqian Fang (q.fang <at> neu.edu)
 %
 %    input:
-%        fname: the file name to the .nii file
+%        fname: the file name to the .nii or .nii.gz file
 %        format:'nii' for reading the nii data; 'jnii' to convert the nii data 
 %               into an in-memory JNIfTI structure.
 %
