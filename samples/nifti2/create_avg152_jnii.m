@@ -1,16 +1,6 @@
 % addpath('../../lib/matlab')
-if(exist('avg152T1_LR_nifti2.nii.gz','file') && ~exist('avg152T1_LR_nifti2.nii','file'))
-    finput=fopen('avg152T1_LR_nifti2.nii.gz','rb');
-    input=fread(finput,inf,'uint8=>uint8');
-    fclose(finput);
 
-    fid=fopen('avg152T1_LR_nifti2.nii','wb');
-    gzdata=gzipdecode(input);
-    fwrite(fid,gzdata);
-    fclose(fid);
-end
-
-dat=nii2jnii('avg152T1_LR_nifti2.nii')
+dat=nii2jnii('avg152T1_LR_nifti2.nii.gz')
 dat.NIFTIHeader
 
 tic; nii2jnii('avg152T1_LR_nifti2.nii','avg152T1_LR_nifti2.bnii'); toc

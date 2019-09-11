@@ -1,16 +1,6 @@
 % addpath('../../lib/matlab')
-if(exist('headct.nii.gz','file') && ~exist('headct.nii','file'))
-    finput=fopen('headct.nii.gz','rb');
-    input=fread(finput,inf,'uint8=>uint8');
-    fclose(finput);
 
-    fid=fopen('headct.nii','wb');
-    gzdata=gzipdecode(input);
-    fwrite(fid,gzdata);
-    fclose(fid);
-end
-
-dat=nii2jnii('headct.nii')
+dat=nii2jnii('headct.nii.gz')
 dat.NIFTIHeader
 
 tic; nii2jnii('headct.nii','headct.bnii'); toc

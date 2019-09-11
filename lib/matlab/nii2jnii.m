@@ -55,10 +55,7 @@ function nii=nii2jnii(filename, format, varargin)
 %    License: Apache 2.0, see https://github.com/fangq/jnifti for details
 %
 
-header = memmapfile(filename,                ...
-   'Offset', 0,                           ...
-   'Writable', false,                     ...
-   'Format', {                            ...
+nifti1header={                            ...
      'int32'   [1 1]  'sizeof_hdr'    ; %!< MUST be 348 	      %  % int sizeof_hdr;       %  ...
      'int8'    [1 10] 'data_type'     ; %!< ++UNUSED++  	      %  % char data_type[10];   %  ...
      'int8'    [1 18] 'db_name'       ; %!< ++UNUSED++  	      %  % char db_name[18];     %  ...
@@ -103,21 +100,9 @@ header = memmapfile(filename,                ...
      'int8'    [1 16] 'intent_name'   ; %!< 'name' or meaning of data.  %			...
      'int8'    [1 4]  'magic'	      ; %!< MUST be "ni1\0" or "n+1\0". %			...
      'int8'    [1 4]  'extension'	    %!< header extension	  %				...
-   });
+   };
 
-nii.hdr=header.Data(1);
-
-[os,maxelem,dataendian]=computer;
-
-if(nii.hdr.sizeof_hdr~=348 && nii.hdr.sizeof_hdr~=540)
-    nii.hdr.sizeof_hdr=swapbytes(nii.hdr.sizeof_hdr);
-end
-
-if(nii.hdr.sizeof_hdr==540) % NIFTI-2 format
-  header = memmapfile(filename,                ...
-   'Offset', 0,                           ...
-   'Writable', false,                     ...
-   'Format', {                            ...
+nifti2header={                            ...
      'int32'   [1 1]  'sizeof_hdr'    ; %!< MUST be 540 	      %  % int sizeof_hdr;       %  ...
      'int8'    [1 8]  'magic'	      ; %!< MUST be "ni2\0" or "n+2\0". %			...
      'int16'   [1 1]  'datatype'      ; %!< Defines data type!    %  % short datatype;       %  ...
@@ -156,9 +141,46 @@ if(nii.hdr.sizeof_hdr==540) % NIFTI-2 format
      'int8'    [1 1]  'dim_info'      ; %!< MRI slice ordering.   %  % char hkey_un0;	     %  ...
      'int8'    [1 15] 'reserved'	    %!< unused buffer	  %				...
      'int8'    [1 4]  'extension'	    %!< header extension	  %				...
-   });
+   };
 
-   nii.hdr=header.Data(1);
+if(regexp(filename,'\.[Gg][Zz]$') || isoctavemesh)
+    finput=fopen(filename,'rb');
+    input=fread(finput,inf,'uint8=>uint8');
+    fclose(finput);
+    
+    if(regexp(filename,'\.[Gg][Zz]$'))
+        gzdata=gzipdecode(input);
+    else
+        gzdata=input;
+    end
+    clear input;
+    nii.hdr=memmapstream(gzdata,nifti1header);
+else
+    header = memmapfile(filename,             ...
+       'Offset', 0,                           ...
+       'Writable', false,                     ...
+       'Format', nifti1header);
+
+    nii.hdr=header.Data(1);
+end
+
+[os,maxelem,dataendian]=computer;
+
+if(nii.hdr.sizeof_hdr~=348 && nii.hdr.sizeof_hdr~=540)
+    nii.hdr.sizeof_hdr=swapbytes(nii.hdr.sizeof_hdr);
+end
+
+if(nii.hdr.sizeof_hdr==540) % NIFTI-2 format
+    if(exist(gzdata,'var'))
+        nii.hdr=memmapstream(gzdata,nifti2header);
+    else
+        header = memmapfile(filename,                ...
+         'Offset', 0,                           ...
+         'Writable', false,                     ...
+         'Format', nifti2header);
+
+         nii.hdr=header.Data(1);
+    end
 end
 
 if(nii.hdr.dim(1)>7)
@@ -232,10 +254,15 @@ if(type2str{typeidx,2}>1)
     nii.hdr.dim=[nii.hdr.dim(1)+1 uint16(nii.datalen) nii.hdr.dim(2:end)]; 
 end
 
-fid=fopen(filename,'rb');
-fseek(fid,nii.hdr.vox_offset,'bof');
-nii.img=fread(fid,prod(nii.hdr.dim(2:nii.hdr.dim(1)+1)),[nii.datatype '=>' nii.datatype]);
-fclose(fid);
+imgbytenum=prod(nii.hdr.dim(2:nii.hdr.dim(1)+1));
+if(~exist('gzdata','var'))
+    fid=fopen(filename,'rb');
+    fseek(fid,nii.hdr.vox_offset,'bof');
+    nii.img=fread(fid,imgbytenum,[nii.datatype '=>' nii.datatype]);
+    fclose(fid);
+else
+    nii.img=typecast(gzdata(nii.hdr.vox_offset+1:nii.hdr.vox_offset+imgbytenum),nii.datatype);
+end
 
 nii.img=reshape(nii.img,nii.hdr.dim(2:nii.hdr.dim(1)+1));
 
