@@ -179,16 +179,16 @@ type2str={
     'uint8'    1   % unsigned char (8 bits/voxel)  %
     'uint16'   1   % signed short (16 bits/voxel)  %
     'int32'    1   % signed int (32 bits/voxel)    %
-    'float32'  1   % float (32 bits/voxel)         %
-    'float32'  2   % complex (64 bits/voxel)       %
-    'float64'  1   % double (64 bits/voxel)        %
+    'single'   1   % float (32 bits/voxel)         %
+    'single'   2   % complex (64 bits/voxel)       %
+    'double'   1   % double (64 bits/voxel)        %
     'uint8'    3   % RGB triple (24 bits/voxel)    %
     'uint8'    0   % not very useful (?)           %
     'int8'     1   % signed char (8 bits)          %
     'uint16'   1   % unsigned short (16 bits)      %
     'uint32'   1   % unsigned int (32 bits)        %
-    'long'     1   % long long (64 bits)           %
-    'ulong'    1   % unsigned long long (64 bits)  %
+    'int64'    1   % long long (64 bits)           %
+    'uint64'   1   % unsigned long long (64 bits)  %
     'uint8'    16  % long double (128 bits)        %
     'uint8'    16  % double pair (128 bits)        %
     'uint8'    32  % long double pair (256 bits)   %
