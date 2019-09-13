@@ -20,7 +20,7 @@ function header=nifticreate(img,format)
 %    License: Apache 2.0, see https://github.com/fangq/jnifti for details
 %
 
-if(nargin<1)
+if(nargin<2)
     format='nifti1';
 end
 
@@ -38,7 +38,11 @@ header.datatype=cast(datatype.(class(img)), class(header.datatype));
 header.dim(1:ndims(img)+1)=cast([ndims(img),size(img)], class(header.dim));
 header.pixdim(1:ndims(img)+1)=cast(1, class(header.pixdim));
 header.vox_offset=cast(headerlen+4, class(header.vox_offset));
-header.magic(1:3)=cast('ni1',class(header.magic));
+if(header.sizeof_hdr==540)
+    header.magic(1:3)=cast('ni2',class(header.magic));
+else
+    header.magic(1:3)=cast('ni1',class(header.magic));
+end
 header.srow_x(1)=cast(1, class(header.srow_x));
 header.srow_y(2)=cast(1, class(header.srow_y));
 header.srow_z(3)=cast(1, class(header.srow_z));

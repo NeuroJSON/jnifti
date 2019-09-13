@@ -16,10 +16,11 @@ function nii=nii2jnii(filename, format, varargin)
 %
 %    input:
 %        fname: the file name to the .nii, .nii.gz, .hdr/.img or .hdr.gz/.img.gz file
-%        format:'nii' for reading the NIfTI-1/2/Analyze files; 'jnii' to
-%               convert the nii data into an in-memory JNIfTI structure.
+%        format:'nii' for reading the NIfTI-1/2/Analyze files; 
+%               'jnii' to convert the nii data into an in-memory JNIfTI structure.
+%               'niiheader' return only the nii header without the image data
 %
-%               if format is not 'nii' or 'jnii' and nii2jnii is called without 
+%               if format is not listed above and nii2jnii is called without 
 %               an output, format must be a string specifying the output JNIfTI
 %               file name - *.jnii for text-based JNIfTI, or *.bnii for the 
 %               binary version
