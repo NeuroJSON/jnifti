@@ -20,8 +20,8 @@ The JNIfTI toolbox includes a stand-alone NIfTI-1/2 parser that works on both
 MATLAB and GNU Octave without needing additional components. To just reading and
 writing the un-compressed NIfTI and Analyze7.5 files (.nii, .hdr/.img), one 
 only needs to run `addpath('/path/to/jnifti')`. For MATLAB, JNIfTI toolbox
-utilizes memmapfile-based disk-reading, making it very fast. For Octave, 
-memmapfile is currently not implemented, so, a full reading is required.
+utilizes `memmapfile`-based disk-reading, making it very fast. For Octave, 
+`memmapfile` is currently not implemented, so, a full reading is required.
 
 The JNIfTI toolbox is also capable of reading/writing gzip-compressed NIfTI and 
 Analyze7.5 files (.nii.gz, .hdr.gz, .img.gz). This feature is supported in MATLAB
@@ -31,11 +31,11 @@ To process gzip-compressed NIfTI/Analyze files in Octave and MATLAB with -nojvm,
 one need to install the open-source JSONLab and ZMat toolboxes, both supporting
 MATLAB and Octave. They can be downloaded at
 
-* JSONLab: http://gitlab.com/fangq/jsonlab
-* ZMat: http://gitlab.com/fangq/zmat
+* JSONLab: http://github.com/fangq/jsonlab
+* ZMat: http://github.com/fangq/zmat
 
 To save NIfTI-1/2 data as JNIfTI files, one needs to install JSONLab. The JNIfTI
 data format supports internal compression (as oppose to external compression such
-as *.gz files). To create or read compressed JNIfTI files in Octave, one must 
+as \*.gz files). To create or read compressed JNIfTI files in Octave, one must 
 install the ZMat toolbox, as listed above.
 
