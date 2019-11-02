@@ -1,0 +1,3 @@
+[submodule "lib/easyh5"]
+	path = lib/easyh5
+	url = https://github.com/fangq/easyh5.git
