@@ -1,46 +1,19 @@
-% addpath('../../lib/matlab')
+function create_headct_jnii
+    if(~exist('nii2jnii','file') || ~exist('zmat','file') )
+            error('you must install JNIfTI toolbox https://github.com/fangq/jnifti and ZMat toolbox:https://github.com/fangq/zmat');
+    end
+    dat=nii2jnii('headct.nii.gz');
+    dat.NIFTIHeader
+    zipmethod={'','zlib','gzip','lzma','lz4','lz4hc'};
+    runbench=@(z) arrayfun(@(x) runone(dat,z,x),'jb','uniformoutput',false);
+    cellfun(runbench,zipmethod);
+end
 
-dat=nii2jnii('headct.nii.gz')
-dat.NIFTIHeader
-
-tic; savejnifti(dat,'headct.bnii'); info=dir('headct.bnii');
-fprintf(1,'Saving Binary JNifTI (raw):\t Saving: t=%f s\tSize: %6.2f kB\tLoadig: \t',toc, info.bytes/1024);
-tic; jnii=loadjnifti('headct.bnii'); 
-fprintf(1,'t=%f s\n',toc);
-
-%tic; savejnifti(dat,'headct.jnii'); info=dir('headct.jnii');
-% fprintf(1,'Saving Text JNifTI: t=%f s\n',toc); % about 29MB before compression
-
-tic; savejnifti(dat,'headct_zlib.bnii','compression','zlib'); info=dir('headct_zlib.bnii');
-fprintf(1,'Saving Binary JNifTI (zlib):\t Saving: t=%f s\tSize: %6.2f kB\tLoadig: \t',toc, info.bytes/1024);
-tic; jnii=loadjnifti('headct_zlib.bnii'); 
-fprintf(1,'t=%f s\n',toc);
-
-tic; savejnifti(dat,'headct_zlib.jnii','compression','zlib'); info=dir('headct_zlib.jnii');
-fprintf(1,'Saving Text JNifTI (zlib):\t Saving: t=%f s\tSize: %6.2f kB\tLoadig: \t',toc, info.bytes/1024);
-tic; jnii=loadjnifti('headct_zlib.jnii'); 
-fprintf(1,'t=%f s\n',toc);
-
-if(exist('zmat','file'))
-   tic; savejnifti(dat,'headct_lzma.bnii','compression','lzma'); info=dir('headct_lzma.bnii');
-   fprintf(1,'Saving Binary JNifTI (lzma):\t Saving: t=%f s\tSize: %6.2f kB\tLoadig: \t',toc, info.bytes/1024);
-   tic; jnii=loadjnifti('headct_lzma.bnii'); 
-   fprintf(1,'t=%f s\n',toc);
-   
-   tic; savejnifti(dat,'headct_lzma.jnii','compression','lzma'); info=dir('headct_lzma.jnii');
-   fprintf(1,'Saving Text JNifTI (lzma):\t Saving: t=%f s\tSize: %6.2f kB\tLoadig: \t',toc, info.bytes/1024);
-   tic; jnii=loadjnifti('headct_lzma.jnii'); 
-   fprintf(1,'t=%f s\n',toc);
-   
-   tic; savejnifti(dat,'headct_lz4.bnii','compression','lz4'); info=dir('headct_lz4.bnii');
-   fprintf(1,'Saving Binary JNifTI (lz4):\t Saving: t=%f s\tSize: %6.2f kB\tLoadig: \t',toc, info.bytes/1024);
-   tic; jnii=loadjnifti('headct_lz4.bnii'); 
-   fprintf(1,'t=%f s\n',toc);
-   
-   tic; savejnifti(dat,'headct_lz4.jnii','compression','lz4'); info=dir('headct_lz4.jnii');
-   fprintf(1,'Saving Text JNifTI (lz4):\t Saving: t=%f s\tSize: %6.2f kB\tLoadig: \t',toc, info.bytes/1024);
-   tic; jnii=loadjnifti('headct_lz4.jnii'); 
-   fprintf(1,'t=%f s\n',toc);
-else
-   warning('To save lzma-compressed JNIfTI files (smaller file size), please download the ZMat Toolbox from http://github.com/fangq/zmat')
+function runone(dat,z,ext) 
+    if(isempty(z) && ext=='j') return; end
+    fn=sprintf('headct_%s.%snii',z,ext);
+    tic;savejnifti(dat,fn,'compression',z);t1=toc;
+    tic;loadjnifti(fn);t2=toc;
+    info=dir(fn); t3=info.bytes;
+    fprintf(1,'Saving %s:\t Saving: t=%f s\tLoadig: \t%f s\tSize: %6.2f kB\n',fn,t1,t2,t3/1024);pause(0.001);
 end
