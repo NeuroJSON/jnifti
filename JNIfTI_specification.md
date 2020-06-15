@@ -2,9 +2,9 @@ JNIfTI: An extensible file format for storage and interchange of neuroimaging da
 ============================================================
 
 - **Status of this document**: This document is current under development.
-- **Copyright**: (C) Qianqian Fang (2019) <q.fang at neu.edu>
+- **Copyright**: (C) 2019-2020, Qianqian Fang <q.fang at neu.edu>
 - **License**: Apache License, Version 2.0
-- **Version**: 0.4
+- **Version**: V1 (Draft 1)
 - **Abstract**:
 
 > JNIfTI is an extensible format for storage, interchange and processing
@@ -89,24 +89,25 @@ the old data and supporting software. In addition, NIFTI formats
 has only a binary interface, and are not directly human-readable.
 
 Over the past few years, [JavaScript Object Notation](http://json.org) 
-(JSON) has become widely accepted among the Internet community due to its 
+(JSON) has become ubiquitously accepted among the Internet community due to its 
 capability of storing complex data, excellent portability and human-readability. 
 The proposals and wide adoptions of binary JSON-like format, such as 
-[UBJSON](http://ubjson.org) and [MessagePack](https://msgpack.org/), also 
-add complementary features such as support for typed data, smaller file 
+[UBJSON](http://ubjson.org), [Binary JData (BJData)](https://github.com/OpenJData/bjdata), 
+[MessagePack](https://msgpack.org/) and [CBOR](http://cbor.io), 
+also add complementary features such as support for typed data, smaller file 
 sizes and faster processing speed. The 
 [JData specification](https://github.com/fangq/jdata/blob/master/JData_specification.md)
 provides the foundation for serializing complex hierarchical data using
-JSON/UBJSON constructs. This permits us to define language- and library-neutral
+JSON/BJData constructs. This permits us to define language- and library-neutral
 neuroimaging data representations using the simple and extensible constructs 
-from JSON and UBJSON syntax.
+from JSON and BJData syntax.
 
 
 ### JNIfTI specification overview
 
 JNIfTI is an extensible framework to store neuroimaging data and time series
 using the JData representations, with a syntax compatible to the widely 
-used JSON and UBJSON file formats. JNIfTI specifically addresses the current 
+used JSON and Binary JData/BJData file formats. JNIfTI specifically addresses the current 
 limitations of the NIFTI formats, permitting flexible and rich metadata
 support, fast and efficient storage of typed numerical array data, as well
 as capabilities of recording additional array or non-array formed auxiliary
@@ -115,7 +116,7 @@ or multi-modality data entries, flexible grouping and internal data compression.
 The purpose of this document is to
 
 - define a 1-to-1 mapping between the existing NIFTI-1 and NIFTI-2 headers 
-  to a JSON/UBJSON-based flexible metadata header structure, so that all NIFTI
+  to a JSON/BJData-based flexible metadata header structure, so that all NIFTI
   formatted metadata can be losslessly stored using JNIfTI
 - define dedicated data containers to losslessly convert and storage all NIFTI 
   formatted neuroimaging data array, and show examples to use JData-enabled 
@@ -136,11 +137,11 @@ Grammar
 
 All JNIfTI files are JData specification compliant. The same as JData, it has
 both a text format based on JSON serialization and a binary format based on 
-the UBJSON serialization scheme. The two forms can be converted from one
+the BJData serialization scheme. The two forms can be converted from one
 to another.
 
 Briefly, the text-based JNIfTI is a valid JSON file with the extension to 
-support concatenated JSON objects; the binary-format JNIfTI is a valid UBJSON 
+support concatenated JSON objects; the binary-format JNIfTI is a valid BJData 
 file with the extended syntax to support N-D array. Please refer to the JData 
 specification for the definitions.
 
@@ -174,7 +175,8 @@ The direct storage format and the annotated storage format are equivalent. In th
 below sections, we use mostly the direct form to explain the data format, but
 one shall also be able to store the data using the annotated format. We also note that
 any valid JSON formatted data structure can be converted to a binary form using the
-rules defined in the [UBJSON specification (Draft 12)](http://ubjson.org).
+rules defined in the [Binary JData specification](https://github.com/OpenJData/bjdata) 
+which was extended from [UBJSON specification (Draft 12)](http://ubjson.org).
 
 
 JNIfTI Keywords
@@ -307,9 +309,9 @@ code to represent data type (i.e. the `DataType` subfield in `NIFTIHeader`). The
 table maps the NIFTI data type codes to the acceptable data type strings.
 
 ***Table 2. A mapping table from NIFTI-1 data types to string-valued JNIfTI data types and 
-storage types in UBJSON***
+storage types in BJData***
 
-|  NIFTI-1/2 Data Types   | NIFTI Code  | JNIfTI DataType  |UBJSON Type|
+|  NIFTI-1/2 Data Types   | NIFTI Code  | JNIfTI DataType  |BJData Type|
 |-------------------------|-------------|------------------|-----------|
 |**unsigned char**        |             |                  |	       |
 |`NIFTI_TYPE_UINT8`       |      `2    `|`  "uint8"       `| `U`       |
@@ -328,13 +330,13 @@ storage types in UBJSON***
 |**signed char**          |             |                  |	       |
 |`NIFTI_TYPE_INT8`        |    `256    `|`  "int8"        `| `i`       |
 |**unsigned short**       |             |                  |	       |
-|`NIFTI_TYPE_UINT16`      |    `512    `|`  "uint16"      `| `I`       |
+|`NIFTI_TYPE_UINT16`      |    `512    `|`  "uint16"      `| `u`       |
 |**unsigned int**         |             |                  |	       |
-|`NIFTI_TYPE_UINT32`      |    `768    `|`  "uint32"      `| `l`       |
+|`NIFTI_TYPE_UINT32`      |    `768    `|`  "uint32"      `| `m`       |
 |**signed long long**     |             |                  |	       |
 |`NIFTI_TYPE_INT64`       |   `1024    `|`  "int64"       `| `L`       |
 |**unsigned long long**   |             |                  |	       |
-|`NIFTI_TYPE_UINT64`      |   `1280    `|`  "uint64"      `| `L`       |
+|`NIFTI_TYPE_UINT64`      |   `1280    `|`  "uint64"      `| `M`       |
 |**128 bit float = long double** |      |                  |	       |
 |`NIFTI_TYPE_FLOAT128`    |   `1536    `|`  "double128" `\*| `U` (x16) |
 |**2x 64 bit floats = 128 bit complex** |     |            |	       |
@@ -624,7 +626,7 @@ can not be stored in the direct form, and one must use the annotated array forma
 instead.
 
 All above three forms are valid JSON formats, and thus can be converted to the corresponding 
-UBJSON formats when a binary JNIfTI file is desired. Using the optimized N-D array 
+BJData formats when a binary JNIfTI file is desired. Using the optimized N-D array 
 header defined in the JData specification, the binary storage of the direct-form 
 array can be efficiently written as
 
@@ -635,7 +637,7 @@ array can be efficiently written as
 ```
 
 Data compression can also be applied to the binary JNIfTI `NIFTIData` if
-one convers the above corresponding annotated array form into UBJSON.
+one convers the above corresponding annotated array form into BJData.
 For example, for a `uint8` formatted 256x256x256 3D volume, one can write as
 ```
 [U][10][NIFTIData]
@@ -869,10 +871,10 @@ flexibility of NIFTI-1/2 format and removes their inherent limitations, allowing
 storage of multiple datasets, data compression, flexible data grouping and user-defined 
 metadata fields.
 
-By using JSON/UBJSON compatible JData constructs, JNIfTI provides a highly portable, versatile
+By using JSON/BJData compatible JData constructs, JNIfTI provides a highly portable, versatile
 and extensible framework to store a large variety of neuroanatomical and functional image 
 data. Both text and binary formats are readable with self-explanatory keywords. The broad 
-availability of JSON and UBJSON parsers, along with the simple underlying syntax, allows one
+availability of JSON and BJData parsers, along with the simple underlying syntax, allows one
 to easily share, parse and process such data files without imposing extensive programming
 overhead. The flexible data organization and referencing mechanisms offered by the underlying 
 JData specification make it possible to record and share large scale complex neuroimaging 
