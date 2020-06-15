@@ -1,19 +1,19 @@
 # JNIfTI Toolbox - Fast and portable NIfTI-1/2 reader and NIfTI-to-JNIfTI converter
 
-* Copyright (C) 2019  Qianqian Fang <q.fang at neu.edu>
+* Copyright (C) 2019-2020  Qianqian Fang <q.fang at neu.edu>
 * License: GNU General Public License version 3 (GPL v3) or Apache License 2.0, see License*.txt
-* Version: 0.5 (Ascendence)
+* Version: 0.6 (Epica)
 * URL: http://github.com/fangq/jnifti
 
 ## Overview
 
 This is a fully functional NIfTI-1/2 reader/writer that supports both 
 MATLAB and GNU Octave, and is capable of reading/writing both non-compressed 
-and compressed NIfTI files (.nii, .nii.gz) as well as two-part Analyze7.5/NIfTI
-files (.hdr/.img and .hdr.gz/.img.gz).
+and compressed NIfTI files (`.nii, .nii.gz`) as well as two-part Analyze7.5/NIfTI
+files (`.hdr/.img` and `.hdr.gz/.img.gz`).
 
 More importantly, this is a toolbox that converts NIfTI data to its JSON-based
-replacement, JNIfTI (.jnii for text-based and .bnii for binary-based), defined
+replacement, JNIfTI (`.jnii` for text-based and `.bnii` for binary-based), defined
 by the JNIfTI specification (http://github.com/fangq/jnifti). JNIfTI is a 
 much more flexible, human-readable and extensible file format compared to the
 more rigid and opaque NIfTI format, making the data much easier to manipulate
@@ -29,7 +29,7 @@ utilizes `memmapfile`-based disk-reading, making it very fast. For Octave,
 `memmapfile` is currently not implemented, so, a full reading is required.
 
 The JNIfTI toolbox is also capable of reading/writing gzip-compressed NIfTI and 
-Analyze7.5 files (.nii.gz, .hdr.gz, .img.gz). This feature is supported in MATLAB
+Analyze7.5 files (`.nii.gz, .hdr.gz, .img.gz`). This feature is supported in MATLAB
 directly without needing another toolbox (MATLAB must be in the JVM-enabled mode).
 
 To process gzip-compressed NIfTI/Analyze files in Octave and MATLAB with `-nojvm`,
@@ -41,7 +41,7 @@ MATLAB and Octave. They can be downloaded at
 
 To save NIfTI-1/2 data as JNIfTI files, one needs to install JSONLab. The JNIfTI
 data format supports internal compression (as oppose to external compression such
-as \*.gz files). To create or read compressed JNIfTI files in Octave, one must 
+as `*.gz` files). To create or read compressed JNIfTI files in Octave, one must 
 install the ZMat toolbox, as listed above.
 
 ## Usage
@@ -80,4 +80,12 @@ Example:
   jnii=jnifticreate(uint8(magic(10)),'Name','10x10 magic matrix');
   savejnifti(jnii, 'magic10.jnii');
   savejnifti(jnii, 'magic10_debug.bnii','Compression','gzip');
+```
+### `jnii2nii` - To convert a JNIfTI file or data structure to a NIfTI-1/2 file
+Example:
+```
+  nii=jnii2nii('test.jnii');             % read a .jnii file as an nii structure
+  nii=jnii2nii('test.bnii');             % read a .bnii file as an nii structure
+  jnii2nii('test.jnii', 'newdata.nii.gz'); % read a text-JNIfTI file to an .nii.gz file
+  jnii2nii('test.bnii', 'newdata.nii'); % read a text-JNIfTI file to an .nii file
 ```
