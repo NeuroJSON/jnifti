@@ -1,0 +1,18 @@
+jnifti >> JNIfTI
+JNIfTI
+ jnifticreate
+ loadjnifti
+ loadnifti
+ memmapstream
+ nifticreate
+ niftiread
+ niftiinfo
+ niftiwrite
+ nii2jnii
+ jnii2nii
+ niicodemap
+ niiformat
+ savebnii
+ savejnifti
+ savejnii
+ savenifti
