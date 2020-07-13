@@ -1,3 +1,9 @@
 [submodule "lib/easyh5"]
 	path = lib/easyh5
 	url = https://github.com/fangq/easyh5.git
+[submodule "lib/python/pybj"]
+	path = lib/python/pybj
+	url = https://github.com/fangq/pybj.git
+[submodule "lib/python/pyjdata"]
+	path = lib/python/pyjdata
+	url = https://github.com/fangq/pyjdata.git
