@@ -279,7 +279,7 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` char `|` char `|`intent_name[16];`|  **'name' or meaning of data**|`    "Name" : "s",		    `|
 |`char*4`|`char*8`|` magic[] ;      `| **NIFTI-1:"ni1\0" or "n+1\0"**|`    "NIIFormat": "s",		    `|
 |        | 	  |`};`		     |	 			     |     			             |
-|`struct`|`struct`|`nifti_extender  `|`{char extension[4];};`        |`    "NIFTIExtender": [<i>,<i>,<i>,<i>],`|
+|`struct`|`struct`|`nifti_extender  `|`{char extension[4];};`        |`    "NIFTIExtension": [<i>,<i>,<i>,<i>],`|
 |        | 	  |     	     |			             |`    <...>			    `|
 |        | 	  | 	   	     |			             |`}				    `|
  
