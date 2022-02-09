@@ -436,7 +436,7 @@ is listed below
 |*NIFTI code for ppm*                          |	      |
 |        `NIFTI_UNITS_PPM    40               `|  `"ppm"`     |
 |*NIFTI code for radians per second*           |	      |
-|        `NIFTI_UNITS_RADS   48               `|  `"rad"`     |
+|        `NIFTI_UNITS_RADS   48               `|  `"rad/s"    |
 
 
 #### Intent (NIFTI-1 header: `intent_code`)
@@ -629,9 +629,21 @@ One can also apply data compression to reduce file sizes. In this case
 ```
 
 Please note that all composite data types (marked by "\*" in Table 2)
-can not be stored in the direct form and therefore must be stored using the annotated array format.
+can not be stored in the direct form and therefore must be stored using
+the annotated array format.
 
-All three of the above  forms are valid JSON formats, and thus can be converted to the corresponding 
+NIfTI-1/2 stores raw data values in the column-major element order (meaning
+that the left-most index (`dim[1]`) is the fastest index while the right-most index
+is the slowest) while JData `_ArrayData_` construct by default stores data elements
+in the row-major order (i.e. the right-most index is the fastest index). As a result,
+if one has to directly copy the NIfTI data buffer to the `_ArrayData_` element,
+one must add `"_ArrayOrder_" : "c"` or `"_ArrayOrder_" : "col"` before `_ArrayData_`
+or `_ArrayZipData_` entries in the above annotated `NIFTIData` forms.
+Alternatively, if `_ArrayOrder_` is not specified (which suggests "row-major" order),
+one must perform an N-D transpose operation to the NIfTI image data buffer before
+serializing those to `_ArrayData_`.
+
+All three of the above forms are valid JSON formats, and thus can be converted to the corresponding
 BJData formats when a binary JNIfTI file is desired. Using the optimized N-D array 
 header defined in the JData specification, the binary storage of the direct-form 
 array can be efficiently written as
