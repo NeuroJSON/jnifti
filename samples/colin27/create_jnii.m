@@ -1,6 +1,7 @@
 load colin27.mat
 
 jnii=jnifticreate(uint8(colin27),'Name','Colin27','Description','Colin27 segmentation, processed by Qianqian Fang');
+jnii.NIFTIHeader.Affine=[1 0 0 -91; 0 1 0 -127; 0 0 1 -73];
 
 tic;savejnifti(jnii,'colin27.bnii');toc
 tic;savejnifti(jnii,'colin27_zlib.bnii','compression','zlib');toc

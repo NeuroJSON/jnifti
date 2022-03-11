@@ -1,76 +1,76 @@
 {
-	"NIFTIHeader": {
-		"NIIHeaderSize": 348,
-		"A75DataTypeName": "",
-		"A75DBName": "",
-		"A75Extends": 0,
-		"A75SessionError": 0,
-		"A75Regular": 114,
-		"DimInfo": {
-			"Freq": 0,
-			"Phase": 0,
-			"Slice": 0
+	"NIFTIHeader":{
+		"NIIHeaderSize":348,
+		"A75DataTypeName":"",
+		"A75DBName":"",
+		"A75Extends":0,
+		"A75SessionError":0,
+		"A75Regular":114,
+		"DimInfo":{
+			"Freq":0,
+			"Phase":0,
+			"Slice":0
 		},
-		"Dim": [208,256,225],
-		"Param1": 0,
-		"Param2": 0,
-		"Param3": 0,
-		"Intent": "",
-		"DataType": "uint8",
-		"BitDepth": 8,
-		"FirstSliceID": 0,
-		"VoxelSize": [1,1,1],
-		"Orientation": {
-			"x": "r",
-			"y": "a",
-			"z": "s"
+		"Dim":[208,256,225],
+		"Param1":0,
+		"Param2":0,
+		"Param3":0,
+		"Intent":"",
+		"DataType":"uint8",
+		"BitDepth":8,
+		"FirstSliceID":0,
+		"VoxelSize":[1,1,1],
+		"Orientation":{
+			"x":"r",
+			"y":"a",
+			"z":"s"
 		},
-		"NIIByteOffset": 352,
-		"ScaleSlope": 0.003920000046,
-		"ScaleOffset": 0,
-		"LastSliceID": 0,
-		"SliceType": "",
-		"Unit": {
-			"L": "",
-			"T": ""
+		"NIIByteOffset":352,
+		"ScaleSlope":0.003920000046,
+		"ScaleOffset":0,
+		"LastSliceID":0,
+		"SliceType":"",
+		"Unit":{
+			"L":"",
+			"T":""
 		},
-		"MaxIntensity": 0,
-		"MinIntensity": 0,
-		"SliceTime": 0,
-		"TimeOffset": 0,
-		"A75GlobalMax": 100,
-		"A75GlobalMin": 0,
-		"Description": "",
-		"AuxFile": "",
-		"QForm": 0,
-		"SForm": 1,
-		"Quatern": {
-			"b": 0,
-			"c": 0,
-			"d": 0
+		"MaxIntensity":0,
+		"MinIntensity":0,
+		"SliceTime":0,
+		"TimeOffset":0,
+		"A75GlobalMax":100,
+		"A75GlobalMin":0,
+		"Description":"",
+		"AuxFile":"",
+		"QForm":0,
+		"SForm":1,
+		"Quatern":{
+			"b":0,
+			"c":0,
+			"d":0
 		},
-		"QuaternOffset": {
-			"x": 0,
-			"y": 0,
-			"z": 0
+		"QuaternOffset":{
+			"x":0,
+			"y":0,
+			"z":0
 		},
-		"Affine": [
+		"Affine":[
 			[1,0,0,-104],
 			[0,1,0,-128],
 			[0,0,1,-112]
 		],
-		"Name": "",
-		"NIIFormat": "n+1",
-		"NIIExtender": [0,0,0,0],
-		"NIIQfac_": 1,
-		"NIIEndian_": "L"
+		"Name":"",
+		"NIIFormat":"n+1",
+		"NIIExtender":[0,0,0,0],
+		"NIIQfac_":1,
+		"NIIEndian_":"L"
 	},
-	"NIFTIData": {
-		"_ArrayType_": "uint8",
-		"_ArraySize_": [208,256,225],
-		"_ArrayZipType_": "lzma",
-		"_ArrayZipSize_": [1,11980800],
-		"_ArrayZipData_": "XQAAEAAA0LYAAAAAAAAAb/3//6O3/0c+SBVyOWFRuJIo5qOGB/nu5B6C0y/FOjwBS7F+yYqK
+	"NIFTIData":{
+		"_ArrayType_":"uint8",
+		"_ArraySize_":[208,256,225],
+		"_ArrayZipType_":"lzma",
+		"_ArrayZipSize_":[1,11980800],
+		"_ArrayZipData_":"XQAAEAAA0LYAAAAAAAAAb/3//6O3/0c+SBVyOWFRuJIo5qOGB/nu5B6C0y/FOjwBS7F+yYqK
 TS+jDdl/puOMIxFT4FkYxXWK4nf4tpR/DGrA3nRJZOLpXFOyBNj3RAyrXw1tRunlw3aIt5ZX
 rLZN4Wkdb/tLiBBsQsuIP1wAj9BOryYolHEfPY8k4XCepyNf7CjLhdGVmIp+KpHyJ3X3GcAG
 mE2Y/div1ZAPxCVT+PWRNjEFpbDub8FwTNPyf9lXnCI3lfcVhvGhYuO14wjZQmidPVjuWnnN
