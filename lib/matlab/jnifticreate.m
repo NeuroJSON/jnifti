@@ -87,7 +87,6 @@ datainfo.Parser=struct('Python',[], ...
                        'C', 'https://github.com/NeuroJSON/ubj');
 datainfo.Parser.Python={'https://pypi.org/project/jdata','https://pypi.org/project/bjdata'};
 datainfo.Parser.MATLAB={'https://github.com/NeuroJSON/jnifty','https://github.com/NeuroJSON/jsonlab'};
-datainfo.JNIFTIVersion='0.5';
 jnii.(encodevarname('_DataInfo_'))=datainfo;
 
 if(nargin==0)
