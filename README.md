@@ -1,3 +1,5 @@
+![](https://neurojson.org/wiki/upload/neurojson_banner_long.png)
+
 # JNIfTI Format Specification Development Guide
 
 We use this repository to gather feedback from the community regarding the 
