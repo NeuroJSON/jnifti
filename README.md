@@ -12,9 +12,9 @@ The latest version of the JNIfTI specification can be found in the file named
 in the [Markdown format](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) 
 for convenient editing and version control.
 
-The JNIfTI format is built upon the [JData specification](https://github.com/fangq/jdata/) - 
+The JNIfTI format is built upon the [JData specification](https://github.com/NeuroJSON/jdata/) - 
 a generalized framework to serialize and convert complex scientific data. 
-The JNIfTI specification is compatible with [JData specification Draft 1](https://github.com/fangq/jdata/commit/f8fc8f1b814e7a4654b7b0092de15eaafa94d3da).
+The JNIfTI specification is compatible with [JData specification Draft 3](https://neurojson.org/jdata/draft3).
 
 ## How to participate
 
@@ -41,8 +41,8 @@ draft of this file specification, including
   - One can browse the commit history of the specification document. If
     anyone is interested in commenting on a particular updated, you can also
     comment on any of the commit page using the same method.
-- [Use the JData mailing list](https://groups.google.com/forum/#!forum/openjdata)
-  - You may send your comments to the jdata mailing list (openjdata at googlegroups.com). 
+- [Use NeuroJSON mailing list](https://groups.google.com/forum/#!forum/neurojson)
+  - You may send your comments to the neurojson mailing list (neurojson at googlegroups.com). 
     Subscribers will discuss by emails, and if a motion is reached, proposals
     will be resubmitted as an Issue, and changes to the specification will be
     associated with this issue page.
