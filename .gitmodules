@@ -7,3 +7,15 @@
 [submodule "lib/python/pyjdata"]
 	path = lib/python/pyjdata
 	url = https://github.com/fangq/pyjdata.git
+[submodule "lib/matlab/jnifty"]
+	path = lib/matlab/jnifty
+	url = https://github.com/NeuroJSON/jnifty.git
+[submodule "lib/matlab/jsonlab"]
+	path = lib/matlab/jsonlab
+	url = https://github.com/NeuroJSON/jsonlab
+[submodule "lib/javascript/js-bjdata"]
+	path = lib/javascript/js-bjdata
+	url = https://github.com/NeuroJSON/js-bjdata.git
+[submodule "lib/javascript/jsdata"]
+	path = lib/javascript/jsdata
+	url = https://github.com/NeuroJSON/jsdata.git

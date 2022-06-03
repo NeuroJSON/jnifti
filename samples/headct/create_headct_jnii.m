@@ -1,6 +1,6 @@
 function create_headct_jnii
     if(~exist('nii2jnii','file') || ~exist('zmat','file') )
-            error('you must install JNIfTI toolbox https://github.com/fangq/jnifti and ZMat toolbox:https://github.com/fangq/zmat');
+            error('you must install JNIfTI toolbox https://github.com/NeuroJSON/jnifti and ZMat toolbox:https://github.com/fangq/zmat');
     end
     dat=nii2jnii('headct.nii.gz');
     dat.NIFTIHeader
