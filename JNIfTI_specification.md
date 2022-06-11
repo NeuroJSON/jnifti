@@ -649,9 +649,9 @@ header defined in the JData specification, the binary storage of the direct-form
 array can be efficiently written as
 
 ```   
-[U][10][NIFTIData] [[] [$][datatype][#] [[] [$][l][#][3][Nx][Ny][Nz] [v_111,v_112,...,v_121,v_122,...,v_NxNyNz]
-|----------------| |-----------------------------------------------| |----------------------------------------|
-      name          optimized array container header for N-D array    row-major-order serialized N-D array data
+[U][10][NIFTIData] [[] [$][datatype][#] [[] [$][l][#][U][3][Nx][Ny][Nz] [v_111,v_112,...,v_121,v_122,...,v_NxNyNz]
+|----------------| |--------------------------------------------------| |----------------------------------------|
+      name          optimized array container header for N-D array       row-major-order serialized N-D array data
 ```
 
 Data compression can also be applied to the binary JNIfTI `NIFTIData` by 
