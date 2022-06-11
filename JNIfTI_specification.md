@@ -436,7 +436,7 @@ is listed below
 |*NIFTI code for ppm*                          |	      |
 |        `NIFTI_UNITS_PPM    40               `|  `"ppm"`     |
 |*NIFTI code for radians per second*           |	      |
-|        `NIFTI_UNITS_RADS   48               `|  `"rad/s"    |
+|        `NIFTI_UNITS_RADS   48               `|  `"rad/s"`   |
 
 
 #### Intent (NIFTI-1 header: `intent_code`)
