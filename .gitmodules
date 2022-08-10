@@ -19,3 +19,6 @@
 [submodule "lib/javascript/jsdata"]
 	path = lib/javascript/jsdata
 	url = https://github.com/NeuroJSON/jsdata.git
+[submodule "lib/octave"]
+	path = lib/octave
+	url = https://github.com/NeuroJSON/jnifty.git
