@@ -4,7 +4,7 @@ function create_headct_jnii
     end
     dat=nii2jnii('headct.nii.gz');
     dat.NIFTIHeader
-    zipmethod={'','zlib','gzip','lzma','lz4','lz4hc'};
+    zipmethod={'','zlib','gzip','lzma','lz4','lz4hc','blosc2lz4','blosc2zstd'};
     runbench=@(z) arrayfun(@(x) runone(dat,z,x),'jb','uniformoutput',false);
     cellfun(runbench,zipmethod);
 end
