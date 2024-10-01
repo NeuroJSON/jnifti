@@ -561,6 +561,23 @@ The below table maps the NIFTI data slice codes to the acceptable slice strings.
 |  **Slice alternating decreasing type 2**             | | |
 |`NIFTI_SLICE_ALT_DEC2         `| `6` |  `"alt2-"`         |
 
+#### QForm/SForm (NIFTI-1 header: `qform_codes/sform_code`)
+
+
+|  NIFTI-1/2 XForm Code Name    |Code |JNIfTI QForm/SForm Key|
+|-------------------------------|-----|--------------------|
+|  **Arbitrary coordinates**                              | | |
+|`NIFTI_SLICE_UNKNOWN          `| `0` |  `""`              |
+|  **Scanner-based anatomical coordinates**        | | |
+|`NIFTI_XFORM_SCANNER_ANAT          `| `1` |  `"scanner_anat"`          |
+|  **Coordinates aligned to another file's, or to anatomical "truth"**  | | |
+|`NIFTI_XFORM_ALIGNED_ANAT          `| `2` |  `"aligned_anat"`          |
+|  **Coordinates aligned to Talairach-Tournoux Atlas**                    | | |
+|`NIFTI_XFORM_TALAIRACH          `| `3` |  `"talairach"`          |
+|  **MNI 152 normalized coordinates**                    | | |
+|`NIFTI_XFORM_MNI_152          `| `4` |  `"mni"`          |
+|  **Normalized coordinates(for any general standard template space)**             | | |
+|`NIFTI_XFORM_TEMPLATE_OTHER         `| `5` |  `"template_other"`         |
 
 #### NIIFormat (NIFTI-1 header: `magic`)
 
