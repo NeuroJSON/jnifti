@@ -29,10 +29,16 @@ data compression, streaming and encryption.
 - [JNIfTI Keywords](#jnifti-keywords)
   * [NIFTIHeader](#niftiheader)
     + [DataType (NIFTI-1 header: datatype)](#datatype-nifti-1-header-datatype)
+    + [Dim (NIFTI-1 header: dim)](#dim-nifti-1-header-dim)
     + [DimInfo (NIFTI-1 header: dim_info)](#diminfo-nifti-1-header-dim_info)
+    + [Orientation (NIFTI-1 header: pixdim[0])](#orientation-nifti-1-header-pixdim0)
     + [Unit (NIFTI-1 header: xyzt_units)](#unit-nifti-1-header-xyzt_units)
+    + [Intent (NIFTI-1 header: intent_code)](#intent-nifti-1-header-intent_code)
+    + [SliceType (NIFTI-1 header: slice_code)](#slicetype-nifti-1-header-slice_code)
+    + [QForm/SForm (NIFTI-1 header: qform_code/sform_code)](#qformsform-nifti-1-header-qform_codesform_code)
     + [NIIFormat (NIFTI-1 header: magic)](#niiformat-nifti-1-header-magic)
     + [NIIHeaderSize (NIFTI-1 header: sizeof_hdr)](#niiheadersize-nifti-1-header-sizeof_hdr)
+    + [NIIByteOffset (NIFTI-1 header: vox_offset)](#niibyteoffset-nifti-1-header-vox_offset)
     + [Other depreciated subfields](#other-depreciated-subfields)
   * [NIFTIData](#niftidata)
     + [Array form](#array-form)
@@ -260,8 +266,8 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |` int  `|   -    |` glmin;	    `|  **++UNUSED++**  	     |`    "A75GlobalMin": <i>, 	    `|
 |` char `|` char `|` descrip[80];   `|  **Data description**	     |`    "Description": "s",  	    `|
 |` char `|` char `|` aux_file[24];  `|  **Auxiliary filename**       |`    "AuxFile": "s",		    `|
-|` short`|` int  `|` qform_code ;   `|  **NIFTI_XFORM_\* code**      |`    "QForm": <i>,		    `|
-|` short`|` int  `|` sform_code ;   `|  **NIFTI_XFORM_\* code**      |`    "SForm": <i>,		    `|
+|` short`|` int  `|` qform_code ;   `|  **NIFTI_XFORM_\* code**      |`    "QForm": <i>\|"s",		    `|
+|` short`|` int  `|` sform_code ;   `|  **NIFTI_XFORM_\* code**      |`    "SForm": <i>\|"s",		    `|
 |` float`|`double`|` quatern_b ;    `|  **Quaternion b param**       |`    "Quatern": { "b"=<f>,	    `|
 |` float`|`double`|` quatern_c ;    `|  **Quaternion c param**       |`        "c": <f>,		    `|
 |` float`|`double`|` quatern_d ;    `|  **Quaternion d param**       |`        "d": <f> 		    `|
