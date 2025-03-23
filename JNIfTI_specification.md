@@ -1,11 +1,13 @@
 JNIfTI: a JSON/binary JSON extension to the NIfTI-1/2 formats
 ============================================================
 
-- **Status of this document**: This document is currently under development.
 - **Copyright**: (C) 2019-2025 Qianqian Fang <q.fang at neu.edu>, 
                      2020  Edward Xu <xu.ed at northeastern.edu>
 - **License**: Apache License, Version 2.0
 - **Version**: V1 (Draft 2)
+- **URL**: https://neurojson.org/jnifti/draft2
+- **Status**: Frozen on March 23, 2025. For future updates, please see the Development URL below
+- **Development**: https://github.com/NeuroJSON/jnifti
 - **Abstract**:
 
 > This specification defines the JNIfTI standard format. The JNIfTI format
@@ -17,7 +19,7 @@ NIfTI data makes it possible to rapidly index, exchange, and query large amount
 of NIfTI datasets and metadata using modern database engines where JSON is used
 as the underlying data exchange format. With the extension of JData annotations,
 JNIfTI also permits optional hierarchical data storage, image data grouping,
-data compression, streaming and encryption.
+various data compression codecs, filters, streaming and encryption.
 
 
 ## Table of Content
