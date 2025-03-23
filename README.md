@@ -41,11 +41,9 @@ draft of this file specification, including
   - One can browse the commit history of the specification document. If
     anyone is interested in commenting on a particular updated, you can also
     comment on any of the commit page using the same method.
-- [Use NeuroJSON mailing list](https://groups.google.com/forum/#!forum/neurojson)
-  - You may send your comments to the neurojson mailing list (neurojson at googlegroups.com). 
-    Subscribers will discuss by emails, and if a motion is reached, proposals
-    will be resubmitted as an Issue, and changes to the specification will be
-    associated with this issue page.
+- [Use NeuroJSON Forum](https://github.com/orgs/NeuroJSON/discussions)
+  - You may send your comments to the neurojson Github forum. You may report
+    bugs, new features, or submit new datasets.
 
 For anyone who wants to contribute to the writing or revision of this document,
 please follow the below steps
