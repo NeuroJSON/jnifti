@@ -4,9 +4,9 @@ JNIfTI: a JSON/binary JSON extension to the NIfTI-1/2 formats
 - **Copyright**: (C) 2019-2025 Qianqian Fang <q.fang at neu.edu>, 
                      2020  Edward Xu <xu.ed at northeastern.edu>
 - **License**: Apache License, Version 2.0
-- **Version**: V1 (Draft 2)
+- **Version**: V1 (Draft-3.preview)
 - **URL**: https://neurojson.org/jnifti/draft2
-- **Status**: Frozen on March 23, 2025. For future updates, please see the Development URL below
+- **Status**: Draft-3 is a work-in-progress
 - **Development**: https://github.com/NeuroJSON/jnifti
 - **Abstract**:
 

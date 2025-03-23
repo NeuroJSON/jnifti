@@ -27,7 +27,7 @@ draft of this file specification, including
     question, report a bug, provide a feature request, or simply propose
     general discussions. Please use URLs or keywords to link your discussion 
     to a specific line/section/topic in the document.
-- [Write short comments on Request for Comments (RFC) commits](https://github.com/NeuroJSON/jnifti/)
+- [Write short comments on Request for Comments (RFC) commits](https://github.com/NeuroJSON/jnifti/blob/Draft-2/JNIfTI_specification.md)
   - A milestone version of the specification will be associated with an
     RFC (Request for comments) commit (where the entire file is removed
     and re-added so that every line appears in such comment). One can
