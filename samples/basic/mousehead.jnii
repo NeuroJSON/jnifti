@@ -1,21 +1,21 @@
 {
 	"_DataInfo_":{
 		"JNIFTIVersion":"0.5",
-		"Comment":"Created by JNIFTY Toolbox (https:\/\/github.com\/NeuroJSON\/jnifty)",
-		"AnnotationFormat":"https:\/\/github.com\/NeuroJSON\/jnifti\/blob\/master\/JNIfTI_specification.md",
-		"SerialFormat":"http:\/\/json.org",
+		"Comment":"Created by JNIFTY Toolbox (https://github.com/NeuroJSON/jnifty)",
+		"AnnotationFormat":"https://neurojson.org/jnifti/draft2",
+		"SerialFormat":"https://json.org",
 		"Parser":{
 			"Python":[
-				"https:\/\/pypi.org\/project\/jdata",
-				"https:\/\/pypi.org\/project\/bjdata"
+				"https://pypi.org/project/jdata",
+				"https://pypi.org/project/bjdata"
 			],
 			"MATLAB":[
-				"https:\/\/github.com\/NeuroJSON\/jnifty",
-				"https:\/\/github.com\/NeuroJSON\/jsonlab"
+				"https://github.com/NeuroJSON/jnifty",
+				"https://github.com/NeuroJSON/jsonlab"
 			],
-			"JavaScript":"https:\/\/github.com\/NeuroJSON\/jsdata",
-			"CPP":"https:\/\/github.com\/NeuroJSON\/json",
-			"C":"https:\/\/github.com\/NeuroJSON\/ubj"
+			"JavaScript":"https://github.com/NeuroJSON/jsdata",
+			"CPP":"https://github.com/NeuroJSON/json",
+			"C":"https://github.com/NeuroJSON/ubj"
 		}
 	},
 	"NIFTIHeader":{
@@ -51,8 +51,8 @@
 		"SliceTime":1,
 		"TimeOffset":0,
 		"Description":"Binary mask of a mouse-head scan",
-		"QForm":0,
-		"SForm":1,
+		"QForm":"",
+		"SForm":"scanner_anat",
 		"Quatern":{
 			"b":0,
 			"c":0,
