@@ -45,7 +45,7 @@ data compression, streaming and encryption.
       - [double128](#double128)
       - [complex256](#complex256)
   * [NIFTIExtension](#niftiextension)
-- [Data Orgnization and Grouping](#data-orgnization-and-grouping)
+- [Data Organization and Grouping](#data-organization-and-grouping)
 - [Recommended File Specifiers](#recommended-file-specifiers)
 - [Summary](#summary)
 
@@ -365,7 +365,7 @@ should equal to that of `dim[0]`.
 
 In the NIFTI-1/2 formats, the `dim_info` field combines 3 parameters, `freq_dim`, `phase_dim` 
 and `slice_dim`, using bit-masks. To enhance readability, we represent each of 
-these parameters as explicit subfields in JNIfFTI, specifically `"Freq"`, 
+these parameters as explicit subfields in JNIfTI, specifically `"Freq"`, 
 `"Phase"` and `"Slice"` inside the `"DimInfo"` 
 structure. A fixed order of the 3 subfields is not required.
 
