@@ -1,25 +1,23 @@
-JNIfTI: An extensible file format for storage and interchange of neuroimaging data
+JNIfTI: a JSON/binary JSON extension to the NIfTI-1/2 formats
 ============================================================
 
 - **Status of this document**: This document is currently under development.
-- **Copyright**: (C) 2019-2020 Qianqian Fang <q.fang at neu.edu>, 
-                     2020  Edward Xu <xu.ed at husky.neu.edu>
+- **Copyright**: (C) 2019-2025 Qianqian Fang <q.fang at neu.edu>, 
+                     2020  Edward Xu <xu.ed at northeastern.edu>
 - **License**: Apache License, Version 2.0
-- **Version**: V1 (Draft 1)
+- **Version**: V1 (Draft 2)
 - **Abstract**:
 
-> JNIfTI is a highly extensible file format developed for the storage, 
-interchange and processing of neuroimaging data. Built upon the JData 
-specification, a JNIfTI file has both a text-based interface using the 
-JavaScript Object Notation (JSON) [RFC4627] format and a binary 
-interface using the Universal Binary JSON (UBJSON) serialization format. 
-This further allows JNIfTI to store not only neuroimaging data formatted 
-in the NIfTI-1, NIfTI-2, and Analyze7.5 specifications, but also 
-non-array-based and complex data structures, such as neuroimaging metadata, 
-using simple syntax. To enhance accessibility, JNIfTI files can be directly 
-parsed by most existing JSON and UBJSON parsers. Advanced features include 
-optional hierarchical data storage, image data grouping, data compression, 
-streaming and encryption as permitted by JData data serialization framework.
+> This specification defines the JNIfTI standard format. The JNIfTI format
+allows one to store and extend the widely used NIfTI format (.nii) using JavaScript
+Object Notation (JSON) [RFC4627] and binary JSON serialization methods.
+It loss-lessly maps all NIfTI-1 and NIfTI-2 headers and data structures to
+a human-readable JSON-based wrapper. Use of JSON and JNIfTI formats to store
+NIfTI data makes it possible to rapidly index, exchange, and query large amount
+of NIfTI datasets and metadata using modern database engines where JSON is used
+as the underlying data exchange format. With the extension of JData annotations,
+JNIfTI also permits optional hierarchical data storage, image data grouping,
+data compression, streaming and encryption.
 
 
 ## Table of Content
@@ -87,16 +85,16 @@ of data acquired under the previous data formats. To add to this, the
 NIfTI formats consist only of a binary interface and thus are not directly 
 human-readable, thus further complicating this task.
 
-Over the past few years, [JavaScript Object Notation](http://json.org) 
+Over the past few years, [JavaScript Object Notation](https://json.org) 
 (JSON) has become ubiquitously recognized among the Internet community for its 
 ability to store complex data, excellent portability, and human-readability. 
 The subsequent introduction and widespread adoption of a range of binary 
-JSON-like format, such as [UBJSON](http://ubjson.org), 
-[Binary JData (BJData)](https://github.com/OpenJData/bjdata), 
-[MessagePack](https://msgpack.org/) and [CBOR](http://cbor.io), 
+JSON-like format, such as [UBJSON](https://ubjson.org), 
+[Binary JData (BJData)](https://neurojson.org/bjdata), 
+[MessagePack](https://msgpack.org/) and [CBOR](https://cbor.io), 
 have added complementary features such as support for typed data, smaller file 
 sizes, and faster processing speeds as well. The 
-[JData specification](https://github.com/fangq/jdata/blob/master/JData_specification.md) 
+[JData specification](https://github.com/NeuroJSON/jdata/blob/master/JData_specification.md) 
 capitalizes upon the strengths of these data interchange formats and
 provides the foundation for serializing complex hierarchical data using
 JSON/BJData constructs. This has then enabled the definition of language- 
@@ -179,8 +177,8 @@ The direct storage format and the annotated storage format are functionally
 equivalent. While we primarily describe data storage in the context of the direct 
 format below, it is applicable to the annotated format as well. We also note that
 any valid JSON formatted data structure can be converted into a binary form using the
-rules defined in the [Binary JData specification](https://github.com/OpenJData/bjdata), 
-which was extended from [UBJSON specification (Draft 12)](http://ubjson.org).
+rules defined in the [Binary JData specification](https://neurojson.org/bjdata), 
+which was extended from [UBJSON specification (Draft 12)](https://ubjson.org).
 
 
 JNIfTI Keywords
@@ -561,7 +559,7 @@ The below table maps the NIFTI data slice codes to the acceptable slice strings.
 |  **Slice alternating decreasing type 2**             | | |
 |`NIFTI_SLICE_ALT_DEC2         `| `6` |  `"alt2-"`         |
 
-#### QForm/SForm (NIFTI-1 header: `qform_codes/sform_code`)
+#### QForm/SForm (NIFTI-1 header: `qform_code/sform_code`)
 
 
 |  NIFTI-1/2 XForm Code Name    |Code |      JNIfTI QForm/SForm Key         |
@@ -834,7 +832,7 @@ The `"Type"` field must be one of the 3 values according to the NIFTI-1 specific
 
 `"_ByteStream_"` is a JData keyword to store raw byte-stream buffers. For text-based JNIfTI/JData 
 files, its value must be a base64-encoded string; no base64 encoding is needed when storing in the
-binary format. For details, please see the JData specification ["Generic byte-stream data" section](https://github.com/fangq/jdata/blob/master/JData_specification.md#generic-byte-stream-data).
+binary format. For details, please see the JData specification ["Generic byte-stream data" section](https://github.com/NeuroJSON/jdata/blob/master/JData_specification.md#generic-byte-stream-data).
 
 Again, because the extension data buffer has very little semantic information, the use of 
 such a buffer is not recommended. Please consider converting the data to meaningful JData 
