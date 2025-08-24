@@ -1,0 +1,621 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JNIfTI JSON Schema",
+  "description": "JSON schema for JNIfTI (JSON NIfTI) format - a JSON/binary JSON extension to the NIfTI-1/2 formats",
+  "type": "object",
+  "properties": {
+    "NIFTIHeader": {
+      "$ref": "#/definitions/NIFTIHeaderDef"
+    },
+    "NIFTIData": {
+      "$ref": "#/definitions/NIFTIDataDef"
+    },
+    "NIFTIExtension": {
+      "$ref": "#/definitions/NIFTIExtensionDef"
+    },
+    "NIFTIGroup": {
+      "$ref": "#/definitions/NIFTIGroupDef"
+    },
+    "NIFTIObject": {
+      "$ref": "#/definitions/NIFTIObjectDef"
+    }
+  },
+  "patternProperties": {
+    "^NIFTIHeader\\(.+\\)$": {
+      "$ref": "#/definitions/NIFTIHeaderDef"
+    },
+    "^NIFTIData\\(.+\\)$": {
+      "$ref": "#/definitions/NIFTIDataDef"
+    },
+    "^NIFTIExtension\\(.+\\)$": {
+      "$ref": "#/definitions/NIFTIExtensionDef"
+    },
+    "^NIFTIGroup\\(.+\\)$": {
+      "$ref": "#/definitions/NIFTIGroupDef"
+    },
+    "^NIFTIObject\\(.+\\)$": {
+      "$ref": "#/definitions/NIFTIObjectDef"
+    }
+  },
+  "additionalProperties": true,
+  "definitions": {
+    "NIFTIHeaderDef": {
+      "type": "object",
+      "title": "NIFTIHeader",
+      "description": "Structure to store all defined NIFTI-1/2 header metadata",
+      "properties": {
+        "NIIHeaderSize": {
+          "type": "integer",
+          "description": "NIFTI-1: 348, NIFTI-2: 540 (deprecated, for compatibility only)"
+        },
+        "A75DataTypeName": {
+          "type": "string",
+          "description": "Analyze 7.5 data_type field (deprecated)"
+        },
+        "A75DBName": {
+          "type": "string",
+          "description": "Analyze 7.5 db_name field (deprecated)"
+        },
+        "A75Extends": {
+          "type": "integer",
+          "description": "Analyze 7.5 extents field (deprecated)"
+        },
+        "A75SessionError": {
+          "type": "integer",
+          "description": "Analyze 7.5 session_error field (deprecated)"
+        },
+        "A75Regular": {
+          "type": "integer",
+          "description": "Analyze 7.5 regular field (deprecated)"
+        },
+        "A75GlobalMax": {
+          "type": "integer",
+          "description": "Analyze 7.5 glmax field (deprecated)"
+        },
+        "A75GlobalMin": {
+          "type": "integer",
+          "description": "Analyze 7.5 glmin field (deprecated)"
+        },
+        "DimInfo": {
+          "type": "object",
+          "description": "MRI slice ordering information",
+          "properties": {
+            "Freq": {
+              "type": "integer",
+              "description": "Frequency encoding dimension"
+            },
+            "Phase": {
+              "type": "integer",
+              "description": "Phase encoding dimension"
+            },
+            "Slice": {
+              "type": "integer",
+              "description": "Slice select dimension"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Dim": {
+          "type": "array",
+          "description": "Data array dimensions (starting from dim[1])",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 1,
+          "maxItems": 7
+        },
+        "Param1": {
+          "type": "number",
+          "description": "1st intent parameter"
+        },
+        "Param2": {
+          "type": "number",
+          "description": "2nd intent parameter"
+        },
+        "Param3": {
+          "type": "number",
+          "description": "3rd intent parameter"
+        },
+        "Intent": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "description": "NIFTI_INTENT_* code"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "", "corr", "ttest", "ftest", "zscore", "chi2", "beta", "binomial",
+                "gamma", "poisson", "normal", "ncftest", "ncchi2", "logistic",
+                "laplace", "uniform", "ncttest", "weibull", "chi", "invgauss",
+                "extval", "pvalue", "logpvalue", "log10pvalue", "estimate",
+                "label", "neuronames", "matrix", "symmatrix", "dispvec", "vector",
+                "point", "triangle", "quaternion", "unitless", "tseries", "elem",
+                "rgb", "rgba", "shape", "fsl_fnirt_displacement_field",
+                "fsl_cubic_spline_coefficients", "fsl_dct_coefficients",
+                "fsl_quadratic_spline_coefficients", "fsl_topup_cubic_spline_coefficients",
+                "fsl_topup_quadratic_spline_coefficients", "fsl_topup_field"
+              ]
+            }
+          ]
+        },
+        "DataType": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "description": "NIFTI data type code"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "uint8", "int16", "int32", "single", "complex64", "double",
+                "rgb24", "int8", "uint16", "uint32", "int64", "uint64",
+                "double128", "complex128", "complex256", "rgba32"
+              ]
+            }
+          ]
+        },
+        "BitDepth": {
+          "type": "integer",
+          "description": "Number of bits per voxel"
+        },
+        "FirstSliceID": {
+          "type": "integer",
+          "description": "First slice index"
+        },
+        "VoxelSize": {
+          "type": "array",
+          "description": "Grid spacings (from pixdim[1] onwards)",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1,
+          "maxItems": 7
+        },
+        "Orientation": {
+          "type": "object",
+          "description": "Coordinate system orientation",
+          "properties": {
+            "x": {
+              "type": "string",
+              "enum": ["l", "left", "r", "right"],
+              "description": "+x direction meaning"
+            },
+            "y": {
+              "type": "string",
+              "enum": ["a", "anterior", "p", "posterior"],
+              "description": "+y direction meaning"
+            },
+            "z": {
+              "type": "string",
+              "enum": ["s", "superior", "i", "inferior"],
+              "description": "+z direction meaning"
+            }
+          },
+          "additionalProperties": false
+        },
+        "NIIByteOffset": {
+          "type": "number",
+          "description": "Offset into .nii file (deprecated, for compatibility only)"
+        },
+        "ScaleSlope": {
+          "type": "number",
+          "description": "Data scaling: slope"
+        },
+        "ScaleOffset": {
+          "type": "number",
+          "description": "Data scaling: offset"
+        },
+        "LastSliceID": {
+          "type": "integer",
+          "description": "Last slice index"
+        },
+        "SliceType": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "description": "NIFTI slice code"
+            },
+            {
+              "type": "string",
+              "enum": ["", "seq+", "seq-", "alt+", "alt-", "alt2+", "alt2-"],
+              "description": "Slice timing order"
+            }
+          ]
+        },
+        "Unit": {
+          "type": "object",
+          "description": "Units of measurement",
+          "properties": {
+            "L": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "description": "NIFTI spatial unit code"
+                },
+                {
+                  "type": "string",
+                  "enum": ["", "m", "mm", "um"],
+                  "description": "Spatial unit"
+                }
+              ]
+            },
+            "T": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "description": "NIFTI time unit code"
+                },
+                {
+                  "type": "string",
+                  "enum": ["", "s", "ms", "us", "hz", "ppm", "rad/s"],
+                  "description": "Time unit"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "MaxIntensity": {
+          "type": "number",
+          "description": "Maximum display intensity"
+        },
+        "MinIntensity": {
+          "type": "number",
+          "description": "Minimum display intensity"
+        },
+        "SliceTime": {
+          "type": "number",
+          "description": "Time for 1 slice"
+        },
+        "TimeOffset": {
+          "type": "number",
+          "description": "Time axis shift"
+        },
+        "Description": {
+          "type": "string",
+          "description": "Data description"
+        },
+        "AuxFile": {
+          "type": "string",
+          "description": "Auxiliary filename"
+        },
+        "QForm": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "description": "NIFTI_XFORM_* code"
+            },
+            {
+              "type": "string",
+              "enum": ["", "scanner_anat", "aligned_anat", "talairach", "mni_152", "template_other"],
+              "description": "Quaternion-based transform type"
+            }
+          ]
+        },
+        "SForm": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "description": "NIFTI_XFORM_* code"
+            },
+            {
+              "type": "string",
+              "enum": ["", "scanner_anat", "aligned_anat", "talairach", "mni_152", "template_other"],
+              "description": "Affine-based transform type"
+            }
+          ]
+        },
+        "Quatern": {
+          "type": "object",
+          "description": "Quaternion parameters",
+          "properties": {
+            "b": {
+              "type": "number",
+              "description": "Quaternion b parameter"
+            },
+            "c": {
+              "type": "number",
+              "description": "Quaternion c parameter"
+            },
+            "d": {
+              "type": "number",
+              "description": "Quaternion d parameter"
+            }
+          },
+          "additionalProperties": false
+        },
+        "QuaternOffset": {
+          "type": "object",
+          "description": "Quaternion offset parameters",
+          "properties": {
+            "x": {
+              "type": "number",
+              "description": "Quaternion x shift"
+            },
+            "y": {
+              "type": "number",
+              "description": "Quaternion y shift"
+            },
+            "z": {
+              "type": "number",
+              "description": "Quaternion z shift"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Affine": {
+          "type": "array",
+          "description": "3x4 affine transformation matrix",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "Name": {
+          "type": "string",
+          "description": "Name or meaning of data"
+        },
+        "NIIFormat": {
+          "type": "string",
+          "description": "NIFTI format identifier (deprecated, for compatibility only)"
+        }
+      },
+      "additionalProperties": true
+    },
+    "NIFTIDataDef": {
+      "title": "NIFTIData",
+      "description": "Primary neuroimaging data container",
+      "oneOf": [
+        {
+          "type": "array",
+          "description": "Direct array format for N-dimensional data"
+        },
+        {
+          "$ref": "#/definitions/AnnotatedArrayDef"
+        },
+        {
+          "type": "object",
+          "description": "Structure form with additional metadata",
+          "properties": {
+            "_DataInfo_": {
+              "type": "object",
+              "description": "JData-compatible metadata record (must be first element)"
+            },
+            "Data": {
+              "oneOf": [
+                {
+                  "type": "array",
+                  "description": "Array data in direct format"
+                },
+                {
+                  "$ref": "#/definitions/AnnotatedArrayDef"
+                }
+              ]
+            },
+            "Properties": {
+              "oneOf": [
+                {
+                  "type": "array"
+                },
+                {
+                  "type": "object"
+                }
+              ],
+              "description": "Optional auxiliary data"
+            }
+          },
+          "required": ["Data"],
+          "additionalProperties": true
+        }
+      ]
+    },
+    "AnnotatedArrayDef": {
+      "type": "object",
+      "description": "JData annotated array format",
+      "properties": {
+        "_ArrayType_": {
+          "type": "string",
+          "enum": [
+            "uint8", "int8", "uint16", "int16", "uint32", "int32", 
+            "uint64", "int64", "single", "double"
+          ],
+          "description": "Data type of array elements"
+        },
+        "_ArraySize_": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "description": "Dimensions of the N-D array"
+        },
+        "_ArrayOrder_": {
+          "type": "string",
+          "enum": ["c", "col", "r", "row"],
+          "description": "Array storage order (c/col for column-major, r/row for row-major)"
+        },
+        "_ArrayData_": {
+          "type": "array",
+          "description": "Raw array data in row-major order by default"
+        },
+        "_ArrayZipType_": {
+          "type": "string",
+          "enum": ["zlib", "gzip", "lzma", "lz4", "blosc"],
+          "description": "Compression method"
+        },
+        "_ArrayZipSize_": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "description": "Size of compressed data"
+        },
+        "_ArrayZipData_": {
+          "type": "string",
+          "description": "Base64-encoded compressed byte stream"
+        },
+        "_ArrayIsComplex_": {
+          "type": "boolean",
+          "description": "True if array contains complex numbers"
+        }
+      },
+      "required": ["_ArrayType_", "_ArraySize_"],
+      "oneOf": [
+        {
+          "required": ["_ArrayData_"]
+        },
+        {
+          "required": ["_ArrayZipData_", "_ArrayZipType_"]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "NIFTIExtensionDef": {
+      "type": "array",
+      "title": "NIFTIExtension",
+      "description": "Optional array of NIFTI-1 extension buffers for compatibility",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Size": {
+            "type": "integer",
+            "description": "Size of extension buffer"
+          },
+          "Type": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "enum": [0, 1, 2]
+              },
+              {
+                "type": "string",
+                "enum": ["", "dicom", "afni"]
+              }
+            ],
+            "description": "Extension type: 0/'' = unknown, 1/'dicom' = DICOM, 2/'afni' = AFNI"
+          },
+          "_ByteStream_": {
+            "type": "string",
+            "description": "Base64-encoded byte stream for extension buffer"
+          }
+        },
+        "required": ["Size", "Type", "_ByteStream_"],
+        "additionalProperties": false
+      }
+    },
+    "NIFTIGroupDef": {
+      "title": "NIFTIGroup",
+      "description": "Container for organizing multiple neuroimaging datasets hierarchically",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NIFTIContainerDef"
+          }
+        },
+        {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "$ref": "#/definitions/NIFTIContainerDef"
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "NIFTIObjectDef": {
+      "title": "NIFTIObject",
+      "description": "Container for individual neuroimaging datasets",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NIFTIContainerDef"
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "_DataLink_": {
+              "type": "string",
+              "description": "External file reference for linked data"
+            }
+          },
+          "patternProperties": {
+            "^NIFTIHeader(\\(.+\\))?$": {
+              "$ref": "#/definitions/NIFTIHeaderDef"
+            },
+            "^NIFTIData(\\(.+\\))?$": {
+              "$ref": "#/definitions/NIFTIDataDef"
+            },
+            "^NIFTIExtension(\\(.+\\))?$": {
+              "$ref": "#/definitions/NIFTIExtensionDef"
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "NIFTIContainerDef": {
+      "type": "object",
+      "description": "Generic container that can hold any JNIfTI components",
+      "properties": {
+        "NIFTIHeader": {
+          "$ref": "#/definitions/NIFTIHeaderDef"
+        },
+        "NIFTIData": {
+          "$ref": "#/definitions/NIFTIDataDef"
+        },
+        "NIFTIExtension": {
+          "$ref": "#/definitions/NIFTIExtensionDef"
+        },
+        "NIFTIGroup": {
+          "$ref": "#/definitions/NIFTIGroupDef"
+        },
+        "NIFTIObject": {
+          "$ref": "#/definitions/NIFTIObjectDef"
+        },
+        "_DataLink_": {
+          "type": "string",
+          "description": "External file reference"
+        }
+      },
+      "patternProperties": {
+        "^NIFTIHeader\\(.+\\)$": {
+          "$ref": "#/definitions/NIFTIHeaderDef"
+        },
+        "^NIFTIData\\(.+\\)$": {
+          "$ref": "#/definitions/NIFTIDataDef"
+        },
+        "^NIFTIExtension\\(.+\\)$": {
+          "$ref": "#/definitions/NIFTIExtensionDef"
+        },
+        "^NIFTIGroup\\(.+\\)$": {
+          "$ref": "#/definitions/NIFTIGroupDef"
+        },
+        "^NIFTIObject\\(.+\\)$": {
+          "$ref": "#/definitions/NIFTIObjectDef"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}
