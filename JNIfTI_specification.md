@@ -227,67 +227,67 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 
 ***Table 1. A mapping table for NIFTI-1/2 headers and JNIfTI NIFTIHeader structure***
 
-| NIFTI-1| NIFTI-2|     Headers      |          Meanings             |   JNIfTI NIFTIHeader container	     |
-|--------|--------|------------------|-------------------------------|---------------------------------------|
-|`struct`|`struct`|` nifti_1_header{`|                               |`"NIFTIHeader": { 		    `|
-|` int  `|` int  `|` sizeof_hdr;    `|  **NIFTI-1/2: 348/540** 	     |`    "NIIHeaderSize": <i>,	    `|
-|` char `|   -    |` data_type[10]; `|  **++UNUSED++**  	     |`    "A75DataTypeName":   "s",  `|
-|` char `|   -    |` db_name[18];   `|  **++UNUSED++**  	     |`    "A75DBName": "s",		    `|
-|` int  `|   -    |` extents;	    `|  **++UNUSED++**  	     |`    "A75Extends": <i>,		    `|
-|` short`|   -    |` session_error; `|  **++UNUSED++**  	     |`    "A75SessionError": <i>,	    `|
-|` char `|   -    |` regular;	    `|  **++UNUSED++**  	     |`    "A75Regular": <i>,		    `|
-|` char `|` char `|` dim_info;      `|  **MRI slice ordering**       |`    "DimInfo" : {		    `|
-|        | 	  | 		     |	 			     |`        "Freq": <i>,                 `|
-|        |     	  | 		     |	 			     |`        "Phase": <i>,                `|
-|        | 	  | 		     |	 			     |`        "Slice": <i>                 `|
-|        | 	  | 		     |	 			     |`     },  			    `|
-|` short`|` int64`|` dim[8];	    `|  **Data array dimensions**    |`    "Dim": [dim[1],dim[2],...],      `|
-|` float`|`double`|` intent_p1 ;    `|  **1st intent parameter**     |`    "Param1": <f>,		    `|
-|` float`|`double`|` intent_p2 ;    `|  **2nd intent parameter**     |`    "Param2": <f>,		    `|
-|` float`|`double`|` intent_p3 ;    `|  **3rd intent parameter**     |`    "Param3": <f>,		    `|
-|` short`|` int  `|` intent_code ;  `|  **NIFTI_INTENT_\* code**     |`    "Intent": <i>\|"s",		    `|
-|` short`|` short`|` datatype;      `|  **Defines data type**	     |`    "DataType": <i>\|"s",	    `|
-|` short`|` short`|` bitpix;	    `|  **Number bits/voxel**	     |`    "BitDepth": <i>,		    `|
-|` short`|` int  `|` slice_start;   `|  **First slice index**	     |`    "FirstSliceID": <i>, 	    `|
-|` float`|`double`|` pixdim[8];     `|  **Grid spacings**	     |`    "VoxelSize":[pixdim[1],pixdim[2],...],`|
-|        | 	  | 		     |  **+x direction meaning**     |`    "Orientation": { "x": "s", 	    `|
-|        | 	  | 		     |  **+y direction meaning**     |`        "y": "s",		    `|
-|        | 	  | 		     |  **+z direction meaning**     |`        "z": "s" 		    `|
-|        | 	  | 		     |*RAS or LAS base on pixdim[0]* |`     },  			    `|
-|` float`|`double`|` vox_offset;    `|  **Offset into .nii file**    |`    "NIIByteOffset": <f>,	    `|
-|` float`|`double`|` scl_slope ;    `|  **Data scaling: slope**      |`    "ScaleSlope": <f>,		    `|
-|` float`|`double`|` scl_inter ;    `|  **Data scaling: offset**     |`    "ScaleOffset": <f>,  	    `|
-|` short`|` int  `|` slice_end;     `|  **Last slice index**	     |`    "LastSliceID": <i>,  	    `|
-|` char `|` int  `|` slice_code ;   `|  **Slice timing order**       |`    "SliceType": <i>\|"s",	    `|
-|` char `|` int  `|` xyzt_units ;   `|  **Units of pixdim[1..4]**    |`    "Unit":{"L":<i>\|"s","T":<i>\|"s"},`|
-|` float`|` float`|` cal_max;	    `|  **Max display intensity**    |`    "MaxIntensity": <f>, 	    `|
-|` float`|` float`|` cal_min;	    `|  **Min display intensity**    |`    "MinIntensity": <f>, 	    `|
-|` float`|` float`|` slice_duration;`|  **Time for 1 slice**	     |`    "SliceTime": <f>,		    `|
-|` float`|` float`|` toffset;	    `|  **Time axis shift**	     |`    "TimeOffset": <f>,		    `|
-|` int  `|   -    |` glmax;	    `|  **++UNUSED++**  	     |`    "A75GlobalMax": <i>,             `|
-|` int  `|   -    |` glmin;	    `|  **++UNUSED++**  	     |`    "A75GlobalMin": <i>, 	    `|
-|` char `|` char `|` descrip[80];   `|  **Data description**	     |`    "Description": "s",  	    `|
-|` char `|` char `|` aux_file[24];  `|  **Auxiliary filename**       |`    "AuxFile": "s",		    `|
-|` short`|` int  `|` qform_code ;   `|  **NIFTI_XFORM_\* code**      |`    "QForm": <i>\|"s",		    `|
-|` short`|` int  `|` sform_code ;   `|  **NIFTI_XFORM_\* code**      |`    "SForm": <i>\|"s",		    `|
-|` float`|`double`|` quatern_b ;    `|  **Quaternion b param**       |`    "Quatern": { "b"=<f>,	    `|
-|` float`|`double`|` quatern_c ;    `|  **Quaternion c param**       |`        "c": <f>,		    `|
-|` float`|`double`|` quatern_d ;    `|  **Quaternion d param**       |`        "d": <f> 		    `|
-|        | 	  | 		     |	 			     |`     },  			    `|
-|` float`|`double`|` qoffset_x ;    `|  **Quaternion x shift**       |`    "QuaternOffset":{ "x": <f>,	    `|
-|` float`|`double`|` qoffset_y ;    `|  **Quaternion y shift**       |`        "y": <f>,		    `|
-|` float`|`double`|` qoffset_z ;    `|  **Quaternion z shift**       |`        "z": <f> 		    `|
-|        | 	  | 		     |	 			     |`     },  			    `|
-|` float`|`double`|` srow_x[4] ;    `|  **1st row affine transform** |`    "Affine": [ [<f>,<f>,<f>,<f>],   `|
-|` float`|`double`|` srow_y[4] ;    `|  **2nd row affine transform** |`        [<f>,<f>,<f>,<f>],	    `|
-|` float`|`double`|` srow_z[4] ;    `|  **3rd row affine transform** |`        [<f>,<f>,<f>,<f>]	    `|
-|        | 	  | 		     |	 			     |`    ],				    `|
-|` char `|` char `|`intent_name[16];`|  **'name' or meaning of data**|`    "Name" : "s",		    `|
-|`char*4`|`char*8`|` magic[] ;      `| **NIFTI-1:"ni1\0" or "n+1\0"**|`    "NIIFormat": "s",		    `|
-|        | 	  |`};`		     |	 			     |     			             |
-|`struct`|`struct`|`nifti_extender  `|`{char extension[4];};`        |`    "NIFTIExtension": [<i>,<i>,<i>,<i>],`|
-|        | 	  |     	     |			             |`    <...>			    `|
-|        | 	  | 	   	     |			             |`}				    `|
+| NIFTI-1  | NIFTI-2  | Headers                | Meanings                       | JNIfTI NIFTIHeader container                  |
+|----------|----------|------------------------|--------------------------------|-----------------------------------------------|
+| `struct` | `struct` | ` nifti_1_header{`     |                                | `"NIFTIHeader": {`                            |
+| ` int  ` | ` int  ` | ` sizeof_hdr;`         | **NIFTI-1/2: 348/540**         | `    "NIIHeaderSize": <i>,`                   |
+| ` char ` |    -     | ` data_type[10];`      | **++UNUSED++**                 | `    "A75DataTypeName": "s",`                 |
+| ` char ` |    -     | ` db_name[18];`        | **++UNUSED++**                 | `    "A75DBName": "s",`                       |
+| ` int  ` |    -     | ` extents;`            | **++UNUSED++**                 | `    "A75Extends": <i>,`                      |
+| ` short` |    -     | ` session_error;`      | **++UNUSED++**                 | `    "A75SessionError": <i>,`                 |
+| ` char ` |    -     | ` regular;`            | **++UNUSED++**                 | `    "A75Regular": <i>,`                      |
+| ` char ` | ` char ` | ` dim_info;`           | **MRI slice ordering**         | `    "DimInfo" : {`                           |
+|          |          |                        |                                | `        "Freq": <i>,`                        |
+|          |          |                        |                                | `        "Phase": <i>,`                       |
+|          |          |                        |                                | `        "Slice": <i>`                        |
+|          |          |                        |                                | `     },`                                     |
+| ` short` | ` int64` | ` dim[8];`             | **Data array dimensions**      | `    "Dim": [dim[1],dim[2],...],`             |
+| ` float` | `double` | ` intent_p1 ;`         | **1st intent parameter**       | `    "Param1": <f>,`                          |
+| ` float` | `double` | ` intent_p2 ;`         | **2nd intent parameter**       | `    "Param2": <f>,`                          |
+| ` float` | `double` | ` intent_p3 ;`         | **3rd intent parameter**       | `    "Param3": <f>,`                          |
+| ` short` | ` int  ` | ` intent_code ;`       | **NIFTI_INTENT_\* code**       | `    "Intent": <i>\|"s",`                     |
+| ` short` | ` short` | ` datatype;`           | **Defines data type**          | `    "DataType": <i>\|"s",`                   |
+| ` short` | ` short` | ` bitpix;`             | **Number bits/voxel**          | `    "BitDepth": <i>,`                        |
+| ` short` | ` int  ` | ` slice_start;`        | **First slice index**          | `    "FirstSliceID": <i>,`                    |
+| ` float` | `double` | ` pixdim[8];`          | **Grid spacings**              | `    "VoxelSize":[pixdim[1],pixdim[2],...],`  |
+|          |          |                        | **+x direction meaning**       | `    "Orientation": { "x": "s",`              |
+|          |          |                        | **+y direction meaning**       | `        "y": "s",`                           |
+|          |          |                        | **+z direction meaning**       | `        "z": "s"`                            |
+|          |          |                        | *RAS or LAS base on pixdim[0]* | `     },`                                     |
+| ` float` | `double` | ` vox_offset;`         | **Offset into .nii file**      | `    "NIIByteOffset": <f>,`                   |
+| ` float` | `double` | ` scl_slope ;`         | **Data scaling: slope**        | `    "ScaleSlope": <f>,`                      |
+| ` float` | `double` | ` scl_inter ;`         | **Data scaling: offset**       | `    "ScaleOffset": <f>,`                     |
+| ` short` | ` int  ` | ` slice_end;`          | **Last slice index**           | `    "LastSliceID": <i>,`                     |
+| ` char ` | ` int  ` | ` slice_code ;`        | **Slice timing order**         | `    "SliceType": <i>\|"s",`                  |
+| ` char ` | ` int  ` | ` xyzt_units ;`        | **Units of pixdim[1..4]**      | `    "Unit":{"L":<i>\|"s","T":<i>\|"s"},`     |
+| ` float` | ` float` | ` cal_max;`            | **Max display intensity**      | `    "MaxIntensity": <f>,`                    |
+| ` float` | ` float` | ` cal_min;`            | **Min display intensity**      | `    "MinIntensity": <f>,`                    |
+| ` float` | ` float` | ` slice_duration;`     | **Time for 1 slice**           | `    "SliceTime": <f>,`                       |
+| ` float` | ` float` | ` toffset;`            | **Time axis shift**            | `    "TimeOffset": <f>,`                      |
+| ` int  ` |    -     | ` glmax;`              | **++UNUSED++**                 | `    "A75GlobalMax": <i>,`                    |
+| ` int  ` |    -     | ` glmin;`              | **++UNUSED++**                 | `    "A75GlobalMin": <i>,`                    |
+| ` char ` | ` char ` | ` descrip[80];`        | **Data description**           | `    "Description": "s",`                     |
+| ` char ` | ` char ` | ` aux_file[24];`       | **Auxiliary filename**         | `    "AuxFile": "s",`                         |
+| ` short` | ` int  ` | ` qform_code ;`        | **NIFTI_XFORM_\* code**        | `    "QForm": <i>\|"s",`                      |
+| ` short` | ` int  ` | ` sform_code ;`        | **NIFTI_XFORM_\* code**        | `    "SForm": <i>\|"s",`                      |
+| ` float` | `double` | ` quatern_b ;`         | **Quaternion b param**         | `    "Quatern": { "b"=<f>,`                   |
+| ` float` | `double` | ` quatern_c ;`         | **Quaternion c param**         | `        "c": <f>,`                           |
+| ` float` | `double` | ` quatern_d ;`         | **Quaternion d param**         | `        "d": <f>`                            |
+|          |          |                        |                                | `     },`                                     |
+| ` float` | `double` | ` qoffset_x ;`         | **Quaternion x shift**         | `    "QuaternOffset":{ "x": <f>,`             |
+| ` float` | `double` | ` qoffset_y ;`         | **Quaternion y shift**         | `        "y": <f>,`                           |
+| ` float` | `double` | ` qoffset_z ;`         | **Quaternion z shift**         | `        "z": <f>`                            |
+|          |          |                        |                                | `     },`                                     |
+| ` float` | `double` | ` srow_x[4] ;`         | **1st row affine transform**   | `    "Affine": [ [<f>,<f>,<f>,<f>],`          |
+| ` float` | `double` | ` srow_y[4] ;`         | **2nd row affine transform**   | `        [<f>,<f>,<f>,<f>],`                  |
+| ` float` | `double` | ` srow_z[4] ;`         | **3rd row affine transform**   | `        [<f>,<f>,<f>,<f>]`                   |
+|          |          |                        |                                | `    ],`                                      |
+| ` char ` | ` char ` | `intent_name[16];`     | **'name' or meaning of data**  | `    "Name" : "s",`                           |
+| `char*4` | `char*8` | ` magic[] ;`           | **NIFTI-1:"ni1\0" or "n+1\0"** | `    "NIIFormat": "s",`                       |
+|          |          | `};`                   |                                |                                               |
+| `struct` | `struct` | `nifti_extender`       | `{char extension[4];};`        | `    "NIFTIExtension": [<i>,<i>,<i>,<i>],`    |
+|          |          |                        |                                | `    <...>`                                   |
+|          |          |                        |                                | `}`                                           |
  
 Notations from the above table are explained below
 
@@ -542,6 +542,37 @@ The below table maps the NIFTI data intent codes to the acceptable intent string
 |`NIFTI_INTENT_FSL_TOPUP_CUBIC_SPLINE_COEFFICIENTS      `| `2016` |  `"fsl_topup_cubic_spline_coefficients"`    |
 |`NIFTI_INTENT_FSL_TOPUP_QUADRATIC_SPLINE_COEFFICIENTS  `| `2017` |  `"fsl_topup_quadratic_spline_coefficients"`|
 |`NIFTI_INTENT_FSL_TOPUP_FIELD                          `| `2018` |  `"fsl_topup_field"`                        |
+| **Used by FSL FNIRT**                                                                                     | | |
+|`NIFTI_INTENT_FSL_FNIRT_DISPLACEMENT_FIELD            ` | `2006` |  `"fsl_fnirt_displacement_field"`           |
+|`NIFTI_INTENT_FSL_CUBIC_SPLINE_COEFFICIENTS            `| `2007` |  `"fsl_cubic_spline_coefficients"`          |
+|`NIFTI_INTENT_FSL_DCT_COEFFICIENTS                     `| `2008` |  `"fsl_dct_coefficients"`                   |
+|`NIFTI_INTENT_FSL_QUADRATIC_SPLINE_COEFFICIENTS        `| `2009` |  `"fsl_quadratic_spline_coefficients"`      |
+| **Used by FSL TOPUP**                                                                                     | | |
+|`NIFTI_INTENT_FSL_TOPUP_CUBIC_SPLINE_COEFFICIENTS      `| `2016` |  `"fsl_topup_cubic_spline_coefficients"`    |
+|`NIFTI_INTENT_FSL_TOPUP_QUADRATIC_SPLINE_COEFFICIENTS  `| `2017` |  `"fsl_topup_quadratic_spline_coefficients"`|
+|`NIFTI_INTENT_FSL_TOPUP_FIELD                          `| `2018` |  `"fsl_topup_field"`                        |
+| **Used by NIRS/fNIRS/DOT**                                                                                 | | |
+|`NIFTI_INTENT_NIRS_DELTA_OD                            `| `4050` |  `"nirs_delta_od"`                          |
+|`NIFTI_INTENT_NIRS_DELTA_MEAN_TOF                      `| `4051` |  `"nirs_delta_mean_tof"`                    |
+|`NIFTI_INTENT_NIRS_DELTA_VARIANCE_TOF                  `| `4052` |  `"nirs_delta_variance_tof"`                |
+|`NIFTI_INTENT_NIRS_DELTA_SKEWNESS_TOF                  `| `4053` |  `"nirs_delta_skewness_tof"`                |
+|`NIFTI_INTENT_NIRS_MUA                                 `| `4054` |  `"nirs_mua"`                               |
+|`NIFTI_INTENT_NIRS_MUSP                                `| `4055` |  `"nirs_musp"`                              |
+|`NIFTI_INTENT_NIRS_HBO                                 `| `4056` |  `"nirs_hbo"`                               |
+|`NIFTI_INTENT_NIRS_HBR                                 `| `4057` |  `"nirs_hbr"`                               |
+|`NIFTI_INTENT_NIRS_HBT                                 `| `4058` |  `"nirs_hbt"`                               |
+|`NIFTI_INTENT_NIRS_H2O                                 `| `4059` |  `"nirs_h2o"`                               |
+|`NIFTI_INTENT_NIRS_LIPID                               `| `4060` |  `"nirs_lipid"`                             |
+|`NIFTI_INTENT_NIRS_STO2                                `| `4061` |  `"nirs_sto2"`                              |
+|`NIFTI_INTENT_NIRS_BFI                                 `| `4062` |  `"nirs_bfi"`                               |
+|`NIFTI_INTENT_NIRS_HRF_DELTA_OD                        `| `4063` |  `"nirs_hrf_delta_od"`                      |
+|`NIFTI_INTENT_NIRS_HRF_DELTA_MEAN_TOF                  `| `4064` |  `"nirs_hrf_delta_mean_tof"`                |
+|`NIFTI_INTENT_NIRS_HRF_DELTA_VARIANCE_TOF              `| `4065` |  `"nirs_hrf_delta_variance_tof"`            |
+|`NIFTI_INTENT_NIRS_HRF_DELTA_SKEWNESS_TOF              `| `4066` |  `"nirs_hrf_delta_skewness_tof"`            |
+|`NIFTI_INTENT_NIRS_HRF_HBO                             `| `4067` |  `"nirs_hrf_hbo"`                           |
+|`NIFTI_INTENT_NIRS_HRF_HBR                             `| `4068` |  `"nirs_hrf_hbr"`                           |
+|`NIFTI_INTENT_NIRS_HRF_HBT                             `| `4069` |  `"nirs_hrf_hbt"`                           |
+|`NIFTI_INTENT_NIRS_HRF_BFI                             `| `4070` |  `"nirs_hrf_bfi"`                           |
 
 
 #### SliceType (NIFTI-1 header: `slice_code`)
