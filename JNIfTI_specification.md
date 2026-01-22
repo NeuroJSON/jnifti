@@ -542,15 +542,6 @@ The below table maps the NIFTI data intent codes to the acceptable intent string
 |`NIFTI_INTENT_FSL_TOPUP_CUBIC_SPLINE_COEFFICIENTS      `| `2016` |  `"fsl_topup_cubic_spline_coefficients"`    |
 |`NIFTI_INTENT_FSL_TOPUP_QUADRATIC_SPLINE_COEFFICIENTS  `| `2017` |  `"fsl_topup_quadratic_spline_coefficients"`|
 |`NIFTI_INTENT_FSL_TOPUP_FIELD                          `| `2018` |  `"fsl_topup_field"`                        |
-| **Used by FSL FNIRT**                                                                                     | | |
-|`NIFTI_INTENT_FSL_FNIRT_DISPLACEMENT_FIELD            ` | `2006` |  `"fsl_fnirt_displacement_field"`           |
-|`NIFTI_INTENT_FSL_CUBIC_SPLINE_COEFFICIENTS            `| `2007` |  `"fsl_cubic_spline_coefficients"`          |
-|`NIFTI_INTENT_FSL_DCT_COEFFICIENTS                     `| `2008` |  `"fsl_dct_coefficients"`                   |
-|`NIFTI_INTENT_FSL_QUADRATIC_SPLINE_COEFFICIENTS        `| `2009` |  `"fsl_quadratic_spline_coefficients"`      |
-| **Used by FSL TOPUP**                                                                                     | | |
-|`NIFTI_INTENT_FSL_TOPUP_CUBIC_SPLINE_COEFFICIENTS      `| `2016` |  `"fsl_topup_cubic_spline_coefficients"`    |
-|`NIFTI_INTENT_FSL_TOPUP_QUADRATIC_SPLINE_COEFFICIENTS  `| `2017` |  `"fsl_topup_quadratic_spline_coefficients"`|
-|`NIFTI_INTENT_FSL_TOPUP_FIELD                          `| `2018` |  `"fsl_topup_field"`                        |
 | **Used by NIRS/fNIRS/DOT**                                                                                 | | |
 |`NIFTI_INTENT_NIRS_DELTA_OD                            `| `4050` |  `"nirs_delta_od"`                          |
 |`NIFTI_INTENT_NIRS_DELTA_MEAN_TOF                      `| `4051` |  `"nirs_delta_mean_tof"`                    |
