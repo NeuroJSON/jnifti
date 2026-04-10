@@ -12,9 +12,8 @@ The latest version of the JNIfTI specification can be found in the file named
 in the [Markdown format](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) 
 for convenient editing and version control.
 
-The JNIfTI format is built upon the [JData specification](https://github.com/NeuroJSON/jdata/) - 
-a generalized framework to serialize and convert complex scientific data. 
-The JNIfTI specification is compatible with [JData specification Draft 3](https://neurojson.org/jdata/draft3).
+The JNIfTI format is built upon the [JData specification](https://neurojson.org/jdata) - 
+a generalized framework to serialize and convert complex scientific data.
 
 ## How to participate
 
@@ -27,20 +26,14 @@ draft of this file specification, including
     question, report a bug, provide a feature request, or simply propose
     general discussions. Please use URLs or keywords to link your discussion 
     to a specific line/section/topic in the document.
-- [Write short comments on Request for Comments (RFC) commits](https://github.com/NeuroJSON/jnifti/blob/Draft-2/JNIfTI_specification.md)
-  - A milestone version of the specification will be associated with an
-    RFC (Request for comments) commit (where the entire file is removed
-    and re-added so that every line appears in such comment). One can
-    write short comments as well as post replies on this RFC page. 
-  - To add a comment, you need to first register a github account, and then 
-    browse the above RFC page. When hovering your cursor over each line, a 
-    "plus" icon is displayed, clicking it will allow one to comment on a 
-    specific line (or reply to other's comments).
-  - The RFC page can get busy if too many comments appear. Please consider 
-    using the [Issues section](https://github.com/NeuroJSON/jnifti/issues) if this happens.
-  - One can browse the commit history of the specification document. If
-    anyone is interested in commenting on a particular updated, you can also
-    comment on any of the commit page using the same method.
+- [Comment on the latest released version of the specification](https://github.com/NeuroJSON/jnifti/releases)
+  - Each released version of the specification is available on the GitHub
+    Releases page. To add a comment, you need to first register a GitHub
+    account, then browse the release page. When hovering your cursor over
+    each line of the specification, a "plus" icon is displayed; clicking it
+    allows you to comment on a specific line or reply to others' comments.
+  - If the discussion becomes extensive, please consider opening an
+    [Issue](https://github.com/NeuroJSON/jnifti/issues) instead.
 - [Use NeuroJSON Forum](https://github.com/orgs/NeuroJSON/discussions)
   - You may send your comments to the neurojson Github forum. You may report
     bugs, new features, or submit new datasets.

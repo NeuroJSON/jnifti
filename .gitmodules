@@ -22,3 +22,6 @@
 [submodule "lib/octave"]
 	path = lib/octave
 	url = https://github.com/NeuroJSON/jnifty.git
+[submodule "lib/matlab/zmat"]
+	path = lib/matlab/zmat
+	url = https://github.com/NeuroJSON/zmat.git

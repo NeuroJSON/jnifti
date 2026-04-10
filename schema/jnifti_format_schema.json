@@ -135,7 +135,13 @@
                 "rgb", "rgba", "shape", "fsl_fnirt_displacement_field",
                 "fsl_cubic_spline_coefficients", "fsl_dct_coefficients",
                 "fsl_quadratic_spline_coefficients", "fsl_topup_cubic_spline_coefficients",
-                "fsl_topup_quadratic_spline_coefficients", "fsl_topup_field"
+                "fsl_topup_quadratic_spline_coefficients", "fsl_topup_field",
+                "nirs_delta_od", "nirs_delta_mean_tof", "nirs_delta_variance_tof",
+                "nirs_delta_skewness_tof", "nirs_mua", "nirs_musp", "nirs_hbo",
+                "nirs_hbr", "nirs_hbt", "nirs_h2o", "nirs_lipid", "nirs_sto2",
+                "nirs_bfi", "nirs_hrf_delta_od", "nirs_hrf_delta_mean_tof",
+                "nirs_hrf_delta_variance_tof", "nirs_hrf_delta_skewness_tof",
+                "nirs_hrf_hbo", "nirs_hrf_hbr", "nirs_hrf_hbt", "nirs_hrf_bfi"
               ]
             }
           ]
@@ -175,21 +181,21 @@
         },
         "Orientation": {
           "type": "object",
-          "description": "Coordinate system orientation",
+          "description": "Coordinate system orientation (case-insensitive axis direction labels)",
           "properties": {
             "x": {
               "type": "string",
-              "enum": ["l", "left", "r", "right"],
+              "enum": ["l", "left", "r", "right", "a", "anterior", "p", "posterior", "s", "superior", "i", "inferior"],
               "description": "+x direction meaning"
             },
             "y": {
               "type": "string",
-              "enum": ["a", "anterior", "p", "posterior"],
+              "enum": ["l", "left", "r", "right", "a", "anterior", "p", "posterior", "s", "superior", "i", "inferior"],
               "description": "+y direction meaning"
             },
             "z": {
               "type": "string",
-              "enum": ["s", "superior", "i", "inferior"],
+              "enum": ["l", "left", "r", "right", "a", "anterior", "p", "posterior", "s", "superior", "i", "inferior"],
               "description": "+z direction meaning"
             }
           },
@@ -366,6 +372,13 @@
         "NIIFormat": {
           "type": "string",
           "description": "NIFTI format identifier (deprecated, for compatibility only)"
+        },
+        "NIFTIExtension": {
+          "type": "array",
+          "description": "NIFTI-1 extender bytes (nifti_extender struct, 4 elements)",
+          "items": { "type": "integer" },
+          "minItems": 4,
+          "maxItems": 4
         }
       },
       "additionalProperties": true
@@ -448,8 +461,7 @@
         },
         "_ArrayZipType_": {
           "type": "string",
-          "enum": ["zlib", "gzip", "lzma", "lz4", "blosc"],
-          "description": "Compression method"
+          "description": "Compression method (e.g. zlib, gzip, lzma, lz4, lz4hc, blosc2blosclz, blosc2lz4, blosc2zstd; defined by the JData specification)"
         },
         "_ArrayZipSize_": {
           "oneOf": [
@@ -465,7 +477,7 @@
               "minimum": 0
             }
           ],
-          "description": "Size of compressed data"
+          "description": "Dimensions of the original uncompressed array (same as _ArraySize_)"
         },
         "_ArrayZipData_": {
           "type": "string",
@@ -516,7 +528,7 @@
             "description": "Base64-encoded byte stream for extension buffer"
           }
         },
-        "required": ["Size", "Type", "_ByteStream_"],
+        "required": ["_ByteStream_"],
         "additionalProperties": false
       }
     },

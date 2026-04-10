@@ -1,12 +1,12 @@
 JNIfTI: a JSON/binary JSON extension to the NIfTI-1/2 formats
 ============================================================
 
-- **Copyright**: (C) 2019-2025 Qianqian Fang <q.fang at neu.edu>, 
+- **Copyright**: (C) 2019-2026 Qianqian Fang <q.fang at neu.edu>, 
                      2020  Edward Xu <xu.ed at northeastern.edu>
 - **License**: Apache License, Version 2.0
-- **Version**: V1 (Draft-3.preview)
-- **URL**: https://neurojson.org/jnifti/draft2
-- **Status**: Draft-3 is a work-in-progress
+- **Version**: V1 (Draft-3)
+- **URL**: https://neurojson.org/jnifti
+- **Status**: Stable
 - **Development**: https://github.com/NeuroJSON/jnifti
 - **Abstract**:
 
@@ -41,7 +41,7 @@ various data compression codecs, filters, streaming and encryption.
     + [NIIFormat (NIFTI-1 header: magic)](#niiformat-nifti-1-header-magic)
     + [NIIHeaderSize (NIFTI-1 header: sizeof_hdr)](#niiheadersize-nifti-1-header-sizeof_hdr)
     + [NIIByteOffset (NIFTI-1 header: vox_offset)](#niibyteoffset-nifti-1-header-vox_offset)
-    + [Other depreciated subfields](#other-depreciated-subfields)
+    + [Other deprecated subfields](#other-deprecated-subfields)
   * [NIFTIData](#niftidata)
     + [Array form](#array-form)
     + [Structure form](#structure-form)
@@ -63,82 +63,60 @@ Introduction
 
 ### Background
 
+JNIfTI is a JSON- and binary-JSON-based wrapper for the widely used
+[NIfTI](https://nifti.nimh.nih.gov/) neuroimaging format. Because JNIfTI data
+files are self-documenting and human-readable, they can serve as a universal
+exchange format for NIfTI-based datasets, including N-dimensional (ND) arrays
+and time series data. Representing imaging data in JSON allows the format to be
+naturally extended with new metadata fields and data types without breaking
+backward compatibility — directly addressing the long-standing rigidity of the
+binary NIfTI format, whose fixed-size header caused breaking changes when
+transitioning from [Analyze 7.5](https://rportal.mayo.edu/bir/ANALYZE75.pdf)
+to [NIfTI-1](https://nifti.nimh.nih.gov/nifti-1/), and again from NIfTI-1 to
+[NIfTI-2](https://nifti.nimh.nih.gov/nifti-2/). Beyond interoperability, the
+human- and machine-readable nature of JNIfTI promotes long-term data
+reusability and makes neuroimaging datasets readily accessible to emerging
+AI-powered workflows for data augmentation, transformation, aggregation, and
+automation.
 
-JNIfTI has been developed as a more widely accessible extension to the 
-[NIFTI](https://nifti.nimh.nih.gov/) format, a widely supported binary data 
-format for storing spatiotemporal neuroimaging data. It provides a modernized, 
-easy-to-use container for serializing array-formatted imaging and 
-time series data obtained from neuroanatomical or functional scans. The original 
-NIFTI format [(NIFTI-1)](https://nifti.nimh.nih.gov/nifti-1/) 
-was derived from another widely supported medical image format, 
-[Analyze 7.5](https://rportal.mayo.edu/bir/ANALYZE75.pdf), 
-and  extended the Analyze 7.5 metadata to a 352-byte binary header (containing 
-a 348-byte header for the metadata storage and 4 bytes
-of extension flags). In 2011, the NIFTI format was upgraded to 
-[NIFTI-2](https://nifti.nimh.nih.gov/nifti-2/), consequently permitting
-the storage of large sized imaging data by using 64-bit integers to store
-the image dimension data in place of the original 16-bit.
-
-Although the NIfTI format is quite simple and allows for easy data parsing 
-and storage, it suffers from a number of drawbacks, namely a fixed header 
-size, rigid and static list of metadata fields, and inflexibility towards 
-storing only array-valued neuroimaging data. This constitutes a major 
-challenge towards extending the NIfTI format to store additional metadata 
-records or complex auxiliary data, such as for physiological monitoring 
-or multi-modality imaging. Furthermore, due to the rigidity of the NIfTI 
-header, extending from Analyze 7.5 to NIfTI-1, and subsequently NIfTI-2, 
-rendered the prior data formats incompatible with newer parsers and softwares. 
-This has become a significant burden towards the recovery and reusability 
-of data acquired under the previous data formats. To add to this, the 
-NIfTI formats consist only of a binary interface and thus are not directly 
-human-readable, thus further complicating this task.
-
-Over the past few years, [JavaScript Object Notation](https://json.org) 
-(JSON) has become ubiquitously recognized among the Internet community for its 
-ability to store complex data, excellent portability, and human-readability. 
-The subsequent introduction and widespread adoption of a range of binary 
-JSON-like format, such as [UBJSON](https://ubjson.org), 
-[Binary JData (BJData)](https://neurojson.org/bjdata), 
-[MessagePack](https://msgpack.org/) and [CBOR](https://cbor.io), 
-have added complementary features such as support for typed data, smaller file 
-sizes, and faster processing speeds as well. The 
-[JData specification](https://github.com/NeuroJSON/jdata/blob/master/JData_specification.md) 
-capitalizes upon the strengths of these data interchange formats and
-provides the foundation for serializing complex hierarchical data using
-JSON/BJData constructs. This has then enabled the definition of language- 
-and library-neutral neuroimaging data representations using the simple and 
-extensible constructs from JSON and BJData syntax.
+To avoid the storage overhead of text-based JSON when handling large binary
+imaging datasets, JNIfTI leverages two complementary specifications. The first
+is the [JData specification](https://neurojson.org/jdata), which defines
+ND-array containers with support for strongly typed arrays and built-in data
+compression. The second is the [Binary JData (BJData)](https://neurojson.org/bjdata)
+specification — a compact binary JSON format with native ND-array support —
+enabling efficient storage of complex binary data while retaining full
+structural compatibility with the JSON-based JNIfTI format.
 
 
 ### JNIfTI specification overview
 
-JNIfTI is an extensible framework for storing neuroimaging and time series 
-data using the JData representation, with a syntax compatible with widely- 
-used JSON and Binary JData/BJData file formats. JNIfTI directly addresses 
-the limitations currently faced by the NIfTI formats by providing flexible 
-and rich metadata support, fast and efficient storage of typed numerical 
-array data, versatile accommodation for both array- and non-array-formed 
-auxiliary or multi-modality data entries, flexible data grouping, and 
-internal data compression. In doing so, the JNIfTI framework establishes 
-the groundwork for more robust practices of data sharing and reusability, 
-as well as easy integration and automation.
+JNIfTI is an extensible framework for storing neuroimaging and time series
+data using the JData representation, with a syntax fully compatible with JSON
+and Binary JData (BJData) file formats. By leveraging these open standards,
+JNIfTI directly addresses the key limitations of the NIfTI formats: it provides
+flexible and rich metadata support, efficient storage of strongly typed numerical
+array data, accommodation of both array- and non-array-valued auxiliary or
+multi-modal data, flexible hierarchical data grouping, and built-in data
+compression. Together, these capabilities establish a solid foundation for
+robust data sharing, long-term reusability, and seamless integration with
+modern data processing and automation pipelines.
 
 The purpose of this document is to
 
-- define a 1-to-1 mapping between the existing NIFTI-1 and NIFTI-2 headers 
-  to a JSON/BJData-based flexible metadata header structure, so that all NIFTI
-  formatted metadata can be losslessly stored using JNIfTI
-- define dedicated data containers to losslessly convert and store all NIFTI 
-  formatted neuroimaging data arrays, and provide examples demonstrating the use of JData-enabled 
-  features for reducing file sizes, enhancing readability, and improving organization
-- define a set of human-readable and standardized string values to directly 
-  represent the meaning of data as alternative to NIFTI-1/2 numerical coded values
-- establish a set of flexible mechanisms to extend the capability of the 
-  format to accommodate additional physiological, anatomical and multi-modal data
+- define a 1-to-1 mapping from NIFTI-1 and NIFTI-2 headers to a
+  JSON/BJData-based flexible metadata structure, ensuring all NIfTI header
+  fields can be losslessly stored using JNIfTI
+- define dedicated data containers to losslessly store all NIfTI-formatted
+  neuroimaging data arrays, with examples demonstrating JData-enabled features
+  for data compression, enhanced readability, and improved organization
+- define a set of human-readable, standardized string values as alternatives
+  to NIFTI-1/2 integer-coded fields
+- define flexible extension mechanisms to accommodate additional physiological,
+  anatomical, and multi-modal data
 
-In the following sections, we will clarify basic JNIfTI grammar and define 
-JNIfTI header and data containers. The additional features and extension 
-mechanisms will also be discussed and exemplified.
+The following sections define the JNIfTI grammar, header, and data containers,
+and discuss and illustrate the available extension mechanisms.
  
 
 
@@ -147,7 +125,7 @@ Grammar
 
 All JNIfTI files are JData specification compliant. As with JData, JNIfTI 
 provides both a text-based format using JSON serialization and a binary format 
-based upon the BJData serialization scheme.The two forms can be converted 
+based upon the BJData serialization scheme. The two forms can be converted 
 from one to another.
 
 Briefly, the text-based JNIfTI is a valid JSON file with an extension to 
@@ -206,20 +184,19 @@ These three data containers can appear at any level in a JData tree. `NIFTIData`
 only required data object if a JNIfTI file contains a neuroimaging dataset. 
 When a `NIFTIHeader` field is stored under the same parent node as a `NIFTIData` object, 
 the `NIFTIHeader` record serves as the metadata for the `NIFTIData` object. 
-The optional `NIFTIExtension` is strictly used for compatibility purpose only, 
-and is grouped with the `NIFTIHeader` and `NIFTIData` records if they appear under the 
-same node.
+The optional `NIFTIExtension` is used for compatibility purposes only, 
+and is grouped with the `NIFTIHeader` and `NIFTIData` records if they appear under the same node.
 
 When multiple `NIFTIHeader`/`NIFTIData`/`NIFTIExtension` objects need to be stored under
 the same parent node in a JData tree, they must be differentiated by attaching a 
 name, such as `NIFTIHeader(name)`, `NIFTIData(name)` and `NIFTIExtension(name)`. Objects
 of the same name shall be grouped and processed together. JNIfTI keywords
 should not be repeated more than once (with the same name or without a name) under the same
-parent node as creates an invalid JSON construct.
+parent node, as this creates an invalid JSON construct.
 
 ### NIFTIHeader
 
-The JNIfTI format use a structure named `"NIFTIHeader"` to store NIFTI-compatible
+The JNIfTI format uses a structure named `"NIFTIHeader"` to store NIFTI-compatible
 header information.
 
 In the below table, we define a 1-to-1 mapping from NIFTI-1/2 headers to the
@@ -253,7 +230,7 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 |          |          |                        | **+x direction meaning**       | `    "Orientation": { "x": "s",`              |
 |          |          |                        | **+y direction meaning**       | `        "y": "s",`                           |
 |          |          |                        | **+z direction meaning**       | `        "z": "s"`                            |
-|          |          |                        | *RAS or LAS base on pixdim[0]* | `     },`                                     |
+|          |          |                        | *RAS or LAS based on pixdim[0]*| `     },`                                    |
 | ` float` | `double` | ` vox_offset;`         | **Offset into .nii file**      | `    "NIIByteOffset": <f>,`                   |
 | ` float` | `double` | ` scl_slope ;`         | **Data scaling: slope**        | `    "ScaleSlope": <f>,`                      |
 | ` float` | `double` | ` scl_inter ;`         | **Data scaling: offset**       | `    "ScaleOffset": <f>,`                     |
@@ -270,7 +247,7 @@ corresponding JNIfTI `NIFTIHeader` self-explanatory subfields
 | ` char ` | ` char ` | ` aux_file[24];`       | **Auxiliary filename**         | `    "AuxFile": "s",`                         |
 | ` short` | ` int  ` | ` qform_code ;`        | **NIFTI_XFORM_\* code**        | `    "QForm": <i>\|"s",`                      |
 | ` short` | ` int  ` | ` sform_code ;`        | **NIFTI_XFORM_\* code**        | `    "SForm": <i>\|"s",`                      |
-| ` float` | `double` | ` quatern_b ;`         | **Quaternion b param**         | `    "Quatern": { "b"=<f>,`                   |
+| ` float` | `double` | ` quatern_b ;`         | **Quaternion b param**         | `    "Quatern": { "b": <f>,`                  |
 | ` float` | `double` | ` quatern_c ;`         | **Quaternion c param**         | `        "c": <f>,`                           |
 | ` float` | `double` | ` quatern_d ;`         | **Quaternion d param**         | `        "d": <f>`                            |
 |          |          |                        |                                | `     },`                                     |
@@ -301,16 +278,16 @@ Notations from the above table are explained below
 
 To convert a NIFTI-1/2 header to the JNIfTI `NIFTIHeader` structure without 
 sacrificing accuracy, the storage type byte length of the `NIFTIHeader` subfields 
-be of equal or greater value to their original NIfTI header counterpart; in 
+must be of equal or greater value than their original NIfTI header counterpart; in 
 the case of a string value, the new string must be of the same 
 or longer length to store the entire original string value.
 
 If the NIFTI header field contains an array, the converted `NIFTIHeader` subfield shall also
 contain an array object sorted in the same order.
 
-Not all `"NIFTIHeader"` subfields shall present. However, if any of the subfields in 
+Not all `"NIFTIHeader"` subfields need to be present. However, if any of the subfields in 
 the NIFTI-1/2 header carry meaningful data, the corresponding subfield in the `NIFTIHeader` 
-must present. The order of the `NIFTIHeader` subfields is not required.
+must be present. The order of the `NIFTIHeader` subfields is not required.
 
 Mapping in the reverse direction, i.e. from JNIfTI to NIFTI-1/2, is not guaranteed to be lossless.
 
@@ -334,7 +311,7 @@ storage types in BJData***
 |`NIFTI_TYPE_INT32`       |      `8    `|`  "int32"       `| `l`       |
 |**32 bit float**         |             |                  |	       |
 |`NIFTI_TYPE_FLOAT32`     |     `16    `|`  "single"      `| `d`       |
-|**64 bit complex = 2` `32 bit floats** |     |            |	       |
+|**64 bit complex = 2 x 32 bit floats** |     |            |	       |
 |`NIFTI_TYPE_COMPLEX64`   |     `32    `|`  "complex64" `\*| `d` (x2)  |
 |**64 bit float = double**|             |                  |	       |
 |`NIFTI_TYPE_FLOAT64`     |     `64    `|`  "double"      `| `D`       |
@@ -595,7 +572,7 @@ The below table maps the NIFTI data slice codes to the acceptable slice strings.
 |  NIFTI-1/2 XForm Code Name    |Code |      JNIfTI QForm/SForm Key         |
 |-------------------------------|-----|-------------------------------------|
 |  **Arbitrary coordinates**                                            | | |
-|`NIFTI_SLICE_UNKNOWN          `| `0` |  `""`                               |
+|`NIFTI_XFORM_UNKNOWN          `| `0` |  `""`                               |
 |  **Scanner-based anatomical coordinates**                             | | |
 |`NIFTI_XFORM_SCANNER_ANAT     `| `1` |  `"scanner_anat"`                   |
 |  **Coordinates aligned to another file's, or to anatomical "truth"**  | | |
@@ -604,7 +581,7 @@ The below table maps the NIFTI data slice codes to the acceptable slice strings.
 |`NIFTI_XFORM_TALAIRACH        `| `3` |  `"talairach"`                      |
 |  **MNI 152 normalized coordinates**                                   | | |
 |`NIFTI_XFORM_MNI_152          `| `4` |  `"mni_152"`                        |
-|  **Normalized coordinates(for any general standard template space)**  | | |
+|  **Normalized coordinates (for any general standard template space)** | | |
 |`NIFTI_XFORM_TEMPLATE_OTHER   `| `5` |  `"template_other"`                 |
 
 #### NIIFormat (NIFTI-1 header: `magic`)
@@ -622,10 +599,10 @@ compatibility purposes only. The use of this field is deprecated.
 The `"NIIByteOffset"` field stores the original NIFTI-1 voxel data starting position offset, 
 and is designed for compatibility purposes only. The use of this field is deprecated.
 
-#### Other depreciated subfields
+#### Other deprecated subfields
 
-All Analyze 7.5 header fields that have been deprecated in NIFTI-1/2 formats remains
-deprecated in JNIfTI files. These subfields include 
+All Analyze 7.5 header fields that have been deprecated in NIFTI-1/2 formats remain
+deprecated in JNIfTI files. These subfields include
 
 * `data_type` -> `A75DataTypeName`
 * `db_name` -> `A75DBName`
@@ -635,8 +612,8 @@ deprecated in JNIfTI files. These subfields include
 * `glmax` -> `A75GlobalMax`
 * `glmin` -> `A75GlobalMin`
 
-The use of these subfields are strictly for compatibility purposes and we highly 
-recommended not to include them in JNIfTI files.
+The use of these subfields is strictly for compatibility purposes and we highly 
+recommend not including them in JNIfTI files.
 
 ### NIFTIData
 
@@ -655,7 +632,7 @@ data serialized using the JData specification.
 For example, a 3-D array of dimension Nx-by-Ny-by-Nz (`v_ijk` where `i=1,2,...,Nx`, 
 `j=1,2,...,Ny`, `k=1,2,...,Nz`) can be stored in the direct array format as
 
-```   
+```
  "NIFTIData": [
    [ [v_111,v_112,v_113,...,v_11Nz], [v_121,v_122,v_123,...,v_12Nz],...,[v_1Ny1,v_1Ny2,v_1Ny3,...,v_1NyNz] ], 
    [ [v_211,v_212,v_113,...,v_21Nz], [v_221,v_222,v_223,...,v_22Nz],...,[v_2Ny1,v_2Ny2,v_2Ny3,...,v_2NyNz] ], 
@@ -664,7 +641,7 @@ For example, a 3-D array of dimension Nx-by-Ny-by-Nz (`v_ijk` where `i=1,2,...,N
  ]
 ```
 or as the "annotated array format" as
-```   
+```
  "NIFTIData": {
        "_ArrayType_": "datatype",
        "_ArraySize_": [Nx,Ny,Nz],
@@ -702,7 +679,7 @@ BJData formats when a binary JNIfTI file is desired. Using the optimized N-D arr
 header defined in the JData specification, the binary storage of the direct-form 
 array can be efficiently written as
 
-```   
+```
 [U][10][NIFTIData] [[] [$][datatype][#] [[] [$][l][#][U][3][Nx][Ny][Nz] [v_111,v_112,...,v_121,v_122,...,v_NxNyNz]
 |----------------| |--------------------------------------------------| |----------------------------------------|
       name          optimized array container header for N-D array       row-major-order serialized N-D array data
@@ -724,7 +701,7 @@ For example, for a `uint8` formatted 256x256x256 3D volume, one can use
     [[]
        [U][256][U][256][U][256]
     []]
-    [U][14][_ArrayZipData_][H][L][lengh][... zlib-compressed byte stream ...]
+    [U][14][_ArrayZipData_][H][L][length][... zlib-compressed byte stream ...]
 []]
 ```
 
@@ -833,7 +810,7 @@ dependent.
 ### NIFTIExtension
 
 In the NIFTI-1/2 format, if `extensions[0]` in the `nifti1_extender` structure is 
-non-zero, NIFTI-1 stores one or multiple raw data buffers as the extension data.
+non-zero, NIFTI-1 stores one or more raw data buffers as the extension data.
 If these extension data buffers are present, one may use the `NIFTIExtension` 
 container to store these data buffers for compatibility purposes only. 
 
@@ -853,9 +830,9 @@ NIFTI-1 extension buffer in the order it is presented.
         "_ByteStream_":"base64-encoded byte stream for the 2nd extension buffer"
     },
     ...
- }
+ ]
 ```
-The `"Type"` field must be one of the 3 values according to the NIFTI-1 specification: 
+The `"Type"` field must be one of the 3 values according to the NIFTI-1 specification:
 * 0 or `""` - for unknown or private format
 * 1 or `"dicom"` - for DICOM formatted data buffer
 * 2 or `"afni"` - for AFNI group formatted data buffer
@@ -878,10 +855,10 @@ data grouping mechanisms similar to those defined in the JData specification.
 In a JNIfTI document, one can use **"NIFTIGroup"** and **"NIFTIObject"** to organize
 datasets in a hierarchical form. They are equivalent to the **`"_DataGroup_"`** and **`"_DataSet_"`**
 constructs, respectively, as defined in the JData specification, but are specifically 
-applicable to neuroimaging data. The format of `"NIFTIGroup"` and `"NIFTIObject"` are identical 
-to the JData data grouping tags, i.e, they can be either an array or structure with an 
+applicable to neuroimaging data. The format of `"NIFTIGroup"` and `"NIFTIObject"` is identical 
+to the JData data grouping tags, i.e., they can be either an array or structure with an 
 optional unique name (within the current document) via `"NIFTIGroup(unique name)"`
-and `"NIFTIObject(unique name)"`
+and `"NIFTIObject(unique name)"`.
 
 For example, the below JNIfTI snippet defines two data groups, each containing 
 multiple NIFTI datasets.  Here we also show examples on how to store multiple `NIFTIHeader`
@@ -949,7 +926,7 @@ portable, versatile, and extensible framework to store a large variety of
 neuroanatomical and functional imaging data. These constructs also confer 
 user-readability in both text and binary formats through self-explanatory 
 keywords. The widespread availability of JSON and BJData parsers provides 
-the groundwork for easily sharing, processing, and processing JNIfTI data 
+the groundwork for easily sharing, processing, and analyzing JNIfTI data 
 files without imposing an extensive programming overhead. The underlying 
 JData specification offers greater flexibility in data organization and 
 referencing mechanisms, which, in conjunction with a simple and highly 
